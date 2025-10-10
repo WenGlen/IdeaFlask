@@ -1,0 +1,56 @@
+[
+  {
+    "number": "1",
+    "ability": "熟悉入口網站製作流程",
+    "title": "簡訊設計 英文動畫製作入口網站",
+    "role": "專案管理+內容企劃",
+    "introduce": "疏理品牌資訊並規劃呈現方式，完整負責專案執行與製作管理。",
+    "image": "./img/Ach/simpleinfo-en.jpg",
+    "url":"https://en.simpleinfo.cc/"
+  },
+  {
+    "number": "2",
+    "ability": "管理複雜資訊的網頁專案",
+    "title": "綠色和平 臺灣河川調查",
+    "role": "專案管理",
+    "introduce": "將生硬的環境調查轉化成有序的網站，負責兩階段不同的專案目標與資訊管理。",
+    "image": "./img/Ach/greenpeace-plastics-brand-audit-research.jpg",
+    "url":"https://cloud.greentw.greenpeace.org/plastics-brand-audit-research"
+  },
+  {
+    "number": "3",
+    "ability": "將模糊方案落成商業文件",
+    "title": "陶禧藝術 方案表",
+    "role": "企劃＆編輯",
+    "introduce": "將老師過往需大量口頭說明的資訊，轉換程能直接給客戶容易閱讀線上版 saleskit。",
+    "image": "./img/Ach/TaoXi.jpg",
+    "url":"https://www.notion.so/glenwen/14eaa54a35aa8090aa98d73363e3c431"
+  },
+  {
+    "number": "4",
+    "ability": "快速掌握並梳理專業知識",
+    "title": "外食減重學",
+    "role": "內容編輯",
+    "introduce": "短時間內熟悉宋醫師的理論知識，並轉化成外食族容易理解的課程架構與講述大綱。",
+    "image": "./img/Ach/Diet Weight Loss.jpg",
+    "url":"https://www.pressplay.cc/project/FCD0B72F106BDA2ABC7AF31295EFBBEF"
+  },
+  {
+    "number": "5",
+    "ability": "製作藝術風格的視覺設計",
+    "title": "聲子 2019 擊樂營",
+    "role": "視覺設計",
+    "introduce": "以充滿油畫感的筆觸，完整製作主視覺、海報、報名表、營服等各式設計項目。",
+    "image": "./img/Ach/Bonjour Paris.jpg",
+    "url":"https://www.behance.net/gallery/79507683/-Bonjour-Paris"
+  },
+  {
+    "number": "6",
+    "ability": "自主練習網頁遊戲實作",
+    "title": "色獨（網頁版重製）",
+    "role": "程式開發",
+    "introduce": "依照既有遊戲《色獨》規則，以網頁重現核心玩法，並自行設計背景UI與教學動畫。",
+    "image": "./img/Ach/Blendoku.jpg",
+    "url":"https://wenglen.github.io/game-Blendoku/"
+  }
+]

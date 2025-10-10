@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Background Tool</title>
+    <style>
+        :root {
+            --color-backgroundLight: #f0f0f0;
+            --color-backgroundDark: #c5dbe0;
+
+            --color-primary: #0a88a3;
+            --color-primary2: #004d99;
+            --color-primary-light: #39abbd;
+            --color-secondary: #ffbf00;
+            --color-secondary2: #ffd300;
+            --color-warning: #ff80bf;
+            --color-temp: #666;
+
+            --color-gray90: #202830;
+            --color-gray80: #303c49;
+            --color-gray70: #3f4f61;
+            --color-gray60: #4f6379;
+            --color-gray50: #5f7791;
+            --color-gray40: #7a8ea3;
+            --color-gray30: #94a4b6;
+            --color-gray20: #afbbc8;
+            --color-gray10: #e4e8ed;
+            --color-gray05: #e4e8ed;
+        }
+    </style>
+    <style>
+        .aBlock {height: 240px; width:100% ; color: var(--color-gray60);}
+
+        .bg-Frost {/* 磨砂玻璃：最通用 */
+            background: 
+                linear-gradient(135deg, var(--color-backgroundLight) 0%, var(--color-backgroundDark) 100%),
+                url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVQImWNgYGAAAAAEAAEbmYQAAAAASUVORK5CYII="); /* 一個極小的透明噪點，可換掉 */
+            background-repeat: repeat;
+            background-size: auto, 600px 600px; /* 可調雜訊密度 */
+        }
+
+        .bg-SVGPattern {/* 網格圖案：無圖但可調整 */
+            background: 
+                linear-gradient(135deg, var(--color-backgroundLight), var(--color-backgroundDark)),
+                url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.4'/%3E%3C/svg%3E");
+            background-size: auto, 400px 400px;
+        }
+        
+        /* ✅ 推薦方案：使用 ::before 偽元素分層 */
+        /* 優點：維護性高、穩定、參數調整容易 */
+        .bg-SVGPattern-alt1 {
+            background: linear-gradient(135deg, var(--color-backgroundLight), var(--color-backgroundDark));
+            position: relative;
+        }
+        .bg-SVGPattern-alt1::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            /* 噪點圖案：調整 baseFrequency (0.5~2.0) 控制密度 */
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.1; /* 噪點強度：0.1~0.3 */
+            pointer-events: none; /* 避免干擾滑鼠事件 */
+        }
+        
+
+        /* 漸變+噪點：分層創造透明模糊感*/
+        .bg-GradientNoise-gradient {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(120deg, var(--color-backgroundLight), var(--color-backgroundDark));
+        }
+        .bg-GradientNoise-noise {
+            position: absolute;
+            inset: 0;
+            background: url('https://grainy-gradients.vercel.app/noise.svg');
+            opacity: 0.2;
+            pointer-events: none;
+        }
+
+
+        /* 漸變+磨砂玻璃：分層創造透明模糊感，特殊狀況使用*/
+        .bg-GradientFrosted-Background {
+            background: linear-gradient(120deg, var(--color-backgroundLight), var(--color-backgroundDark));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .bg-GradientFrosted-Frosted {
+            background: rgba(255, 255, 255, 0.15); /* ✅ 半透明 */
+            backdrop-filter: blur(10px) saturate(120%);
+            -webkit-backdrop-filter: blur(10px) saturate(120%); /* ✅ Safari 要加 */
+
+        }
+
+        .bg-Noisy {/* 漸變+噪點：實驗性，較不推薦*/
+            background: linear-gradient(120deg, var(--color-backgroundLight), var(--color-backgroundDark));
+            filter: contrast(120%) brightness(95%) saturate(110%);
+            mask-image: radial-gradient(black 60%, transparent 100%);
+            mix-blend-mode: overlay;
+        }
+        
+        
+
+    </style>
+  </head>
+
+
+  <body class="h-screen flex flex-col items-center justify-center">
+
+    <div class="bg-Frost aBlock flex justify-center items-center">
+        bg-Frost
+    </div>
+    <br>
+
+    <div class="bg-SVGPattern aBlock flex justify-center items-center">
+        bg-SVGPattern (修正版)
+    </div>
+    <br>
+
+    <div class="bg-SVGPattern-alt1 aBlock flex justify-center items-center">
+        bg-SVGPattern-alt1 (::before 偽元素)
+    </div>
+    <br>
+
+    <div class="relative aBlock ">
+        <div class="bg-GradientNoise-gradient aBlock flex justify-center items-center">
+            bg-GradientNoise
+        </div>
+        <div class="p-10 bg-GradientNoise-noise aBlock"></div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="hidden">   
+        <div class="bg-GradientFrosted-Background aBlock">
+            <div class="w-1/2 bg-GradientFrosted-Frosted aBlock flex justify-center items-center">
+                bg-GradientFrosted
+            </div>
+        </div>
+        <br>
+
+        <div class="bg-Noisy aBlock flex justify-center items-center">
+            bg-Noisy
+        </div>
+    </div>
+  </body>
+
+</html>
+

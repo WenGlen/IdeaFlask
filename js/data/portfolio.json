@@ -1,0 +1,26 @@
+[
+  {
+    "number": "1",
+    "title": "WUWU 小世界",
+    "objectives": "讓粉絲可以覺得這個網站足夠吸睛，並願意透過這個網站認識 WUWU 插畫的世界觀，感受品牌的可愛與趣味性。",
+    "solution": "<li>透過方便瀏覽的手機版型讓人在各種場合都能快速瀏覽內容。</li><li>開頭有按鈕可先跳轉至底部，再上滑進入插畫樹屋的新奇體驗，讓人對品牌留下有趣、可愛的印象。</li><li>透過最少量互動功能模擬觀察、認識插畫角色的過程，讓觀看者對角色建立熟悉感與連結感。</li>",
+    "image3_4": "/image_material/image_3-4_material.jpg",
+    "image16_9": "/image_material/image_16-9_material.jpg"
+  },
+  {
+    "number": "2",
+    "title": "嘎嘎嘎",
+    "objectives": "嘎嘎嘎。",
+    "solution": "<li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>",
+    "image3_4": "/image_material/image_3-4_material.jpg",
+    "image16_9": "/image_material/image_16-9_material.jpg"
+  },
+  {
+    "number": "3",
+    "title": "嘎嘎嘎",
+    "objectives": "嘎嘎嘎。",
+    "solution": "<li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>",
+    "image3_4": "/image_material/image_3-4_material.jpg",
+    "image16_9": "/image_material/image_16-9_material.jpg"
+  }
+]

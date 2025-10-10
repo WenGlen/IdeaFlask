@@ -1,0 +1,61 @@
+/* ================ Reset (trimmed) ================ */
+*,
+*::before,
+*::after { box-sizing: border-box;   border: 0;}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var, b, u, i, center,
+dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, figure, figcaption,
+footer, header, hgroup, menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0; padding: 0; border: 0;
+  font: inherit; font-size: 100%; vertical-align: baseline;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block; }
+ol, ul { margin: 0; padding-left: 32px; }
+blockquote, q { quotes: none; }
+blockquote::before, blockquote::after, q::before, q::after { content: ''; }
+table { border-collapse: collapse; border-spacing: 0; }
+
+/* ================ Tokens ================ */
+:root {
+    /* brand color */
+    --color-DEFAULT: #6cb1c9;
+    --color-dark: #4C7F9A;
+    --color-light: #f0f0f0;
+    --color-accent: #ffdeaa;
+    --color-warm: #bf8e68;
+
+    --color-DEFAULT: #6cb1c9;
+    --color-dark: #4C7F9A;
+    --color-light: #f0f0f0;
+    --color-accent: #ffdeaa;
+    --color-warm: #bf8e68;
+}
+
+
+
+
+/*
+
+排版（flex, grid, justify, items, gap）
+大小（w, h, p, m）
+外觀（bg, border, rounded, shadow）
+文字（text-size, color, font, leading, tracking）
+互動/動畫（hover, active, transition）
+
+
+
+bg-inherit. background-color: inherit;
+bg-current. background-color: currentColor;
+bg-transparent. background-color: transparent;
+bg-(<custom-property>). background-color: var(<custom-property>);
+bg-[<value>]. background-color: <value>;
+
+
+*/

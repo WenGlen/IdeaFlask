@@ -1,0 +1,26 @@
+[
+  {
+    "number": "1",
+    "image": "/image_material/image_1-1_material.jpg",
+    "title": "想說的<br class='hidden md:block lg:hidden'>資訊太多了...",
+    "content": "我會先陪你釐清受眾在意什麼，幫你抓出主軸內容，建立架構與層級。這樣就算內容再多也不用害怕。",
+    "emphasis": "我們可以用資訊架構確保受眾不會迷失方向。"
+  }
+  ,
+  {
+    "number": "2",
+    "image": "/image_material/image_1-1_material.jpg",
+    "title": "好怕<br class='hidden md:block lg:hidden'>重點講不清楚...",
+    "content": "我們會先共同設定頁面目標，確認要解決的問題，然後再往下展開成執行策略，把要受眾理解的重點具體化。",
+    "emphasis": "透過系統性的方法，確保受眾掌握關鍵資訊。"
+
+  }
+  ,
+  {
+    "number": "3",
+    "image": "/image_material/image_1-1_material.jpg",
+    "title": "擔心<br class='hidden md:block lg:hidden'>特色很不明顯...",
+    "content": "我擅長從你說出口的細節裡，找到可以放大的優勢。善用視覺引導、操作體驗，不用無中生有硬套銷售話術。",
+    "emphasis": "我會陪你找到亮點，並選擇最適合的呈現方式。"
+  }
+]

@@ -1,0 +1,90 @@
+        <section id="portfolio-section"
+                 class="relative min-h-screen-header p-12 snap-start scroll-mt-12 felx flex-col">
+          
+          <div id="portfolio-container" class="bg-DF-backgroundLight max-h-full"></div>
+
+
+          <!-- 切換控制 bar -->
+          <div class="mt-2 flex justify-center items-center gap-8">
+            <button id="prev-btn" class="text-lg text-DF">◀</button>
+            <div id="dot-container" class="flex gap-4"></div>
+            <button id="next-btn" class="text-lg text-DF">▶</button>
+          </div>
+          <script>
+            function renderPortfolio(portfolioArray) {
+              const container = document.getElementById('portfolio-container');
+              const dotContainer = document.getElementById('dot-container');
+
+              portfolioArray.forEach((item, index) => {
+                const block = document.createElement('div');
+                block.className = `portfolio-item ${index === 0 ? '' : 'hidden'} flex flex-col md:flex-row text-xl`;
+                block.innerHTML = `
+
+                    <img src="./img/${item.image16_9}" alt=""
+                        class="object-cover block w-full md:hidden">
+                    <img src="./img/${item.image3_4}" alt=""
+                        class="object-cover hidden md:block md:w-1/2 md:h-full">
+                    <div class="px-8 leading-relaxed py-12 md:py-24">
+                      <p class="font-bold text-DF">作品名稱</p>
+                      <h3 class="font-bold text-3xl">${item.title}</h3>
+                      <br>
+                      <p class="mt-4 font-bold text-DF">頁面目標</p>
+                      <p>${item.objectives}</p>
+                      <br>
+                      <p class="mt-4 font-bold text-DF">解決方案</p>
+                      <p>${item.solution}</p>
+                    </div>
+
+                `;
+                container.appendChild(block);
+
+                // 產生 dot
+                const dot = document.createElement('button');
+                dot.className = `dot h-4 rounded-full ${index === 0 ? 'bg-DF' : 'bg-gray-300'} ${index === 0 ? 'w-4' : 'w-4' }`;
+                dot.setAttribute('data-index', index);
+                dotContainer.appendChild(dot);
+              });
+
+              setupPortfolioControls(portfolioArray.length);
+            }
+
+            function setupPortfolioControls(totalItems) {
+              let currentIndex = 0;
+
+              const items = document.querySelectorAll('.portfolio-item');
+              const dots = document.querySelectorAll('.dot');
+              const prevBtn = document.getElementById('prev-btn');
+              const nextBtn = document.getElementById('next-btn');
+
+              function updateDisplay(index) {
+                items.forEach((el, i) => {
+                  el.classList.toggle('hidden', i !== index);
+                });
+                dots.forEach((el, i) => {
+                  el.className = `dot  h-4 rounded-full ${i === index ? 'bg-DF' : 'bg-gray-300' } ${i === index ? 'w-6' : 'w-4' }`;
+                });
+                currentIndex = index;
+              }
+
+              prevBtn.addEventListener('click', () => {
+                const newIndex = (currentIndex - 1 + totalItems) % totalItems;
+                updateDisplay(newIndex);
+              });
+
+              nextBtn.addEventListener('click', () => {
+                const newIndex = (currentIndex + 1) % totalItems;
+                updateDisplay(newIndex);
+              });
+
+              dots.forEach(dot => {
+                dot.addEventListener('click', () => {
+                  const index = Number(dot.getAttribute('data-index'));
+                  updateDisplay(index);
+                });
+              });
+            }
+
+
+          </script>
+        </section>
+          

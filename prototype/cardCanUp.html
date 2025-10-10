@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Card Can Up</title>
+  <link rel="icon" href="./img/IdeaFlask_icon.png">
+  <script src="https://cdn.tailwindcss.com"></script> <!-- ✅ Tailwind CDN -->
+  <script type="module"> /* 自訂 Tailwind 設定 */
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            IF: {
+              DEFAULT: 'var(--color-DEFAULT)',
+              /*background*/
+              background: 'var(--color-background)',
+              panel: 'var(--color-panel)',
+              overlay: 'var(--color-overlay)',
+              "background-gradient-left": 'var(--color-background-gradient-left)',
+              "background-gradient-right": 'var(--color-background-gradient-right)',
+
+              /*text*/
+              text: 'var(--color-text)',
+              "text-muted": 'var(--color-text-muted)',
+              "text-hover": 'var(--color-text-hover)',
+              "text-subtle": 'var(--color-text-subtle)',
+              "text-emphasis": 'var(--color-text-emphasis)',
+              title: 'var(--color-title)',
+              subtitle: 'var(--color-subtitle)',
+
+              /*border*/
+              border: 'var(--color-border)',
+
+              /*other*/
+              accent: 'var(--color-accent)',
+              warm: 'var(--color-warm)',
+
+            },
+          },
+          height: {
+            'screen-header': 'calc(100vh - 3rem)', 
+            'screen-header-footer': 'calc(100vh - 3rem - 4rem)', 
+          },
+          minHeight: {
+            'screen-header': 'calc(100vh - 3rem)',
+            'screen-header-footer': 'calc(100vh - 3rem - 5rem)', 
+            'screen-header-footer-md': 'calc(100vh - 3rem - 3rem )', 
+          },
+            screens: {
+             // 自定义 *x 系列断点（只在需要与 2xs/xs 配合时使用）
+             '2xs': '375px',   // 375px+
+             'xs': '480px',    // 480px+
+             'smx': '640px',   // 640px+ (与xs系列配合使用)
+             'mdx': '768px',   // 768px+ (与xs系列配合使用)
+             'md+': '840px',   // 768px+ (与xs系列配合使用)
+             'lgx': '1024px',  // 1024px+ (与xs系列配合使用)
+             'xlx': '1280px',  // 1280px+ (与xs系列配合使用)
+             '2xlx': '1536px', // 1536px+ (与xs系列配合使用)
+             'under-md': { 'min': '0px', 'max': '768px' }, 
+             'near-md': { 'min': '768px', 'max': '840px' },  
+             
+             // 其他场景继续使用默认的 sm(640), md(768), lg(1024), xl(1280), 2xl(1536)
+             
+               
+            },
+        },
+        fontSize: {
+          xs: '0.75rem',
+          sm: '0.875rem',
+          base: '1rem',
+          lg: '1.125rem',
+          xl: '1.25rem',
+          '2xl': '1.5rem',
+          '3xl': '1.875rem',
+          '4xl': '2.25rem',
+          '5xl': '3rem',
+          '6xl': '4rem',
+          '7xl': '5rem',
+          '8xl': '6rem',
+          '9xl': '7rem',
+        },
+
+
+      },
+    };
+  </script>
+  <style>  /* 各種切換處理 */
+    .mobile-menu {opacity: 0;scale: 0;pointer-events: none; }
+    .mobile-menu.active {opacity: 1; scale: 1; pointer-events: auto;}
+
+    .input-field:focus {outline: none;} /* 關閉引導語 */
+
+    body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {overflow: hidden;}
+    body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {pointer-events: none !important;}  /* 禁止點擊彈窗以外的元素 */
+    body.modal-open .contactPopUp,
+    body.modal-open .successPopUp,
+    body.modal-open .contactOverlay {
+      pointer-events: auto; /* 保留彈窗互動 */
+    }
+
+    .contactPopUp {opacity: 0;scale: 0;pointer-events: none;}
+    .contactPopUp.active {opacity: 1; scale: 1; pointer-events: auto;}
+    .contactOverlay {opacity: 0; pointer-events: none;}
+    .contactOverlay.active{opacity: 0.7; pointer-events: auto;}
+    .successPopUp {opacity: 0;pointer-events: none;}
+    .successPopUp.active {opacity: 1; pointer-events: auto;}
+
+
+    .cardCanUp {transform: translateY(0); transition-duration: 500ms;}
+    .cardCanUp .UpAppear {opacity: 0; transition-delay: 300ms; transition-duration: 200ms;}
+    .cardCanUp .UpDisappear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
+    .cardCanUp.active {transform: translateY(-240px); transition-duration: 500ms;}
+    .cardCanUp.active .UpAppear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
+    .cardCanUp.active .UpDisappear {opacity: 0; transition-duration: 300ms; }
+
+    .step-name.active {background-color: var(--color-text); }
+
+
+  </style>
+
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet" />
+  <style>/* 全局、瀏覽器樣式設定 */
+    body {
+      font-family: 'Noto Sans TC', sans-serif;
+    }
+    .hide-scrollbar {
+      scrollbar-width: none;        /* Firefox */
+      -ms-overflow-style: none;     /* IE 10+ */
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;                /* Chrome / Safari */
+    }
+  </style>
+  <style> /* 防止 FOUC：在 Tailwind 載入前先隱藏 body */
+    
+    body {visibility: hidden;}
+    
+    /* 額外確保彈窗在 Tailwind 載入前完全隱藏（使用更高的選擇器權重） */
+    body:not(.tailwind-loaded) .contactOverlay,
+    body:not(.tailwind-loaded) .contactPopUp,
+    body:not(.tailwind-loaded) .successPopUp {
+      display: none !important;
+    }
+    
+    /* Tailwind 載入完成後才顯示 */
+    body.tailwind-loaded {
+      visibility: visible;
+      transition: opacity 0.1s;
+    }
+  </style>
+  <script> /* 檢測 Tailwind 是否載入完成 */
+    (function() {
+      function checkTailwindLoaded() {
+        // 創建一個測試元素來檢測 Tailwind 是否已生效
+        const testDiv = document.createElement('div');
+        testDiv.className = 'hidden';
+        testDiv.style.cssText = 'position:absolute;left:-9999px;';
+        document.documentElement.appendChild(testDiv);
+        
+        // 檢查 Tailwind 的 .hidden 類是否已生效
+        const isHidden = window.getComputedStyle(testDiv).display === 'none';
+        document.documentElement.removeChild(testDiv);
+        
+        if (isHidden) {
+          // Tailwind 已載入，顯示 body
+          document.body.classList.add('tailwind-loaded');
+        } else {
+          // 尚未載入，50ms 後再檢查一次
+          setTimeout(checkTailwindLoaded, 50);
+        }
+      }
+      
+      // DOM 準備好後開始檢測
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', checkTailwindLoaded);
+      } else {
+        checkTailwindLoaded();
+      }
+    })();
+  </script>
+  
+  <style>
+    :root {
+      --color-DEFAULT: #6cb1c9;
+      /*background*/
+      --color-background: #f0f0f0;
+      --color-panel: #ffffff;
+      --color-overlay: #2a4e65;
+      --color-background-gradient-left: #f0f0f0;
+      --color-background-gradient-right: #d5e4e8;
+
+
+      /*text*/
+      --color-text:#2a4e65;
+      --color-text-muted: #7a92a0;
+      --color-text-subtle: #bbcfdb;
+      --color-text-hover: #6cb1c9;
+      --color-text-emphasis:#0670a9; /*#a86634;*/
+      --color-title: #4C7F9A;
+      --color-subtitle: #82b4c4;
+
+      /*border*/
+      --color-border:#6cb1c9;
+
+      /*other*/
+      --color-accent: #ffdeaa;
+      --color-warm: #bf8e68;
+
+    }   
+  </style>
+
+  <style type="text/tailwindcss"> 
+    .bg-SVGNoise {
+        background: linear-gradient(90deg, var(--color-background-gradient-left), var(--color-background-gradient-right));
+        position: relative;
+    }
+    .bg-SVGNoise::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        /* 噪點圖案：調整 baseFrequency (0.5~2.0) 控制密度 */
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        opacity: 0.1; /* 噪點強度：0.1~0.3 */
+        pointer-events: none; /* 避免干擾滑鼠事件 */
+    }
+
+    body {
+      color: var(--color-text);
+      line-height: 1.625;
+      font-size: 1.125rem;
+    }
+
+    @media (min-width: 768px) {
+      body {
+        font-size: 1.25rem;
+      }
+    }
+
+    a:hover {
+      color: var(--color-text-hover);
+    }
+
+    h2 {
+      margin: 2rem 0;
+      text-align: center;
+      font-size: 1.875rem;
+      font-weight: 700;
+      color: var(--color-title);
+    }
+
+    .input-field {
+      width: 100%;   padding: 0.5rem 1rem; 
+      border-width: 1px;   border-color: #D1D5DB;   border-radius: 0.125rem;
+      font-size: 1rem;
+    }
+
+    .flex-col-center-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .flex-col-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .flex-col-start-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+      align-items: center;
+    }
+    .flex-col-end-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      align-items: center;
+    }
+
+    .flex-col-between-center {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flex-row-between-center {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .flex-row-center-center {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .snap-start-12 {
+      scroll-snap-align: start;
+      scroll-margin-top: 3rem;
+    }
+
+    </style>
+  
+
+  <style>/* 開發用框線 */
+    /*
+    *{outline: 1px solid #999999;}   */
+    .border-test {outline: 2px solid #cc9900;}
+    .border-test2 {outline: 2px solid #009999;}
+  </style>
+
+</head>
+
+<body class="bg-SVGNoise text-IF-text ">
+    <div id="screen-size-display-tool"   
+          class="fixed top-2 left-8 z-[99] 
+                 h-8 bg-IF-text-subtle text-center rounded-lg border border-IF-border text-base">
+      <div class="block 2xs:hidden">min</div>
+      <div class="hidden 2xs:block xs:hidden">2xs</div>
+      <div class="hidden xs:block smx:hidden">xs</div>
+      <div class="hidden sm:block md:hidden">sm</div>
+      <div class="hidden md:block lg:hidden">md</div>
+      <div class="hidden lg:block xl:hidden">lg</div>
+      <div class="hidden xl:block 2xl:hidden">xl</div>
+      <div class="hidden 2xl:block">2xl</div>
+      <div class="hidden near-md:block">near-md</div>
+    </div>
+
+  <header id="header" 
+  class="fixed top-0 left-0 z-[60]
+         h-12 w-full bg-IF-panel shadow-md">
+<!-- 上方常駐區塊 -->
+<div class="max-w-screen-xl mx-auto  flex items-center justify-between
+        px-6
+        md:px-12">
+
+<!-- Logo -->
+<a href="#hero" >
+<img class="h-12 w-auto" 
+    src="./img/IdeaFlask_logo.png" alt="概念燒瓶logo"> 
+</a>
+
+<!-- 導覽錨點 (桌機版) -->
+<nav class="hidden gap-8 text-lg
+          md:flex">
+<a href="#advantages" >解決痛點</a>
+<a href="#portfolio" >作品展示</a>
+<a href="#about" >關於我</a>
+<a href="#steps" >製作流程</a>
+<a href="#faq" >常見問題</a>
+</nav>
+
+<!-- 漢堡選單按鈕（手機版） -->
+<button id="menu-toggle" 
+      class="flex items-center justify-center h-full
+             md:hidden">
+<img class="h-6" src="./img/icon/hamburger-menu.png" alt="">
+</button>
+
+</div>
+
+<!-- 手機版展開選單 -->
+<div id="mobile-menu" 
+ class="mobile-menu transition-all duration-100 origin-top-right
+        w-full bg-IF-panel shadow-lg
+        text-xl leading-relaxed
+        md:hidden">
+<div class="mx-6 w-100% h-px bg-IF-border"></div>
+<nav class="w-full flex-col-start-center p-8 gap-4">
+<a href="#advantages" >解決痛點</a>
+<a href="#portfolio" >作品展示</a>
+<a href="#about" >關於我</a>
+<a href="#steps" >製作流程</a>
+<a href="#faq" >常見問題</a>
+</nav>
+</div>
+
+<script>
+/* 手機版選單展開控制 */
+document.addEventListener('DOMContentLoaded', () => {
+const toggle = document.getElementById('menu-toggle');
+const menu = document.getElementById('mobile-menu');
+
+toggle.addEventListener('click', () => {
+  menu.classList.toggle('active');
+});
+
+const links = menu.querySelectorAll('a');
+links.forEach(link => {
+  link.addEventListener('click', () => {
+      menu.classList.add('active');
+  });
+});
+
+});
+
+/* 手機版轉桌面版強制關閉選單 */
+function mdCloseMenu() {
+if (window.innerWidth < 768) { 
+  return;
+} else {
+const menu = document.getElementById('mobile-menu');
+menu.classList.remove('active');
+}
+}
+window.addEventListener('resize', mdCloseMenu ); 
+  
+</script>
+
+  </header>
+
+  <div id="scroll-container" 
+  class="h-screen snap-y snap-proximity overflow-y-scroll scroll-smooth hide-scrollbar" >
+    <div id="wrap" 
+        class="max-w-screen-xl mx-auto 
+                md:px-12">
+
+                <div class="h-36 "></div>
+
+                <!-- ======================== DEVing ======================= -->
+                <!-- ======================== DEVing ======================= -->
+
+                <section id="advantages" 
+                         class="flex-col-between-center snap-start-12
+                                min-h-screen 
+                                md:h-screen-header md:min-h-[600px]">
+        
+                  <div class="h-12 hidden md:block">  </div>   
+                  
+                  <div class="">
+                    <h2>你是否也有這些困擾？</h2>
+                    <div id="advantages-container" 
+                        class="mx-auto grid     
+                                   grid-cols-1     gap-12
+                                md+:grid-cols-3  md+:gap-4
+                                                lg:gap-12 ">
+
+                      <div class="max-w-[480px] w-full h-[480px] cursor-default bg-IF-panel"></div>
+                      <div class="max-w-[480px] w-full h-[480px] cursor-default bg-IF-panel overflow-hidden">
+                        <div class="cardCanUp
+                        w-full  object-cover transition-transform duration-500
+                        px-8 flex-col-center-center ">
+                        
+
+                          <div class="overflow-hidden flex-col-center-center "> 
+                            <div class="h-8 w-full bg-IF-panel"></div>
+                              <div class="h-24 flex-col-center-center">
+                                <p class="text-IF-text-subtle text-right  "></p>
+                                <h3 class="font-bold text-2xl text-IF text-center 
+                                          near-md:text-xl">
+                                  擔心<br class='hidden md:block lg:hidden'>特色很不明顯...
+                                </h3>
+                                <p class="text-IF-text-subtle text-right  "></p>
+                                
+                              </div>
+
+                              <div class="h-72 near-md:h-80 flex-col-center-center "> 
+                                <p class="leading-relaxed 
+                                            text-xl
+                                          md:text-lg 
+                                          lg:text-xl">
+                                  <span>我擅長從你說出口的細節裡，找到可以放大的優勢。善用視覺引導、操作體驗，不用無中生有硬套銷售話術。</span>
+                                  <br class="md:block hidden ">
+                                  <br>
+                                  <span class="font-bold text-IF-text-emphasis">我會陪你找到亮點，並選擇最適合的呈現方式。</span>
+                                </p>
+                                
+                              </div>
+                              <div class="h-16  w-full bg-IF-panel"></div>
+
+                          </div>  
+              </div>
+
+                      </div>
+
+                      <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-lg
+                                      h-[480px] cursor-default">
+
+                          <!-- 可以滑動的圖層 -->
+                          <div class="cardCanUp
+                                      w-full  object-cover transition-transform duration-500
+                                      px-8 flex-col-center-center 
+                                      group-hover:-translate-y-[320px]">
+                                      
+
+                                        <div class="overflow-hidden flex-col-center-center "> 
+                                          <div class="h-16 w-full bg-IF-panel"></div>
+                                            <div class="UpDisappear
+                                                        overflow-hidden flex-col-center-center group-hover:opacity-0
+                                                        max-w-[280px] h-72 ">
+                                              <img src="./image_1-1_material.jpg" alt="" 
+                                                   class="min-w-[240px]  object-cover">
+                                              
+                                            </div>
+                                            <div class="h-24 flex-col-center-center border-test">
+                                              <p class="text-IF-text-subtle text-right  "></p>
+                                              <h3 class="font-bold text-2xl text-IF text-center 
+                                                        near-md:text-xl">
+                                                擔心<br class='hidden md:block lg:hidden'>特色很不明顯...
+                                              </h3>
+                                              <p class="text-IF-text-subtle text-right  "></p>
+                                              
+                                            </div>
+
+                                            <div class="h-72 flex-col-end-center "> 
+                                              <p class="UpAppear leading-relaxed opacity-0 
+                                                        md:group-hover:opacity-100 duration-500
+                                                          text-xl
+                                                        md:text-lg md:opacity-0 
+                                                        lg:text-xl">
+                                                <span>我擅長從你說出口的細節裡，找到可以放大的優勢。善用視覺引導、操作體驗，不用無中生有硬套銷售話術。</span>
+                                                <br class="near-md:hidden">
+                                                <br>
+                                                <span class="font-bold text-IF-text-emphasis">我會陪你找到亮點，並選擇最適合的呈現方式。</span>
+                                              </p>
+                                              
+                                            </div>
+                                            <div class="h-16 w-full bg-IF-panel"></div>
+      
+                                        </div>  
+                            </div>
+
+
+
+
+                      </div>                    
+
+
+
+
+
+
+
+                    </div>
+
+                  </div>
+                  
+                  <div class="py-4">
+                    <p class="text-center text-lg text-IF-text-muted leading-relaxed">
+                      完成的作品可以像這樣<br>
+                      ↓
+                    </p>
+                  </div>
+        
+                  <script>
+                    function renderAdvantages(advantagesArray) {
+                      const container = document.getElementById('advantages-container');
+                      container.innerHTML = ''; // 清空先前內容（避免重複）
+        
+                      advantagesArray.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = `
+                            max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-lg
+                               h-[360px]    cursor-pointer  
+                            md:h-[480px] md:cursor-default
+                        `;
+                        card.innerHTML = `
+                            <!-- 可以滑動的圖層 -->
+                            <div class="cardCanUp
+                                        w-full h p-6 flex flex-col justify-center overflow-hidden object-cover 
+                                        transition-transform duration-500
+                                        md:group-hover:-translate-y-[280px]
+                                        lg:group-hover:-translate-y-[300px]">
+        
+                                <div class="UpDisappear
+                                            w-full overflow-hidden flex items-center justify-center 
+                                            h-[240px] 
+                                            md:group-hover:opacity-0 duration-500   
+                                            md:h-[240px] md:mt-6  
+                                            lg:h-[280px] ">
+                                  <img src="./img/${item.image}" alt="" 
+                                       class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+                                  
+                                </div>
+        
+                                <p class="UpAppear 
+                                          text-IF-text-subtle text-right 
+                                          md:opacity-0 ">▲</p>
+                                <h3 class="font-bold text-2xl text-IF text-center 
+                                           near-md:text-xl">
+                                    ${item.title}
+                                </h3>
+                                <p class="UpDisappear text-IF-text-subtle text-right md:hidden ">▼</p>
+                                <br class="hidden md:block ">
+                                <br>
+                                <p class="UpAppear leading-relaxed opacity-0
+                                          md:group-hover:opacity-100 duration-500
+                                             text-xl
+                                          md:text-lg md:opacity-0 
+                                          lg:text-xl">
+                                  <span>${item.content}</span>
+                                  <br class="near-md:hidden">
+                                  <br>
+                                  <span class="font-bold text-IF-text-emphasis">${item.emphasis}</span>
+                                </p>
+                          </div>
+                            
+        
+                        `;
+        
+                         // ✅ 這裡綁定點擊事件
+                        const content = card.querySelector('.cardCanUp');
+                        content.addEventListener('click', () => {
+                          // 只在小螢幕啟用
+                          if (window.innerWidth < 768) {
+                            content.classList.toggle('active');
+                          }
+                        });
+        
+                        window.addEventListener('resize', () => {
+                          if (window.innerWidth >= 768) {
+                            // 清掉所有卡片的 active 狀態
+                            document.querySelectorAll('.cardCanUp.active')
+                              .forEach(el => el.classList.remove('active'));
+                          }
+                        });
+        
+                        container.appendChild(card);
+                      });
+                    }
+                  </script>
+                
+                </section>
+
+
+
+
+    </div>
+  </div>
+  
+</body>
+</html>

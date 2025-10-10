@@ -1,0 +1,20 @@
+{
+  "name": "ideaflask-landing-page",
+  "version": "1.0.0",
+  "description": "SEO 友善的 Landing Page - IdeaFlask",
+  "main": "index.html",
+  "scripts": {
+    "build:seo": "node seo/build-seo.js",
+    "test:seo": "node seo/test-seo.js",
+    "deploy": "npm run build:seo && cp index-seo.html index.html",
+    "backup": "cp index.html index-backup-$(date +%Y%m%d-%H%M%S).html"
+  },
+  "keywords": [
+    "landing-page",
+    "seo",
+    "web-design"
+  ],
+  "author": "Glen Wen",
+  "license": "MIT"
+}
+
