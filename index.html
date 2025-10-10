@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Idea Flask mockup</title>
+    <title>Idea Flask </title>
     <link rel="icon" href="./img/IdeaFlask_icon.png">
     <script src="https://cdn.tailwindcss.com"></script> <!-- ✅ Tailwind CDN -->
     <script type="module"> /* 自訂 Tailwind 設定 */
@@ -270,28 +270,23 @@
       /* 優化日期輸入框的點擊體驗 */
       .date-input {
         cursor: pointer;
-        position: relative;
-        padding-right: 2.5rem; /* 為日曆圖標留出空間 */
+        display: flex;
+        align-items: center; /* 垂直居中 */
       }
       
       /* 讓日期輸入框的日曆圖標更容易點擊，同時保持可見 */
       .date-input::-webkit-calendar-picker-indicator {
         cursor: pointer;
-        position: absolute;
-        right: 0.75rem;
-        top: 50%;
-        transform: translateY(-50%);
         width: 1.5rem;
         height: 1.5rem;
-        opacity: 1; /* 保持圖標可見 */
-        /* 透過 padding 增加點擊感知區域 */
-        padding: 0.5rem;
-        margin: -0.5rem;
+        margin-left: 0.5rem;
       }
       
       /* Firefox 的日期輸入框優化 */
       .date-input::-moz-calendar-picker-indicator {
         cursor: pointer;
+        width: 1.5rem;
+        height: 1.5rem;
       }
 
       .flex-col-center-center {
@@ -614,6 +609,29 @@
         document.body.classList.remove('modal-open');
       }
 
+      // 確保所有輸入框完全可點擊（修復 Line ID 等輸入框點擊問題）
+      const allInputs = document.querySelectorAll('.input-field');
+      allInputs.forEach(input => {
+        // 確保輸入框本身沒有被遮擋
+        input.style.position = 'relative';
+        input.style.zIndex = '10';
+        input.style.pointerEvents = 'auto'; // 強制啟用點擊事件
+        
+        // 為輸入框添加點擊事件，確保一定能聚焦
+        input.addEventListener('click', function(e) {
+          e.stopPropagation();
+          this.focus();
+        });
+        
+        // 為整個父容器添加點擊事件
+        const parent = input.parentElement;
+        parent.style.cursor = 'text';
+        parent.addEventListener('click', function(e) {
+          if (e.target !== input && !input.contains(e.target)) {
+            input.focus();
+          }
+        });
+      });
 
       contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
