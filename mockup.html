@@ -579,16 +579,14 @@
       }
 
 
-      contactForm.addEventListener('submit', function (e) {
+      contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
 
         // 寄信 API 或驗證
         const form = document.getElementById("contactForm");
+        const data = Object.fromEntries(new FormData(form));
 
-        form.addEventListener("submit", async (e) => {
-          e.preventDefault();
-          const data = Object.fromEntries(new FormData(form));
-
+        try {
           const res = await fetch("/api/sendEmail", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -596,17 +594,23 @@
           });
 
           const result = await res.json();
-          alert(result.message);
-        });
+          
+          if (res.ok) {
+            // 收起原本洽詢表單（但不關遮罩）
+            contactPopup.classList.remove('active');
 
-        // 收起原本洽詢表單（但不關遮罩）
-        contactPopup.classList.remove('active');
+            // 顯示成功彈窗
+            successPopup.classList.add('active');
 
-        // 顯示成功彈窗
-        successPopup.classList.add('active');
-
-        // 清空表單（可選）
-        contactForm.reset();
+            // 清空表單（可選）
+            contactForm.reset();
+          } else {
+            alert(result.message || "寄信失敗，請稍後再試");
+          }
+        } catch (error) {
+          console.error("寄信錯誤:", error);
+          alert("寄信失敗，請稍後再試");
+        }
       });
 
       // 關閉成功提示並移除遮罩
