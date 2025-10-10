@@ -253,29 +253,45 @@
       }
 
       .input-field {
-        width: 100%;   padding: 0.5rem 1rem; 
-        border-width: 1px;   border-color: #D1D5DB;   border-radius: 0.125rem;
+        width: 100%;   
+        padding: 0.5rem 1rem; 
+        border-width: 1px;   
+        border-color: #D1D5DB;   
+        border-radius: 0.125rem;
         font-size: 1rem;
+        cursor: text; /* 確保整個輸入框顯示文字游標 */
+        box-sizing: border-box; /* 確保 padding 不會影響點擊區域 */
+      }
+      
+      .input-field:hover {
+        border-color: #9CA3AF; /* 滑鼠移過時的視覺反饋 */
       }
 
       /* 優化日期輸入框的點擊體驗 */
       .date-input {
         cursor: pointer;
         position: relative;
+        padding-right: 2.5rem; /* 為日曆圖標留出空間 */
       }
       
-      /* 讓日期輸入框的日曆圖標更容易點擊 */
+      /* 讓日期輸入框的日曆圖標更容易點擊，同時保持可見 */
       .date-input::-webkit-calendar-picker-indicator {
         cursor: pointer;
         position: absolute;
-        left: 0;
-        right: 0;
-        top: 0;
-        bottom: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        z-index: 1;
+        right: 0.75rem;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 1.5rem;
+        height: 1.5rem;
+        opacity: 1; /* 保持圖標可見 */
+        /* 透過 padding 增加點擊感知區域 */
+        padding: 0.5rem;
+        margin: -0.5rem;
+      }
+      
+      /* Firefox 的日期輸入框優化 */
+      .date-input::-moz-calendar-picker-indicator {
+        cursor: pointer;
       }
 
       .flex-col-center-center {
@@ -504,7 +520,7 @@
                 <label for="input-line" class="block mb-1 font-medium cursor-pointer">Line ID</label>
                 <input type="text" id="input-line" name="line"
                       class="input-field"
-                      placeholder="若期望以 line 聯絡，歡迎填寫您的 Line ID"/>
+                      placeholder="請填寫您的 Line ID"/>
               </div>
 
               <!-- 預計開結案日 -->
