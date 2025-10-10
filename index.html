@@ -586,8 +586,14 @@
         const form = document.getElementById("contactForm");
         const data = Object.fromEntries(new FormData(form));
 
+        // 自動判斷 API 端點（支援 Vercel 和 GitHub Pages）
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const apiUrl = isGitHubPages 
+          ? 'https://idea-flask.vercel.app/api/sendEmail'  // GitHub Pages 使用 Vercel API
+          : '/api/sendEmail';  // Vercel 使用相對路徑
+
         try {
-          const res = await fetch("/api/sendEmail", {
+          const res = await fetch(apiUrl, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
