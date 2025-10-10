@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Idea Flask </title>
+    <title>Idea Flask</title>
     <link rel="icon" href="./img/IdeaFlask_icon.png">
     <script src="https://cdn.tailwindcss.com"></script> <!-- ✅ Tailwind CDN -->
     <script type="module"> /* 自訂 Tailwind 設定 */
@@ -97,7 +97,7 @@
       body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {overflow: hidden;}
       body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {pointer-events: none !important;}  /* 禁止點擊彈窗以外的元素 */
       body.modal-open .contactPopUp,
-      body.modal-open .successPopUp,
+      body.modal-open .successPopUp.active,
       body.modal-open .contactOverlay {
         pointer-events: auto; /* 保留彈窗互動 */
       }
@@ -270,23 +270,16 @@
       /* 優化日期輸入框的點擊體驗 */
       .date-input {
         cursor: pointer;
-        display: flex;
-        align-items: center; /* 垂直居中 */
       }
       
-      /* 讓日期輸入框的日曆圖標更容易點擊，同時保持可見 */
+      /* 讓日期輸入框的日曆圖標靠右顯示 */
       .date-input::-webkit-calendar-picker-indicator {
         cursor: pointer;
-        width: 1.5rem;
-        height: 1.5rem;
-        margin-left: 0.5rem;
       }
       
       /* Firefox 的日期輸入框優化 */
       .date-input::-moz-calendar-picker-indicator {
         cursor: pointer;
-        width: 1.5rem;
-        height: 1.5rem;
       }
 
       .flex-col-center-center {
@@ -353,7 +346,7 @@
   <body class="bg-SVGNoise text-IF-text ">   
     
     <div id="screen-size-display-tool"   
-          class="fixed top-2 left-8 z-[99] 
+          class="fixed top-2 left-8 z-50  hidden
                 w-8 h-8 bg-IF-text-subtle text-center rounded-lg border border-IF-border text-base">
       <div class="block 2xs:hidden">min</div>
       <div class="hidden 2xs:block xs:hidden">2xs</div>
@@ -477,7 +470,7 @@
 
       <!-- 半透明背景遮罩 -->
       <div class="contactOverlay
-                  fixed inset-0 z-40 bg-IF-overlay
+                  fixed inset-0 z-30 bg-IF-overlay
                   transition-opacity duration-300"></div>
 
       <!-- 洽詢彈窗 -->
@@ -496,7 +489,7 @@
             <form id="contactForm" class="space-y-4 text-base text-IF-text">
               <!-- 姓名 -->
               <div>
-                <label for="input-name" class="block mb-1 font-medium cursor-pointer">姓名<span class="text-red-500">*</span></label>
+                <label for="input-name" class="block mb-1 font-medium">姓名<span class="text-red-500">*</span></label>
                 <input type="text" id="input-name" name="name" required
                       class="input-field" 
                       placeholder="請填寫您的姓名"/>
@@ -504,7 +497,7 @@
 
               <!-- 聯絡信箱 -->
               <div>
-                <label for="input-email" class="block mb-1 font-medium cursor-pointer">聯絡信箱<span class="text-red-500">*</span></label>
+                <label for="input-email" class="block mb-1 font-medium">聯絡信箱<span class="text-red-500">*</span></label>
                 <input type="email" id="input-email" name="email" required
                       class="input-field"       
                       placeholder="請填寫您的信箱"/>
@@ -512,7 +505,7 @@
 
               <!-- Line ID -->
               <div>
-                <label for="input-line" class="block mb-1 font-medium cursor-pointer">Line ID</label>
+                <label for="input-line" class="block mb-1 font-medium">Line ID<span class="text-sm text-IF-text-muted"> (選填)</span></label>
                 <input type="text" id="input-line" name="line"
                       class="input-field"
                       placeholder="請填寫您的 Line ID"/>
@@ -521,14 +514,14 @@
               <!-- 預計開結案日 -->
               <div class="flex justify-between gap-4">
                 <div class="flex-1">
-                  <label for="input-startDate" class="block mb-1 font-medium cursor-pointer">預計開案日</label>
+                  <label for="input-startDate" class="block mb-1 font-medium">預計開案日<span class="text-sm text-IF-text-muted"> (選填)</span></label>
                   <input type="date" id="input-startDate" name="startDate"
                         class="input-field date-input"/>
                 </div>
 
                 <!-- 預期結案日 -->
                 <div class="flex-1">
-                  <label for="input-endDate" class="block mb-1 font-medium cursor-pointer">預期結案日</label>
+                  <label for="input-endDate" class="block mb-1 font-medium">預期結案日<span class="text-sm text-IF-text-muted"> (選填)</span></label>
                   <input type="date" id="input-endDate" name="endDate"
                         class="input-field date-input" />
                 </div>
@@ -536,7 +529,7 @@
 
               <!-- 需求說明 -->
               <div>
-                <label for="input-description" class="block mb-1 font-medium cursor-pointer">需求說明</label>
+                <label for="input-description" class="block mb-1 font-medium">需求說明</label>
                 <textarea id="input-description" name="description" rows="4"
                           class="input-field"    
                           placeholder="請問您想做怎樣的 Landing page 呢？"></textarea>
@@ -567,7 +560,7 @@
 
       <!-- 送出成功彈窗 -->
       <div class="successPopUp
-                  fixed z-50 top-1/2 left-1/2 -translate-y-1/2  -translate-x-1/2 z-50
+                  fixed top-1/2 left-1/2 -translate-y-1/2  -translate-x-1/2 z-40
                   w-80 h-40 bg-white rounded-sm shadow-lg p-6 flex flex-col justify-center items-center
                   transition-all duration-300">
         <button id="successCloseBtn" 
@@ -608,30 +601,6 @@
 
         document.body.classList.remove('modal-open');
       }
-
-      // 確保所有輸入框完全可點擊（修復 Line ID 等輸入框點擊問題）
-      const allInputs = document.querySelectorAll('.input-field');
-      allInputs.forEach(input => {
-        // 確保輸入框本身沒有被遮擋
-        input.style.position = 'relative';
-        input.style.zIndex = '10';
-        input.style.pointerEvents = 'auto'; // 強制啟用點擊事件
-        
-        // 為輸入框添加點擊事件，確保一定能聚焦
-        input.addEventListener('click', function(e) {
-          e.stopPropagation();
-          this.focus();
-        });
-        
-        // 為整個父容器添加點擊事件
-        const parent = input.parentElement;
-        parent.style.cursor = 'text';
-        parent.addEventListener('click', function(e) {
-          if (e.target !== input && !input.contains(e.target)) {
-            input.focus();
-          }
-        });
-      });
 
       contactForm.addEventListener('submit', async function (e) {
         e.preventDefault();
@@ -773,8 +742,6 @@
 
         <div class="h-12 "></div>
 
-        <!-- ======================== DEVing ======================= -->
-        <!-- ======================== DEVing ======================= -->
         <section id="advantages" 
                  class="flex-col-between-center snap-start-12
                         min-h-screen 
@@ -879,10 +846,8 @@
           </script>
         
         </section>
-        <!-- ======================== DEVend ======================= -->
 
         <div class="h-12 "></div>
-
 
         <section id="portfolio"
                  class="w-full
