@@ -582,7 +582,22 @@
       contactForm.addEventListener('submit', function (e) {
         e.preventDefault();
 
-        // 這裡可以加上寄信 API 或驗證
+        // 寄信 API 或驗證
+        const form = document.getElementById("contactForm");
+
+        form.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const data = Object.fromEntries(new FormData(form));
+
+          const res = await fetch("/api/sendEmail", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
+
+          const result = await res.json();
+          alert(result.message);
+        });
 
         // 收起原本洽詢表單（但不關遮罩）
         contactPopup.classList.remove('active');
