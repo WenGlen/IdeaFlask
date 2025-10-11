@@ -120,9 +120,39 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet" />
     <style>/* 全局、瀏覽器樣式設定 */
+      /* 響應式基礎字體大小 - 根據視窗寬度自動調整 */
+      html {
+        /* 使用 clamp() 實現流體字體：最小值、理想值、最大值 */
+        /* 320px 螢幕: 14px, 768px 螢幕: 16px, 1920px 螢幕: 18px */
+        font-size: clamp(0.875rem, 0.75rem + 0.5vw, 1.125rem);
+        
+        /* 防止 iOS Safari 自動調整字體大小 */
+        -webkit-text-size-adjust: 100%;
+        -moz-text-size-adjust: 100%;
+        -ms-text-size-adjust: 100%;
+        text-size-adjust: 100%;
+      }
+      
+      /* 針對不同螢幕尺寸的明確斷點設定（備用方案） */
+      @media screen and (max-width: 640px) {
+        html { font-size: 14px; } /* 小手機 */
+      }
+      @media screen and (min-width: 641px) and (max-width: 1024px) {
+        html { font-size: 15px; } /* 平板 */
+      }
+      @media screen and (min-width: 1025px) and (max-width: 1440px) {
+        html { font-size: 16px; } /* 筆電 */
+      }
+      @media screen and (min-width: 1441px) {
+        html { font-size: 17px; } /* 大螢幕 */
+      }
+      
       body {
         font-family: 'Noto Sans TC', sans-serif;
+        /* 確保行高一致 */
+        line-height: 1.6;
       }
+      
       .hide-scrollbar {
         scrollbar-width: none;        /* Firefox */
         -ms-overflow-style: none;     /* IE 10+ */
