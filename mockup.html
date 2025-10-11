@@ -678,17 +678,15 @@
          class="h-screen snap-y snap-proximity overflow-y-scroll scroll-smooth hide-scrollbar" >
 
       <section id="hero"
-                class="relative h-screen">
+                class="relative h-screen overflow-hidden">
         <!-- 背景圖 -->
-        <div class="w-full h-full bg-cover bg-center 
-                    bg-[url('./img/image_material/image_3-4_material.jpg')]
-                    sm:bg-[url('./img/image_material/image_1-1_material.jpg')]
-                    md:bg-[url('./img/image_material/image_4-3_material.jpg')]
-                    xl:bg-[url('./img/image_material/image_16-9_material.jpg')] ">
+        <div class="w-full h-full">
           <div class="w-full h-12 snap-start scroll-mt-12"></div>
           <div class="w-full h-screen-header"></div>
+          <img src="./img/hero/item-A.png" alt="" class="absolute top-1/2 -translate-y-1/2 left-24 h-[600px] w-auto">
+          <img src="./img/hero/item-A.png" alt="" class="absolute bottom-32 right-24 h-[400px] w-auto">
 
-        </div>
+
 
         <!-- 壓在上面的文字 -->
         <div class="absolute inset-0  z-10 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
