@@ -102,13 +102,34 @@
             mix-blend-mode: overlay;
         }
         
-        
+        .glass {
+            background: rgba(255, 255, 255, 0.15);   /* 半透明，讓背後透出來 */
+            backdrop-filter: blur(10px) saturate(120%); /* 讓背後模糊並增加對比 */
+            -webkit-backdrop-filter: blur(10px) saturate(120%); /* Safari 相容 */
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-radius: 12px;
+        }
+
+        .background {
+  background: linear-gradient(120deg, #21a8d1, #ffd400);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
     </style>
   </head>
 
 
   <body class="h-screen flex flex-col items-center justify-center">
+
+    <div class="background">
+        <div class="glass">
+          <h2>毛玻璃效果</h2>
+          <p>這裡的背景會被模糊。</p>
+        </div>
+      </div>
 
     <div class="bg-Frost aBlock flex justify-center items-center">
         bg-Frost
