@@ -1,7 +1,7 @@
 [
   {
     "number": "1",
-    "title": "WUWU 小世界",
+    "title": "WUWU 小世界(開發中)",
     "objectives": "讓粉絲可以覺得這個網站足夠吸睛，並願意透過這個網站認識 WUWU 插畫的世界觀，感受品牌的可愛與趣味性。",
     "solution": "<li>透過方便瀏覽的手機版型讓人在各種場合都能快速瀏覽內容。</li><li>開頭有按鈕可先跳轉至底部，再上滑進入插畫樹屋的新奇體驗，讓人對品牌留下有趣、可愛的印象。</li><li>透過最少量互動功能模擬觀察、認識插畫角色的過程，讓觀看者對角色建立熟悉感與連結感。</li>",
     "image3_4": "/image_material/image_3-4_material.jpg",
@@ -9,17 +9,17 @@
   },
   {
     "number": "2",
-    "title": "嘎嘎嘎",
-    "objectives": "嘎嘎嘎。",
-    "solution": "<li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>",
+    "title": "療癒森林(開發中)",
+    "objectives": "明確展現出品牌以體驗空間為主的特色，完整呈現合作的師資、課程資訊。",
+    "solution": "<li> 在 banner 即使用 slider 切換不同課程資訊，呈現品牌包含多種課程的特色。</li><li> 可在網站上觀看預約狀況，並且填寫相關預約表單，提高網站的使用率。</li><li> 透過課程推薦小遊戲降低使用者閱讀負擔，並對品牌留下有趣、可愛的印象。</li><li> 針對特定版位品牌方可直接用 google sheet 管理內容，省去需透過工程師處理的手續。</li>",
     "image3_4": "/image_material/image_3-4_material.jpg",
     "image16_9": "/image_material/image_16-9_material.jpg"
   },
   {
     "number": "3",
-    "title": "嘎嘎嘎",
-    "objectives": "嘎嘎嘎。",
-    "solution": "<li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>",
+    "title": "等你來發案",
+    "objectives": "把為客戶做的美美網站呈現出來。",
+    "solution": "<li> 目前案例還不夠，未來會持續更新！</li>",
     "image3_4": "/image_material/image_3-4_material.jpg",
     "image16_9": "/image_material/image_16-9_material.jpg"
   }
