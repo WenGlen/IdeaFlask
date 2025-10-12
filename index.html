@@ -6,7 +6,7 @@
 
     <meta charset="UTF-8" />
      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>Idea Flask</title>
+    <title>Idea Flask mockup</title>
     <link rel="icon" href="./img/IdeaFlask_icon.png">
     <script src="https://cdn.tailwindcss.com"></script> <!-- ✅ Tailwind CDN -->
     <script type="module"> /* 自訂 Tailwind 設定 */
@@ -1294,13 +1294,19 @@
             let scrollTimeout;
             
             sliderContainer.addEventListener('wheel', (e) => {
-              e.preventDefault(); // 阻止默認的垂直滾動
+              // 檢查是否為主要垂直滾動（鼠標滾輪）還是橫向滑動（觸控板手勢）
+              const isVerticalScroll = Math.abs(e.deltaY) > Math.abs(e.deltaX);
               
-              // 滾動時暫時禁用 snap
-              slider.style.scrollSnapType = 'none';
-              
-              // 將垂直滾動轉為水平滾動
-              slider.scrollLeft += e.deltaY;
+              // 只有在主要是垂直滾動時，才轉換為橫向滾動
+              if (isVerticalScroll) {
+                e.preventDefault(); // 阻止默認的垂直滾動
+                
+                // 滾動時暫時禁用 snap
+                slider.style.scrollSnapType = 'none';
+                
+                // 將垂直滾動轉為水平滾動
+                slider.scrollLeft += e.deltaY;
+              }
               
               // 清除之前的 timeout
               clearTimeout(scrollTimeout);

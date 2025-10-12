@@ -1294,13 +1294,19 @@
             let scrollTimeout;
             
             sliderContainer.addEventListener('wheel', (e) => {
-              e.preventDefault(); // 阻止默認的垂直滾動
+              // 檢查是否為主要垂直滾動（鼠標滾輪）還是橫向滑動（觸控板手勢）
+              const isVerticalScroll = Math.abs(e.deltaY) > Math.abs(e.deltaX);
               
-              // 滾動時暫時禁用 snap
-              slider.style.scrollSnapType = 'none';
-              
-              // 將垂直滾動轉為水平滾動
-              slider.scrollLeft += e.deltaY;
+              // 只有在主要是垂直滾動時，才轉換為橫向滾動
+              if (isVerticalScroll) {
+                e.preventDefault(); // 阻止默認的垂直滾動
+                
+                // 滾動時暫時禁用 snap
+                slider.style.scrollSnapType = 'none';
+                
+                // 將垂直滾動轉為水平滾動
+                slider.scrollLeft += e.deltaY;
+              }
               
               // 清除之前的 timeout
               clearTimeout(scrollTimeout);
@@ -1535,7 +1541,7 @@
           </div>  
         </div>
 
-        <div class="flex-row-center-center">
+        <div class="flex-row-center-center gap-2">
          <p class="text-IF-text-subtle">© Copyright All Rights Reserved.</p>
          <img src="./img/IdeaFlask_mark.png" alt="概念燒瓶" class="object-cover h-8 ml-auto hidden md:block">
         </div>
