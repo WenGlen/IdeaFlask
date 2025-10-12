@@ -166,54 +166,6 @@
       }
     </style>
     
-    <style> /* 防止 FOUC：在 Tailwind 載入前先隱藏 body */
-      
-      body {visibility: hidden;}
-      
-      /* 額外確保彈窗在 Tailwind 載入前完全隱藏（使用更高的選擇器權重） */
-      body:not(.tailwind-loaded) .contactOverlay,
-      body:not(.tailwind-loaded) .contactPopUp,
-      body:not(.tailwind-loaded) .successPopUp {
-        display: none !important;
-      }
-      
-      /* Tailwind 載入完成後才顯示 */
-      body.tailwind-loaded {
-        visibility: visible;
-        transition: opacity 0.1s;
-      }
-    </style>
-    <script> /* 檢測 Tailwind 是否載入完成 */
-      (function() {
-        function checkTailwindLoaded() {
-          // 創建一個測試元素來檢測 Tailwind 是否已生效
-          const testDiv = document.createElement('div');
-          testDiv.className = 'hidden';
-          testDiv.style.cssText = 'position:absolute;left:-9999px;';
-          document.documentElement.appendChild(testDiv);
-          
-          // 檢查 Tailwind 的 .hidden 類是否已生效
-          const isHidden = window.getComputedStyle(testDiv).display === 'none';
-          document.documentElement.removeChild(testDiv);
-          
-          if (isHidden) {
-            // Tailwind 已載入，顯示 body
-            document.body.classList.add('tailwind-loaded');
-          } else {
-            // 尚未載入，50ms 後再檢查一次
-            setTimeout(checkTailwindLoaded, 50);
-          }
-        }
-        
-        // DOM 準備好後開始檢測
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', checkTailwindLoaded);
-        } else {
-          checkTailwindLoaded();
-        }
-      })();
-    </script>
-    
     <style>
       :root {
         --color-DEFAULT: #6cb1c9;
@@ -359,6 +311,22 @@
         scroll-margin-top: 3rem;
       }
 
+      .hero-item {
+        max-width: none;
+        height: auto;
+        object-fit: none;
+        z-index: 10;
+        
+      }
+
+      .bg-glass {
+            background: rgba(255, 255, 255, 0.25);   /* 半透明，讓背後透出來 */
+            backdrop-filter: blur(10px) saturate(120%); /* 讓背後模糊並增加對比 */
+            -webkit-backdrop-filter: blur(10px) saturate(120%); /* Safari 相容 */
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 12px;
+      }
+
       </style>
     
 
@@ -367,6 +335,7 @@
       *{outline: 1px solid #999999;} */
       .border-test {outline: 2px solid #cc9900;}
       .border-test2 {outline: 2px solid #009999;}
+      .border-test3 {outline: 1px solid #999999;}
     </style>
 
   </head>
@@ -374,10 +343,10 @@
 
 
   <!-- ======================== body ======================= -->
-  <body class="bg-SVGNoise text-IF-text ">   
+  <body style="visibility: hidden" class="bg-SVGNoise text-IF-text">   
     
     <div id="screen-size-display-tool"   
-          class="fixed top-2 left-8 z-50  hidden
+          class="fixed top-2 left-8 z-[99] hidden
                 w-8 h-8 bg-IF-text-subtle text-center rounded-lg border border-IF-border text-base">
       <div class="block 2xs:hidden">min</div>
       <div class="hidden 2xs:block xs:hidden">2xs</div>
@@ -390,7 +359,7 @@
     </div>
 
     <header id="header" 
-            class="fixed top-0 left-0 z-[60]
+            class=" fixed top-0 left-0 z-[60] 
                    h-12 w-full bg-IF-panel shadow-md">
       <!-- 上方常駐區塊 -->
       <div class="max-w-screen-xl mx-auto  flex items-center justify-between
@@ -404,7 +373,8 @@
         </a>
 
         <!-- 導覽錨點 (桌機版) -->
-        <nav class="hidden gap-8 text-lg text-IF-text
+        <nav class="gap-8 text-lg text-IF-text
+                        hidden
                     md:flex">
           <a href="#advantages" >解決痛點</a>
           <a href="#portfolio" >作品展示</a>
@@ -472,9 +442,9 @@
 
     </header>
 
-    <section id="contact" >
+    <section id="contact" > 
       
-      <!-- 懸浮按鈕 -->
+      <!-- 懸浮按鈕 --> <!--展開特效待調整，不要用兩層-->
       <button id="contactBtn"
               class="group fixed bottom-12  z-40
                      h-16 w-16 rounded-full shadow-md
@@ -510,7 +480,7 @@
                   fixed inset-0 top-12 flex items-center justify-center z-50
                   transition-all duration-300 origin-bottom-right">
         <div  id="contactPanel"
-              class="relative max-h-[80vh] w-[90vw] max-w-xl p-6 rounded-sm shadow-lg bg-white overflow-y-auto">
+              class="relative max-h-[80vh] w-[90vw] max-w-xl p-6 rounded-sm shadow-lg bg-IF-panel overflow-y-auto">
           <button id="PopUpCloseBtn" 
                   class="absolute top-6 right-6 text-2xl
                         text-IF-text-subtle hover:text-IF-text-muted">×</button>
@@ -592,7 +562,7 @@
       <!-- 送出成功彈窗 -->
       <div class="successPopUp
                   fixed top-1/2 left-1/2 -translate-y-1/2  -translate-x-1/2 z-40
-                  w-80 h-40 bg-white rounded-sm shadow-lg p-6 flex flex-col justify-center items-center
+                  w-80 h-40 bg-IF-panel rounded-sm shadow-lg p-6 flex flex-col justify-center items-center
                   transition-all duration-300">
         <button id="successCloseBtn" 
                 class="absolute top-4 right-4 text-2xl
@@ -726,26 +696,100 @@
          class="h-screen snap-y snap-proximity overflow-y-scroll scroll-smooth hide-scrollbar" >
 
       <section id="hero"
-                class="relative h-screen">
+                class=" relative w-full h-screen flex-col-center-center snap-start-12 overflow-hidden">
+
+        <div class="absolute inset-0 w-full h-full bg-IF-panel opacity-30"></div><!-- 背景 -->
         <!-- 背景圖 -->
-        <div class="w-full h-full bg-cover bg-center 
-                    bg-[url('./img/image_material/image_3-4_material.jpg')]
-                    sm:bg-[url('./img/image_material/image_1-1_material.jpg')]
-                    md:bg-[url('./img/image_material/image_4-3_material.jpg')]
-                    xl:bg-[url('./img/image_material/image_16-9_material.jpg')] ">
-          <div class="w-full h-12 snap-start scroll-mt-12"></div>
-          <div class="w-full h-screen-header"></div>
+        <div class="relative w-full max-w-screen-xl min-w-[500px] h-full  max-h-[880px]  opacity-70">
+          
+
+          <div> <!-- 影子 -->
+          
+          <img src="./img/hero/item-A_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/3 translate-y-[600px]               left-1/2 -translate-x-1/2 
+                                                               md:left-1/3  ">
+
+          <img src="./img/hero/item-B_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                         bottom-1/4     translate-y-[610px]      right-0       translate-x-[400px]
+                                     md:translate-y-[510px]   md:right-1/3  md:translate-x-[670px]
+                                     lg:translate-y-[470px]                 lg:translate-x-[720px]"> 
+                                     
+          <img src="./img/hero/item-C_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50 hidden
+                      bottom-1/4      translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                   md:translate-y-[200px]                  md:-translate-x-[170px]   
+                                   lg:translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+          <img src="./img/hero/item-D_.png" alt="" 
+               class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4     translate-y-[440px]        left-1/4     -translate-x-[420px] 
+                                  md:translate-y-[380px]                  md:-translate-x-[500px]    
+                                  lg:translate-y-[340px]                  lg:-translate-x-[600px] "> 
+
+          <img src="./img/hero/item-E_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4      translate-y-[520px]        left-1/4      translate-x-[150px] 
+                                   md:translate-y-[460px]                   md:translate-x-[180px]    
+                                   lg:translate-y-[400px]                   lg:translate-x-[250px] ">
+                                  
+          <img src="./img/hero/item-G_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4      translate-y-[240px]        left-1/3     -translate-x-[000px]  
+                                  md:translate-y-[240px]                   md:translate-x-[200px]      
+                                  lg:translate-y-[200px]                   lg:translate-x-[600px] ">                           
+
+            
+          </div>
+          <div> <!-- 物件 -->
+
+            <img src="./img/hero/item-A.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 
+                          top-1/2 -translate-y-1/2                left-1/2 -translate-x-1/2 
+                                                                md:left-1/3  ">
+
+            <img src="./img/hero/item-B.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-1/4     translate-y-[360px]      right-0       translate-x-[400px]
+                                      md:translate-y-[260px]   md:right-1/3  md:translate-x-[670px]
+                                      lg:translate-y-[220px]                 lg:translate-x-[720px]">     
+            <img src="./img/hero/item-C.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                    md:-translate-y-[200px]                  md:-translate-x-[170px]   
+                                    lg:-translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+            <img src="./img/hero/item-D.png" alt="" 
+                class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[340px]        left-1/4     -translate-x-[420px] 
+                                    md:-translate-y-[280px]                  md:-translate-x-[500px]    
+                                    lg:-translate-y-[240px]                  lg:-translate-x-[600px] "> 
+
+            <img src="./img/hero/item-E.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-0     translate-y-[120px]        left-1/4      translate-x-[150px] 
+                                    md:translate-y-[060px]                   md:translate-x-[180px]    
+                                    lg:translate-y-[000px]                   lg:translate-x-[250px] ">
+                                    
+            <img src="./img/hero/item-G.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-0        translate-y-[040px]        left-1/3     -translate-x-[000px]  
+                                    md:translate-y-[040px]                   md:translate-x-[200px]      
+                                    lg:translate-y-[000px]                   lg:translate-x-[600px] ">
+          </div> 
 
         </div>
 
+
         <!-- 壓在上面的文字 -->
-        <div class="absolute inset-0  z-10 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
+        <div id="hero-text" class="absolute inset-0 z-20 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
           <div class="w-full max-w-screen-xl
                          text-center   px-4
                                     xs:px-12
                       md:text-left  mdx:px-32 "> <!-- 這層是留間距＆對齊 -->
             <div class="md:flex ">
-              <h1 class="text-white font-bold 
+              <h1 class="text-IF-text font-bold 
                           leading-relaxed 
                              text-3xl      text-center    tracking-normal
                           xs:text-4xl
@@ -753,11 +797,11 @@
                 <span class="block md:text-4xl md:leading-relaxed">為你的需求</span>
                 <span class="block md:text-5xl md:leading-relaxed">打造剛剛好的<br class="block 2xs:hidden">入口網站</span>
               </h1>
-              <h2 class="-ml-[195px] mt-[30px] text-[21pt] text-white tracking-wider hidden md:block">Langing Page</h2>
+              <h2 class="-ml-[195px] mt-[28px] text-[21pt] text-IF-text-muted tracking-wider hidden md:block">Langing Page</h2>
             </div>
 
             <br>
-            <p class="text-white text-lg xs:text-xl leading-relaxed">
+            <p class="text-IF-text-muted text-lg xs:text-xl leading-relaxed">
               資訊規劃、視覺設計、網站開發<br class="block 2xs:hidden">一氣呵成<br>
               做出適合你現在需要的入口網站
             </p>
@@ -778,7 +822,7 @@
                         min-h-screen 
                         md:h-screen-header md:min-h-[600px]">
 
-          <div class="h-12 hidden md:block">  </div>   
+          <div class="h-0 hidden md:block">  </div>   
           
           <div class="">
             <h2>你是否也有這些困擾？</h2>
@@ -791,7 +835,7 @@
 
           </div>
           
-          <div class="py-4">
+          <div class="py-8">
             <p class="text-center text-lg text-IF-text-muted leading-relaxed">
               完成的作品可以像這樣<br>
               ↓
@@ -806,7 +850,7 @@
               advantagesArray.forEach(item => {
                 const card = document.createElement('div');
                 card.className = `
-                    group transition-all bg-white rounded-sm overflow-hidden shadow-lg
+                    group transition-all bg-IF-panel rounded-sm overflow-hidden shadow-lg
                        h-[360px]    max-w-[460px]    cursor-pointer  
                     md:h-[480px] md:max-w-[320px] md:cursor-default
                 `;
@@ -815,17 +859,19 @@
                     <div class="cardCanUp
                                 w-full h p-6 flex flex-col justify-center overflow-hidden object-cover 
                                 transition-transform duration-500
-                                md:group-hover:-translate-y-[280px]
-                                lg:group-hover:-translate-y-[300px]">
+                                md:group-hover:-translate-y-[260px]
+                                lg:group-hover:-translate-y-[315px]">
 
                         <div class="UpDisappear
-                                    w-full overflow-hidden flex items-center justify-center 
+                                    w-full overflow-hidden flex-col-center-center
                                     h-[240px] 
                                     md:group-hover:opacity-0 duration-500   
                                     md:h-[240px] md:mt-6  
                                     lg:h-[280px] ">
-                          <img src="./img/${item.image}" alt="" 
-                               class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+                          <img src="${item.image}" alt="" 
+                               class="max-w-full object-contain 
+                                         h-[240px]
+                                      md:h-auto">
                           
                         </div>
 
@@ -845,7 +891,7 @@
                                   md:text-lg md:opacity-0 
                                   lg:text-xl">
                           <span>${item.content}</span>
-                          <br class="near-md:hidden">
+                          <br>
                           <br>
                           <span class="font-bold text-IF-text-emphasis">${item.emphasis}</span>
                         </p>
@@ -882,7 +928,7 @@
 
         <section id="portfolio"
                  class="w-full
-                        flex-col-center snap-start-12 snap-end
+                        flex-col-center snap-start-12 snap-end 
                         min-h-screen-header
                         md:h-screen-header">
           
@@ -1117,23 +1163,32 @@
         <section id="about"
                  class="w-full min-h-screen-header flex-col-center snap-start-12">
 
-          <h2>為何我能幫你做好<br class="block sm:hidden"> Landing page？</h2>
+          <h2 class="mb-0 sm:mb-4 md:mb-8 ">為何我能幫你做好<br class="block sm:hidden"> Landing page？</h2>
 
           <!-- 文案呈現全範圍 -->
           <div id="about-container" 
                class="flex-col-center-center"> 
             <!-- 自介文案+照片全範圍 -->
             <div class="relative w-full max-w-screen-md overflow-hidden flex justify-center" ><!-- 用 overflow-hidden 避免照片跑出去 -->
+              
+              <div>
+                <img src="./img/hero/item-F.png" alt="" 
+                class="absolute hero-item  scale-[0.60] hidden
+                       top-0 -translate-y-[020px]  left-2/3 -translate-x-[120px]   ">
 
-              <img src="./img/image_material/image_9-16_material.png" alt=""
-                   class="absolute top-0 right-0 w-1/3 object-cover
-                          min-h-full
-                          hidden 2xs:block
-                          "><!-- 照片要手動改 -->
+                <img src="./img/about/Glen.png" alt=""
+                class="absolute object-cover z-20
+                      hidden  2xs:block
+                      w-1/3 min-h-full    top-0 left-2/3 min-w-[180px]
+                                        sm:right-0"><!-- 照片要手動改 -->
+    
 
-              <div class="p-4  bg-IF-panel flex
-                              mt-0     rounded-none
-                           xs:mt-16  
+              </div>
+
+
+              <div class="p-8  bg-IF-panel flex
+                              mt-24     rounded-none
+                           xs:mt-24  
                           mdx:mt-24 md:rounded-md  "> <!-- 白底＆留空 -->
                 <div id="about-content" 
                      class="    w-full
@@ -1148,7 +1203,7 @@
               我執行過的專案跟任務角色：
             </p> 
 
-             <div class="relative mb-12 w-full overflow-hidden"> <!-- Ach全範圍 -->
+             <div id="ach-slider-container" class="relative mb-12 w-full overflow-hidden"> <!-- Ach全範圍 -->
                
                  <div id="about-AchSlider" 
                       class="gap-4 px-[calc((100vw-280px)/2)] flex
@@ -1233,6 +1288,28 @@
                 behavior: 'smooth'
               });
             });
+
+            // 鼠標滾輪橫向滾動功能
+            const sliderContainer = document.getElementById('ach-slider-container');
+            let scrollTimeout;
+            
+            sliderContainer.addEventListener('wheel', (e) => {
+              e.preventDefault(); // 阻止默認的垂直滾動
+              
+              // 滾動時暫時禁用 snap
+              slider.style.scrollSnapType = 'none';
+              
+              // 將垂直滾動轉為水平滾動
+              slider.scrollLeft += e.deltaY;
+              
+              // 清除之前的 timeout
+              clearTimeout(scrollTimeout);
+              
+              // 滾動停止後 150ms 恢復 snap
+              scrollTimeout = setTimeout(() => {
+                slider.style.scrollSnapType = 'x mandatory';
+              }, 150);
+            }, { passive: false }); // passive: false 才能使用 preventDefault
 
           </script>
 
@@ -1353,7 +1430,6 @@
 
               step_Content.forEach(div => observer.observe(div));
 
-
             }
           
           </script>
@@ -1472,6 +1548,11 @@
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/load.js"></script>
     
+    <script> /* 防止 FOUC：所有內容載入完成後才顯示 body */
+      setTimeout(() => {
+        document.body.style.visibility = 'visible';
+      }, 50);
+    </script>
 
   </body>
 
