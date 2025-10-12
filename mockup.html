@@ -311,6 +311,15 @@
         scroll-margin-top: 3rem;
       }
 
+      .hero-item {
+        max-width: none;
+        height: auto;
+        object-fit: none;
+        z-index: 10;
+        
+      }
+
+
       </style>
     
 
@@ -319,6 +328,7 @@
       *{outline: 1px solid #999999;} */
       .border-test {outline: 2px solid #cc9900;}
       .border-test2 {outline: 2px solid #009999;}
+      .border-test3 {outline: 1px solid #999999;}
     </style>
 
   </head>
@@ -329,7 +339,7 @@
   <body style="visibility: hidden" class="bg-SVGNoise text-IF-text">   
     
     <div id="screen-size-display-tool"   
-          class="fixed top-2 left-8 z-50  hidden
+          class="fixed top-2 left-8 z-50 
                 w-8 h-8 bg-IF-text-subtle text-center rounded-lg border border-IF-border text-base">
       <div class="block 2xs:hidden">min</div>
       <div class="hidden 2xs:block xs:hidden">2xs</div>
@@ -342,7 +352,7 @@
     </div>
 
     <header id="header" 
-            class="fixed top-0 left-0 z-[60]
+            class="hidden fixed top-0 left-0 z-[60]
                    h-12 w-full bg-IF-panel shadow-md">
       <!-- 上方常駐區塊 -->
       <div class="max-w-screen-xl mx-auto  flex items-center justify-between
@@ -678,24 +688,119 @@
          class="h-screen snap-y snap-proximity overflow-y-scroll scroll-smooth hide-scrollbar" >
 
       <section id="hero"
-                class="relative h-screen overflow-hidden">
-        <!-- 背景圖 -->
-        <div class="w-full h-full">
-          <div class="w-full h-12 snap-start scroll-mt-12"></div>
-          <div class="w-full h-screen-header"></div>
-          <img src="./img/hero/item-A.png" alt="" class="absolute top-1/2 -translate-y-1/2 left-24 h-[600px] w-auto">
-          <img src="./img/hero/item-A.png" alt="" class="absolute bottom-32 right-24 h-[400px] w-auto">
+                class="relative w-full h-screen flex-col-center-center snap-start-12 overflow-hidden">
 
+        <!-- 背景圖 -->
+        <div class="relative w-full max-w-screen-xl min-w-[500px] h-screen opacity-70">
+          <div id="hero-line"class="hidden">
+            <div class="w-full h-screen flex-row-between-center hidden md:flex"> 
+              <div class="w-px h-screen bg-gray-300"></div>
+
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-500"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+
+              <div class="w-px h-screen bg-gray-500"></div>
+
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-500"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+              <div class="w-px h-screen bg-gray-300"></div>
+
+              <div class="w-px h-screen bg-gray-300"></div>
+            </div>
+          </div>
+
+          <div>
+          
+          <img src="./img/hero/item-A_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                      bottom-1/3 translate-y-[600px]               left-1/2 -translate-x-1/2 
+                                                               md:left-1/3  ">
+
+          <img src="./img/hero/item-B.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-20
+                         bottom-1/4     translate-y-[610px]      right-0       translate-x-[400px]
+                                     md:translate-y-[510px]   md:right-1/3  md:translate-x-[670px]
+                                     lg:translate-y-[470px]                 lg:translate-x-[720px]"> 
+                                     
+          <img src="./img/hero/item-C.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-20 hidden
+                      bottom-1/4      translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                   md:translate-y-[200px]                  md:-translate-x-[170px]   
+                                   lg:translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+          <img src="./img/hero/item-D.png" alt="" 
+               class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100 opacity-20 
+                      bottom-1/4     translate-y-[340px]        left-1/4     -translate-x-[420px] 
+                                  md:translate-y-[280px]                  md:-translate-x-[500px]    
+                                  lg:translate-y-[240px]                  lg:-translate-x-[600px] "> 
+
+          <img src="./img/hero/item-E.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-20
+                      bottom-1/4      translate-y-[520px]        left-1/4      translate-x-[150px] 
+                                   md:translate-y-[460px]                   md:translate-x-[180px]    
+                                   lg:translate-y-[400px]                   lg:translate-x-[250px] ">
+                                  
+          <img src="./img/hero/item-G.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-20
+                      bottom-1/4      translate-y-[240px]        left-1/3     -translate-x-[000px]  
+                                  md:translate-y-[240px]                   md:translate-x-[200px]      
+                                  lg:translate-y-[200px]                   lg:translate-x-[600px] ">                           
+
+            
+          </div>
+          <div>
+
+            <img src="./img/hero/item-A.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 
+                          top-1/2 -translate-y-1/2                left-1/2 -translate-x-1/2 
+                                                                md:left-1/3  ">
+
+            <img src="./img/hero/item-B.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-1/4     translate-y-[360px]      right-0       translate-x-[400px]
+                                      md:translate-y-[260px]   md:right-1/3  md:translate-x-[670px]
+                                      lg:translate-y-[220px]                 lg:translate-x-[720px]">     
+            <img src="./img/hero/item-C.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                    md:-translate-y-[200px]                  md:-translate-x-[170px]   
+                                    lg:-translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+            <img src="./img/hero/item-D.png" alt="" 
+                class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[340px]        left-1/4     -translate-x-[420px] 
+                                    md:-translate-y-[280px]                  md:-translate-x-[500px]    
+                                    lg:-translate-y-[240px]                  lg:-translate-x-[600px] "> 
+
+            <img src="./img/hero/item-E.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-0     translate-y-[120px]        left-1/4      translate-x-[150px] 
+                                    md:translate-y-[060px]                   md:translate-x-[180px]    
+                                    lg:translate-y-[000px]                   lg:translate-x-[250px] ">
+                                    
+            <img src="./img/hero/item-G.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-0        translate-y-[040px]        left-1/3     -translate-x-[000px]  
+                                    md:translate-y-[040px]                   md:translate-x-[200px]      
+                                    lg:translate-y-[000px]                   lg:translate-x-[600px] ">
+          </div> 
+
+        </div>
 
 
         <!-- 壓在上面的文字 -->
-        <div class="absolute inset-0  z-10 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
+        <div id="hero-text" class="absolute inset-0 z-20 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
           <div class="w-full max-w-screen-xl
                          text-center   px-4
                                     xs:px-12
                       md:text-left  mdx:px-32 "> <!-- 這層是留間距＆對齊 -->
             <div class="md:flex ">
-              <h1 class="text-white font-bold 
+              <h1 class="text-IF-text font-bold 
                           leading-relaxed 
                              text-3xl      text-center    tracking-normal
                           xs:text-4xl
@@ -703,11 +808,11 @@
                 <span class="block md:text-4xl md:leading-relaxed">為你的需求</span>
                 <span class="block md:text-5xl md:leading-relaxed">打造剛剛好的<br class="block 2xs:hidden">入口網站</span>
               </h1>
-              <h2 class="-ml-[195px] mt-[30px] text-[21pt] text-white tracking-wider hidden md:block">Langing Page</h2>
+              <h2 class="-ml-[195px] mt-[28px] text-[21pt] text-IF-text-muted tracking-wider hidden md:block">Langing Page</h2>
             </div>
 
             <br>
-            <p class="text-white text-lg xs:text-xl leading-relaxed">
+            <p class="text-IF-text-muted text-lg xs:text-xl leading-relaxed">
               資訊規劃、視覺設計、網站開發<br class="block 2xs:hidden">一氣呵成<br>
               做出適合你現在需要的入口網站
             </p>
