@@ -1044,8 +1044,8 @@
                 `;
                 block.innerHTML = `
                     <div class="portfolio-inner flex 
-                                   flex-col h-full
-                                md:flex-row md:w-full">
+                                   flex-col
+                                md:flex-row md:w-full md:h-full">
                       
                       <img src="./img/${item.image16_9}" alt="${item.title}"
                            class="mb-12 object-cover
@@ -1058,9 +1058,8 @@
                                   md:block md:w-1/2 md:mh-full ">
 
                       <div class="w-full bg-IF-panel px-8 pb-8
-                                  overflow-y-auto flex-col-start
-                                  flex-grow flex-shrink
-                                  md:w-1/2 md:h-full">
+                                  flex-col-start
+                                  md:w-1/2 md:h-full md:overflow-y-auto">
                         <p class="mt-6 mb-2 font-bold text-IF hidden md:block">作品名稱</p>
                         <h3 class="font-bold text-3xl mt-6 md:mt-0">${item.title}</h3>
                         <p class="mt-6 mb-2 font-bold text-IF">頁面目標</p>
