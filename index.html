@@ -162,7 +162,7 @@
       }   
     </style>
     <style> /* flex跟scroll-snap設定 */
-            .flex-col-center-center {
+      .flex-col-center-center {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -173,6 +173,12 @@
         display: flex;
         flex-direction: column;
         justify-content: center;
+      }
+
+      .flex-col-start {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
       }
 
       .flex-col-start-center {
@@ -311,11 +317,17 @@
       }
 
       h2 {
-        margin: 2rem 0;
+        margin: 1rem 0;
         text-align: center;
         font-size: 1.875rem;
         font-weight: 700;
         color: var(--color-title);
+      }
+
+      @media (min-width: 640px) {
+        h2 {
+          margin: 2rem 0;
+        }
       }
 
       .input-field {
@@ -440,6 +452,8 @@
           <a href="#about" >關於我</a>
           <a href="#steps" >製作流程</a>
           <a href="#faq" >常見問題</a>
+          <button id="contactBtn"> 洽詢製作網頁 </button>
+
         </nav>
       </div>
 
@@ -449,15 +463,25 @@
           const toggle = document.getElementById('menu-toggle');
           const menu = document.getElementById('mobile-menu');
 
-          toggle.addEventListener('click', () => {
+          toggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // 防止立即觸發外部點擊
             menu.classList.toggle('active');
           });
           
           const links = menu.querySelectorAll('a');
           links.forEach(link => {
             link.addEventListener('click', () => {
-                menu.classList.add('active');
+                menu.classList.remove('active');
             });
+          });
+
+          // 點擊外部區域關閉選單
+          document.addEventListener('click', (e) => {
+            if (menu.classList.contains('active') && 
+                !menu.contains(e.target) && 
+                e.target !== toggle) {
+              menu.classList.remove('active');
+            }
           });
 
         });
@@ -481,24 +505,23 @@
       
       <!-- 懸浮按鈕 --> <!--展開特效待調整，不要用兩層-->
       <button id="contactBtn"
-              class="group fixed bottom-12  z-40
+              class="group fixed bottom-12 right-8 z-40
                      h-16 w-16 rounded-full shadow-md
                      bg-IF-panel flex-row-center-center overflow-hidden 
                      transition-all duration-300 
                      hover:w-56
-                     under-md:left-8
-                     md:right-8">
-        <div class="fixed bottom-12  z-50 
+                        hidden
+                     md:block">
+        <div class="fixed bottom-12 right-8 z-50 
                     h-16 w-16 rounded-full bg-IF-panel flex-row-center-center
-                    under-md:left-8
-                    md:right-8">
+                    hidden
+                    md:block">
           <img src="./img/icon/sent.png" alt="聯絡我" class="h-8 w-8" />
         </div>
           <span class="whitespace-nowrap text-xl text-IF-text
                       translate-x-2 transition-all duration-300
                       group-hover:translate-x-0 
-                         ml-12     mr-0
-                      md:ml-0   md:mr-12">
+                      ml-0 mr-12">
             洽詢製作網頁
           </span>
 
@@ -963,7 +986,7 @@
 
         <section id="portfolio"
                  class="w-full
-                        flex-col-center snap-start-12 snap-end 
+                        flex-col-center snap-start-12 snap-end
                         min-h-screen-header
                         md:h-screen-header">
           
@@ -979,7 +1002,7 @@
             <div id="data-controls">
               <div id="dot-container" 
                    class="absolute h-12 gap-4 flex-row-center-center 
-                             top-[300px]                 w-full
+                             top-[240px]                 w-full
                           md:top-auto md:bottom-12 md:w-1/2">
               </div>
               
@@ -989,7 +1012,7 @@
                 <button id="prev-btn" 
                         class="absolute left-0 z-10 
                                w-36 text-IF-panel
-                                  top-[300px]                    h-12        text-IF-text-subtle  
+                                  top-[240px]                    h-12        text-IF-text-subtle  
                                md:top-1/2 md:-translate-y-1/2 md:h-full   md:text-IF-panel
                                bg-gradient-to-r from-IF-background-gradient-left to-transparent ">◀</button>
               </div>
@@ -1000,7 +1023,7 @@
                 <button id="next-btn" 
                         class="absolute right-0   z-10 
                                w-48 
-                                  top-[300px]                    h-12        text-IF-text-subtle
+                                  top-[240px]                    h-12        text-IF-text-subtle
                                md:top-1/2 md:-translate-y-1/2 md:h-full   md:text-IF-panel
                                bg-gradient-to-l from-IF-background-gradient-right to-transparent">▶</button>
               </div>
@@ -1023,12 +1046,12 @@
                 `;
                 block.innerHTML = `
                     <div class="portfolio-inner flex 
-                                   flex-col
-                                md:flex-row md:w-full md:h-full ">
+                                   flex-col h-full
+                                md:flex-row md:w-full">
                       
                       <img src="./img/${item.image16_9}" alt="${item.title}"
                            class="mb-12 object-cover
-                                  block h-[300px] min-h-[300px]
+                                  block h-[240px] min-h-[240px] flex-shrink-0
                                   md:hidden">
 
                       <img src="./img/${item.image3_4}" alt="${item.title}"
@@ -1036,11 +1059,12 @@
                                   hidden 
                                   md:block md:w-1/2 md:mh-full ">
 
-                      <div class="w-full h-full bg-IF-panel px-8
-                                  overflow-y-auto flex-col-center 
-                                  md:w-1/2">
-                        <p class="mt-6 mb-2 font-bold text-IF">作品名稱</p>
-                        <h3 class="font-bold text-3xl">${item.title}</h3>
+                      <div class="w-full bg-IF-panel px-8 pb-8
+                                  overflow-y-auto flex-col-start
+                                  flex-grow flex-shrink
+                                  md:w-1/2 md:h-full">
+                        <p class="mt-6 mb-2 font-bold text-IF hidden md:block">作品名稱</p>
+                        <h3 class="font-bold text-3xl mt-6 md:mt-0">${item.title}</h3>
                         <p class="mt-6 mb-2 font-bold text-IF">頁面目標</p>
                         <p>${item.objectives}</p>
                         <p class="mt-6 mb-2 font-bold text-IF">解決方案</p>
@@ -1196,13 +1220,13 @@
         <div class="h-12 "></div>
         
         <section id="about"
-                 class="w-full min-h-screen-header flex-col-center snap-start-12">
+                 class="w-full min-h-screen-header flex-col-center snap-start-12 snap-end">
 
-          <h2 class="mb-0 sm:mb-4 md:mb-8 scroll-reveal" data-animation="animate-blurred-fade-in-slide-in-bottom">是誰來幫你製作<br class="block sm:hidden"> Landing page 呢？</h2>
+          <h2 class="my-4 sm:my-8 scroll-reveal" data-animation="animate-blurred-fade-in-slide-in-bottom">是誰來幫你製作<br class="block sm:hidden"> Landing page 呢？</h2>
 
           <!-- 文案呈現全範圍 -->
           <div id="about-container" 
-               class="flex-col-center-center"> 
+               class="flex-col-center-center mt-0 md:mt-8"> 
             <!-- 自介文案+照片全範圍 -->
             <div class="relative w-full max-w-screen-md overflow-hidden flex justify-center" ><!-- 用 overflow-hidden 避免照片跑出去 -->
               
@@ -1221,10 +1245,10 @@
               </div>
 
 
-              <div class="p-8  bg-IF-panel flex
-                              mt-24     rounded-none
-                           xs:mt-24  
-                          mdx:mt-24 md:rounded-md  "> <!-- 白底＆留空 -->
+              <div class="px-8  bg-IF-panel flex
+                              mt-0     py-4    rounded-none
+                           2xs:mt-16  
+                          mdx:mt-24  md:py-8 md:rounded-md  "> <!-- 白底＆留空 -->
                 <div id="about-content" 
                      class="    w-full
                             2xs:w-2/3
