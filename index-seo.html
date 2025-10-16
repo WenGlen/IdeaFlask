@@ -1,13 +1,22 @@
+<!-- for display the wireframe, show the process of the website -->
 <!DOCTYPE html>
 <html lang="zh-Hant" >
 
   <head>
 
     <meta charset="UTF-8" />
-     <meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=1, user-scalable=no">
-    <title>IdeaFlask</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Idea Flask</title>
     <link rel="icon" href="./img/IdeaFlask_icon.png">
-
+    <meta name="description" content="專業的 Landing Page 設計與製作服務，幫助您的產品或服務有效傳達價值，提升轉換率。">
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Idea Flask - 專業 Landing Page 設計製作">
+    <meta property="og:description" content="專業的 Landing Page 設計與製作服務，幫助您的產品或服務有效傳達價值，提升轉換率。">
+    <meta property="og:image" content="https://i.meee.com.tw/hqBQdSJ.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
     <script src="https://cdn.tailwindcss.com"></script> <!-- ✅ Tailwind CDN -->
     <script type="module"> /* 自訂 Tailwind 設定 */
       tailwind.config = {
@@ -15,19 +24,30 @@
           extend: {
             colors: {
               IF: {
-                DEFAULT: '#6cb1c9',
-                  background: '#f0f0f0',
-                  backgroundLight: '#ffffff',
-                  backgroundDark: '#004c66',
-                  text:'#3c6682',
-                  textHover: '#6cb1c9',
-                  border:'#6cb1c9',
+                DEFAULT: 'var(--color-DEFAULT)',
+                /*background*/
+                background: 'var(--color-background)',
+                panel: 'var(--color-panel)',
+                overlay: 'var(--color-overlay)',
+                "background-gradient-left": 'var(--color-background-gradient-left)',
+                "background-gradient-right": 'var(--color-background-gradient-right)',
 
-                textHover: '#6cb1c9',
-                lightBG: '#f0f0f0',
-                darkBG: '#4C7F9A',
-                accent: '#ffdeaa',
-                warm: '#bf8e68',
+                /*text*/
+                text: 'var(--color-text)',
+                "text-muted": 'var(--color-text-muted)',
+                "text-hover": 'var(--color-text-hover)',
+                "text-subtle": 'var(--color-text-subtle)',
+                "text-emphasis": 'var(--color-text-emphasis)',
+                title: 'var(--color-title)',
+                subtitle: 'var(--color-subtitle)',
+
+                /*border*/
+                border: 'var(--color-border)',
+
+                /*other*/
+                accent: 'var(--color-accent)',
+                warm: 'var(--color-warm)',
+
               },
             },
             height: {
@@ -36,17 +56,26 @@
             },
             minHeight: {
               'screen-header': 'calc(100vh - 3rem)',
-              'screen-header-footer': 'calc(100vh - 3rem - 4rem)', 
-              'screen-min': '720px',
-              'screen-minPlus': '960px',
+              'screen-header-footer': 'calc(100vh - 3rem - 5rem)', 
+              'screen-header-footer-md': 'calc(100vh - 3rem - 3rem )', 
             },
-             screens: {
-              'min-xs':  { 'min': '0px', 'max': '375px' },
-              'min-xsPlus':  { 'min': '0px', 'max': '460px' },
-              'xs':{ 'min': '375px', 'max': '639px' },
-              'md-narrow': { 'min': '768px', 'max': '800px' },
-              
-            },
+              screens: {
+               // 自定义 *x 系列断点（只在需要与 2xs/xs 配合时使用）
+               '2xs': '375px',   // 375px+
+               'xs': '480px',    // 480px+
+               'smx': '640px',   // 640px+ (与xs系列配合使用)
+               'mdx': '768px',   // 768px+ (与xs系列配合使用)
+               'md+': '840px',   // 768px+ (与xs系列配合使用)
+               'lgx': '1024px',  // 1024px+ (与xs系列配合使用)
+               'xlx': '1280px',  // 1280px+ (与xs系列配合使用)
+               '2xlx': '1536px', // 1536px+ (与xs系列配合使用)
+               'under-md': { 'min': '0px', 'max': '768px' }, 
+               'near-md': { 'min': '768px', 'max': '840px' },  
+               
+               // 其他场景继续使用默认的 sm(640), md(768), lg(1024), xl(1280), 2xl(1536)
+               
+                 
+              },
           },
           fontSize: {
             xs: '0.75rem',
@@ -68,56 +97,6 @@
         },
       };
     </script>
-
-    <style type="text/tailwindcss"> /* 各種切換樣式與動態 */
-      a {
-        @apply hover:text-IF-textHover;
-      }
-
-      /* Hero 背景圖（響應式） */
-      .hero-bg {background-image: url('./img/image_material/image_3-4_material.jpg');}
-      @media (min-width: 640px) {.hero-bg {background-image: url('./img/image_material/image_1-1_material.jpg');}}
-      @media (min-width: 768px) {.hero-bg {background-image: url('./img/image_material/image_4-3_material.jpg');}}
-      @media (min-width: 1280px) {.hero-bg {background-image: url('./img/image_material/image_16-9_material.jpg');}}
-
-      .cardCanUp {transform: translateY(0); transition-duration: 500ms;}
-      .cardCanUp .UpAppear {opacity: 0; transition-delay: 300ms; transition-duration: 200ms;}
-      .cardCanUp .UpDisappear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
-      .cardCanUp.active {transform: translateY(-240px); transition-duration: 500ms;}
-      .cardCanUp.active .UpAppear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
-      .cardCanUp.active .UpDisappear {opacity: 0; transition-duration: 300ms; }
-
-      .portfolio-item {
-        @apply transition-all duration-500 ease-in-out;
-      }
-
-
-      .step-name.active {background-color: #004c66; }
-
-      .input-field {
-        width: 100%;   padding: 0.5rem 0.75rem; 
-        border-width: 1px;   border-color: #D1D5DB;   border-radius: 0.125rem;
-      }
-      .input-field:focus {outline: none;} /* 關閉引導語 */
-
-      body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {overflow: hidden;}
-      body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {pointer-events: none !important;}  /* 禁止點擊彈窗以外的元素 */
-
-      body.modal-open .contactPopUp,
-      body.modal-open .successPopUp,
-      body.modal-open .contactOverlay {
-        pointer-events: auto; /* 保留彈窗互動 */
-      }
-
-      .contactPopUp {opacity: 0;scale: 0;pointer-events: none;}
-      .contactPopUp.active {opacity: 1; scale: 1; pointer-events: auto;}
-      .contactOverlay {opacity: 0; pointer-events: none;}
-      .contactOverlay.active{opacity: 1; pointer-events: auto;}
-      .successPopUp {opacity: 0;pointer-events: none;}
-      .successPopUp.active {opacity: 1; pointer-events: auto;}
-
-    </style>
-
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC&display=swap" rel="stylesheet" />
     <style>/* 全局、瀏覽器樣式設定 */
       /* 響應式基礎字體大小 - 根據視窗寬度自動調整 */
@@ -161,65 +140,259 @@
         display: none;                /* Chrome / Safari */
       }
     </style>
+    
+    <style>/* 變數設定 */
+      :root {
+        --color-DEFAULT: #6cb1c9;
+        /*background*/
+        --color-background: #f0f0f0;
+        --color-panel: #ffffff;
+        --color-overlay: #2a4e65;
+        --color-background-gradient-left: #f0f0f0;
+        --color-background-gradient-right: #d5e4e8;
 
-    <style> /* 防止 FOUC：在 Tailwind 載入前先隱藏 body */
-      
-      body {visibility: hidden;}
-      
-      /* 額外確保彈窗在 Tailwind 載入前完全隱藏（使用更高的選擇器權重） */
-      body:not(.tailwind-loaded) .contactOverlay,
-      body:not(.tailwind-loaded) .contactPopUp,
-      body:not(.tailwind-loaded) .successPopUp {
-        display: none !important;
+
+        /*text*/
+        --color-text:#2f5974;
+        --color-text-muted: #7a92a0;
+        --color-text-subtle: #bbcfdb;
+        --color-text-hover: #6cb1c9;
+        --color-text-emphasis:#0670a9; /*#a86634;*/
+        --color-title: #4C7F9A;
+        --color-subtitle: #82b4c4;
+
+        /*border*/
+        --color-border:#6cb1c9;
+
+        /*other*/
+        --color-accent: #ffdeaa;
+        --color-warm: #bf8e68;
+
+      }   
+    </style>
+    <style> /* flex跟scroll-snap設定 */
+      .flex-col-center-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
-      
-      /* Tailwind 載入完成後才顯示 */
-      body.tailwind-loaded {
-        visibility: visible;
-        transition: opacity 0.1s;
+
+      .flex-col-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .flex-col-start {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+      }
+
+      .flex-col-start-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: start;
+        align-items: center;
+      }
+
+      .flex-col-between-center {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .flex-row-between-center {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .flex-row-center-center {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .snap-start-12 {
+        scroll-snap-align: start;
+        scroll-margin-top: 3rem;
       }
     </style>
-
-    <style> 
-    </style>
-
-    <script> /* 檢測 Tailwind 是否載入完成 */
-      (function() {
-        function checkTailwindLoaded() {
-          // 創建一個測試元素來檢測 Tailwind 是否已生效
-          const testDiv = document.createElement('div');
-          testDiv.className = 'hidden';
-          testDiv.style.cssText = 'position:absolute;left:-9999px;';
-          document.documentElement.appendChild(testDiv);
-          
-          // 檢查 Tailwind 的 .hidden 類是否已生效
-          const isHidden = window.getComputedStyle(testDiv).display === 'none';
-          document.documentElement.removeChild(testDiv);
-          
-          if (isHidden) {
-            // Tailwind 已載入，顯示 body
-            document.body.classList.add('tailwind-loaded');
-          } else {
-            // 尚未載入，50ms 後再檢查一次
-            setTimeout(checkTailwindLoaded, 50);
+    <style> /* 動畫設定 */
+      @keyframes blurred-fade-in {
+          0% {
+              filter: blur(5px);
+              opacity: 0
           }
-        }
-        
-        // DOM 準備好後開始檢測
-        if (document.readyState === 'loading') {
-          document.addEventListener('DOMContentLoaded', checkTailwindLoaded);
-        } else {
-          checkTailwindLoaded();
-        }
-      })();
-    </script>
 
+          to {
+              filter: blur(0);
+              opacity: 1
+          }
+      }
+
+      .animate-blurred-fade-in {
+          animation: blurred-fade-in 0.8s ease-in-out both;
+      }
+
+      @keyframes slide-in-bottom {
+          0% {
+              transform: translateY(20px)
+          }
+
+          to {
+              transform: translateY(0)
+          }
+      }
+
+      .animate-slide-in-bottom {
+          animation: slide-in-bottom 1s ease-out both;
+      }
+
+
+      .animate-blurred-fade-in-slide-in-bottom {
+          animation: blurred-fade-in .8s ease-in-out both, slide-in-bottom 0.8s ease-out both;
+          
+      }
+
+    </style>
+    <style>  /* JS 切換類別 */
+      .mobile-menu {opacity: 0;scale: 0;pointer-events: none; }
+      .mobile-menu.active {opacity: 1; scale: 1; pointer-events: auto;}
+
+      .input-field:focus {outline: none;} /* 關閉引導語 */
+
+      body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {overflow: hidden;}
+      body.modal-open > *:not(.contactOverlay):not(.contactPopUp):not(.successPopUp) {pointer-events: none !important;}  /* 禁止點擊彈窗以外的元素 */
+      body.modal-open .contactPopUp,
+      body.modal-open .successPopUp.active,
+      body.modal-open .contactOverlay {
+        pointer-events: auto; /* 保留彈窗互動 */
+      }
+
+      .contactPopUp {opacity: 0;scale: 0;pointer-events: none;}
+      .contactPopUp.active {opacity: 1; scale: 1; pointer-events: auto;}
+      .contactOverlay {opacity: 0; pointer-events: none;}
+      .contactOverlay.active{opacity: 0.7; pointer-events: auto;}
+      .successPopUp {opacity: 0;pointer-events: none;}
+      .successPopUp.active {opacity: 1; pointer-events: auto;}
+
+
+      .cardCanUp {transform: translateY(0); transition-duration: 500ms;}
+      .cardCanUp .UpAppear {opacity: 0; transition-delay: 300ms; transition-duration: 200ms;}
+      .cardCanUp .UpDisappear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
+      .cardCanUp.active {transform: translateY(-240px); transition-duration: 500ms;}
+      .cardCanUp.active .UpAppear {opacity: 100; transition-delay: 300ms; transition-duration: 200ms;}
+      .cardCanUp.active .UpDisappear {opacity: 0; transition-duration: 300ms; }
+
+      .step-name.active {background-color: var(--color-text); }
+
+
+    </style>
+    <style type="text/tailwindcss">  /* 樣式設定 */
+      .bg-SVGNoise {
+          background: linear-gradient(90deg, var(--color-background-gradient-left), var(--color-background-gradient-right));
+          position: relative;
+      }
+      .bg-SVGNoise::before {
+          content: '';
+          position: absolute;
+          inset: 0;
+          /* 噪點圖案：調整 baseFrequency (0.5~2.0) 控制密度 */
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.5' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+          opacity: 0.1; /* 噪點強度：0.1~0.3 */
+          pointer-events: none; /* 避免干擾滑鼠事件 */
+      }
+
+      body {
+        color: var(--color-text);
+        line-height: 1.625;
+        font-size: 1.125rem;
+      }
+
+      @media (min-width: 768px) {
+        body {
+          font-size: 1.25rem;
+        }
+      }
+
+      a:hover {
+        color: var(--color-text-hover);
+      }
+
+      h2 {
+        margin: 1rem 0;
+        text-align: center;
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: var(--color-title);
+      }
+
+      @media (min-width: 640px) {
+        h2 {
+          margin: 2rem 0;
+        }
+      }
+
+      .input-field {
+        width: 100%;   
+        padding: 0.5rem 1rem; 
+        border-width: 1px;   
+        border-color: #D1D5DB;   
+        border-radius: 0.125rem;
+        font-size: 1rem;
+        cursor: text; /* 確保整個輸入框顯示文字游標 */
+        box-sizing: border-box; /* 確保 padding 不會影響點擊區域 */
+      }
+      
+      .input-field:hover {
+        border-color: #9CA3AF; /* 滑鼠移過時的視覺反饋 */
+      }
+
+      /* 優化日期輸入框的點擊體驗 */
+      .date-input {
+        cursor: pointer;
+      }
+      
+      /* 讓日期輸入框的日曆圖標靠右顯示 */
+      .date-input::-webkit-calendar-picker-indicator {
+        cursor: pointer;
+      }
+      
+      /* Firefox 的日期輸入框優化 */
+      .date-input::-moz-calendar-picker-indicator {
+        cursor: pointer;
+      }
+
+      .hero-item {
+        max-width: none;
+        height: auto;
+        object-fit: none;
+        z-index: 10;
+        
+      }
+
+      .bg-glass {
+            background: rgba(255, 255, 255, 0.25);   /* 半透明，讓背後透出來 */
+            backdrop-filter: blur(10px) saturate(120%); /* 讓背後模糊並增加對比 */
+            -webkit-backdrop-filter: blur(10px) saturate(120%); /* Safari 相容 */
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            border-radius: 12px;
+      }
+
+    </style>
     <style>/* 開發用框線 */
       /*  
       *{outline: 1px solid #999999;} */
+      .border-test {outline: 2px solid #cc9900;}
+      .border-test2 {outline: 2px solid #009999;}
+      .border-test3 {outline: 1px solid #999999;}
     </style>
-
-
 
   
     <!-- SEO Meta Tags -->
@@ -285,20 +458,20 @@
   "workExample": [
     {
       "@type": "CreativeWork",
-      "name": "WUWU 小世界",
+      "name": "WUWU 小世界(開發中)",
       "description": "讓粉絲可以覺得這個網站足夠吸睛，並願意透過這個網站認識 WUWU 插畫的世界觀，感受品牌的可愛與趣味性。",
       "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
     },
     {
       "@type": "CreativeWork",
-      "name": "嘎嘎嘎",
-      "description": "嘎嘎嘎。",
+      "name": "療癒森林(開發中)",
+      "description": "明確展現出品牌以體驗空間為主的特色，完整呈現合作的師資、課程資訊。",
       "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
     },
     {
       "@type": "CreativeWork",
-      "name": "嘎嘎嘎",
-      "description": "嘎嘎嘎。",
+      "name": "等你來發案",
+      "description": "把為客戶做的美美網站呈現出來。",
       "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
     }
   ],
@@ -347,10 +520,147 @@
       },
       {
         "@type": "Question",
-        "name": "網站做好之後，我要怎麼自己維護或修改？",
+        "name": "網站做好之後，我要怎麼維護或更新？",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "如果有自行維護的需求，我會幫你選擇適合的架設方式，並提供操作簡單的後續維護建議。 "
+          "text": "我這邊會協助進行維護與跟更新，只要提供我想替換的內容，我就能幫你更新網站。如果有高頻率更新的需求，我會另外建置可放置資料的表單，讓你可以自行更新網站內容。 我會根據你的狀況，規劃合適的維護或更新方式，不用擔心這方面的問題喔！"
+        }
+      }
+    ]
+  }
+}
+    </script>
+
+  
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="專業 Landing Page 設計開發服務。資訊規劃、視覺設計、網站開發一氣呵成，為你的需求打造剛剛好的入口網站。">
+    <meta name="keywords" content="Landing Page, 網頁設計, 網站開發, RWD, 響應式網站, UI設計, UX設計">
+    <meta name="author" content="Glen Wen">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="IdeaFlask - 為你打造剛剛好的 Landing Page">
+    <meta property="og:description" content="資訊規劃、視覺設計、網站開發一氣呵成，做出適合你現在需要的入口網站。">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="./img/IdeaFlask_logo.png">
+    <meta property="og:url" content="https://yourdomain.com">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="IdeaFlask - 為你打造剛剛好的 Landing Page">
+    <meta name="twitter:description" content="資訊規劃、視覺設計、網站開發一氣呵成">
+    <meta name="twitter:image" content="./img/IdeaFlask_logo.png">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "IdeaFlask - Landing Page 設計開發服務",
+  "description": "專業的 Landing Page 設計與開發服務，提供資訊規劃、視覺設計、網站開發一氣呵成的解決方案。",
+  "url": "https://yourdomain.com",
+  "telephone": "+886-xxx-xxx-xxx",
+  "email": "glenwen.studio@gmail.com",
+  "priceRange": "$",
+  "areaServed": "TW",
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Landing Page 製作服務",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "想說的資訊太多了...",
+          "description": "我會先陪你釐清受眾在意什麼，幫你抓出主軸內容，建立架構與層級。這樣就算內容再多也不用害怕。 我們可以用資訊架構確保受眾不會迷失方向。"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "好怕重點講不清楚...",
+          "description": "我們會先共同設定頁面目標，確認要解決的問題，然後再往下展開成執行策略，把要受眾理解的重點具體化。 透過系統性的方法，確保受眾掌握關鍵資訊。"
+        }
+      },
+      {
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": "擔心特色很不明顯...",
+          "description": "我擅長從你說出口的細節裡，找到可以放大的優勢。善用視覺引導、操作體驗，不用無中生有硬套銷售話術。 我會陪你找到亮點，並選擇最適合的呈現方式。"
+        }
+      }
+    ]
+  },
+  "workExample": [
+    {
+      "@type": "CreativeWork",
+      "name": "WUWU 小世界(開發中)",
+      "description": "讓粉絲可以覺得這個網站足夠吸睛，並願意透過這個網站認識 WUWU 插畫的世界觀，感受品牌的可愛與趣味性。",
+      "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "療癒森林(開發中)",
+      "description": "明確展現出品牌以體驗空間為主的特色，完整呈現合作的師資、課程資訊。",
+      "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
+    },
+    {
+      "@type": "CreativeWork",
+      "name": "等你來發案",
+      "description": "把為客戶做的美美網站呈現出來。",
+      "image": "https://yourdomain.com/img/image_material/image_16-9_material.jpg"
+    }
+  ],
+  "mainEntity": {
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "我想做網站，但完全沒頭緒可以怎麼開始？ ",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "沒問題，這種狀況其實很常見。我會先帶你釐清要溝通的對象、希望達成什麼目的，再一步步幫你整理出內容架構與呈現方式。 你只需要把你知道的部分說出來，我來幫你轉譯成「網站的語言」。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "我現在手上什麼素材都沒有，可以先做嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以的！我會依照你目前的狀況，給你一份「素材補充清單」，一步步協助你準備文案、圖片或參考資料。 就算你現在只有粗略想法或幾張產品照，也能先啟動製作流程。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "如果我還不確定預算，可以先聊聊嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "當然可以，讓我們把經費花在刀口上。我提供的服務可以彈性拆分，你可以選擇只做企劃、只做設計，或是整包一起合作。 我會主動了解你目前的目標與內容量，並提供初步建議與報價範圍。"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "你可以只做網站開發，或只做介面設計嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "可以喔!我有視覺設計+網站開發的能力，但每一段都可以獨立合作。如果你已經有設計稿，我可以單純只做頁面的開發與上線；如果你開發團隊，只想要架構與畫面設計，也可以只做到 wireframe 或 mockup 階段。 我非常樂意跟其他的設計師或工程師合作喔！"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "製作過程如何協作呢？要常常開會嗎？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "我會根據專案以及參與者的需求，調整開會跟確認的頻率跟方式！通常一般的交付跟確認工作，我們可以在透過線上文件完成；如果碰到不確定性高、較難文字描述的部分，則會安排線上會議進行溝通。 每個人、每個專案的狀況都不太一樣，我們可以協調出適合彼此的協作方式！"
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "網站做好之後，我要怎麼維護或更新？",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "我這邊會協助進行維護與跟更新，只要提供我想替換的內容，我就能幫你更新網站。如果有高頻率更新的需求，我會另外建置可放置資料的表單，讓你可以自行更新網站內容。 我會根據你的狀況，規劃合適的維護或更新方式，不用擔心這方面的問題喔！"
         }
       }
     ]
@@ -360,12 +670,27 @@
 
   </head>
 
-  <!-- ======================== body ======================= -->
 
-  <body class="bg-IF-background text-IF-text">    
+
+  <!-- ======================== body ======================= -->
+  <body style="visibility: hidden" class="bg-SVGNoise text-IF-text">   
+    
+    <div id="screen-size-display-tool"   
+          class="fixed top-2 left-8 z-[99] hidden
+                w-8 h-8 bg-IF-text-subtle text-center rounded-lg border border-IF-border text-base">
+      <div class="block 2xs:hidden">min</div>
+      <div class="hidden 2xs:block xs:hidden">2xs</div>
+      <div class="hidden xs:block smx:hidden">xs</div>
+      <div class="hidden sm:block md:hidden">sm</div>
+      <div class="hidden md:block lg:hidden">md</div>
+      <div class="hidden lg:block xl:hidden">lg</div>
+      <div class="hidden xl:block 2xl:hidden">xl</div>
+      <div class="hidden 2xl:block">2xl</div>
+    </div>
 
     <header id="header" 
-            class="fixed top-0 left-0 h-12 w-full bg-IF-background z-[60] shadow-md">
+            class=" fixed top-0 left-0 z-[60] 
+                   h-12 w-full bg-IF-panel shadow-md">
       <!-- 上方常駐區塊 -->
       <div class="max-w-screen-xl mx-auto  flex items-center justify-between
                   px-6
@@ -374,19 +699,14 @@
         <!-- Logo -->
         <a href="#hero" >
           <img class="h-12 w-auto" 
-              src="./img/IdeaFlask_logo.png" alt="logo"> 
+              src="./img/IdeaFlask_logo.png" alt="概念燒瓶logo"> 
         </a>
 
-        <div class="hidden min-xs:block">min</div>
-        <div class="hidden xs:block ">xs</div>
-        <div class="hidden sm:block md:hidden">sm</div>
-        <div class="hidden md:block lg:hidden">md</div>
-        <div class="hidden lg:block xl:hidden">lg</div>
-        <div class="hidden xl:block ">xl</div>
-
         <!-- 導覽錨點 (桌機版) -->
-        <nav class="hidden gap-8 text-xl
+        <nav class="gap-8 text-lg text-IF-text
+                        hidden
                     md:flex">
+          <a href="#advantages" >解決痛點</a>
           <a href="#portfolio" >作品展示</a>
           <a href="#about" >關於我</a>
           <a href="#steps" >製作流程</a>
@@ -395,8 +715,7 @@
 
          <!-- 漢堡選單按鈕（手機版） -->
         <button id="menu-toggle" 
-                class="text-2xl flex items-center justify-center h-full
-                       
+                class="flex items-center justify-center h-full
                        md:hidden">
           <img class="h-6" src="./img/icon/hamburger-menu.png" alt="">
         </button>
@@ -405,41 +724,58 @@
 
       <!-- 手機版展開選單 -->
       <div id="mobile-menu" 
-           class="hidden block border-t border-IF-border bg-IF-background shadow-md
+           class="mobile-menu transition-all duration-100 origin-top-right
+                  w-full bg-IF-panel shadow-lg
                   text-xl leading-relaxed
                   md:hidden">
-        <nav class="flex flex-col p-12 pt-8 gap-4 ">
+        <div class="mx-6 w-100% h-px bg-IF-border"></div>
+        <nav class="w-full flex-col-start-center p-8 gap-4">
+          <a href="#advantages" >解決痛點</a>
           <a href="#portfolio" >作品展示</a>
           <a href="#about" >關於我</a>
           <a href="#steps" >製作流程</a>
           <a href="#faq" >常見問題</a>
+          <button id="contactBtn"> 洽詢製作網頁 </button>
+
         </nav>
       </div>
-      <script>
 
+      <script>
+        /* 手機版選單展開控制 */
         document.addEventListener('DOMContentLoaded', () => {
           const toggle = document.getElementById('menu-toggle');
           const menu = document.getElementById('mobile-menu');
 
-          toggle.addEventListener('click', () => {
-            menu.classList.toggle('hidden');
+          toggle.addEventListener('click', (e) => {
+            e.stopPropagation(); // 防止立即觸發外部點擊
+            menu.classList.toggle('active');
           });
           
           const links = menu.querySelectorAll('a');
           links.forEach(link => {
             link.addEventListener('click', () => {
-                menu.classList.add('hidden');
+                menu.classList.remove('active');
             });
           });
-          
+
+          // 點擊外部區域關閉選單
+          document.addEventListener('click', (e) => {
+            if (menu.classList.contains('active') && 
+                !menu.contains(e.target) && 
+                e.target !== toggle) {
+              menu.classList.remove('active');
+            }
+          });
+
         });
 
+        /* 手機版轉桌面版強制關閉選單 */
         function mdCloseMenu() {
           if (window.innerWidth < 768) { 
             return;
           } else {
           const menu = document.getElementById('mobile-menu');
-          menu.classList.add('hidden');
+          menu.classList.remove('active');
           }
         }
         window.addEventListener('resize', mdCloseMenu ); 
@@ -448,263 +784,364 @@
 
     </header>
 
-        <!-- ======================== DEVing ======================= -->
-        <!-- ======================== DEVing ======================= -->
-    <!-- 懸浮按鈕 -->
-    <section id="contact" >
+    <section id="contact" > 
       
+      <!-- 懸浮按鈕 --> <!--展開特效待調整，不要用兩層-->
+      <button id="contactBtn"
+              class="group fixed bottom-12 right-8 z-40
+                     h-16 w-16 rounded-full shadow-md
+                     bg-IF-panel flex-row-center-center overflow-hidden 
+                     transition-all duration-300 
+                     hover:w-56
+                        hidden
+                     md:block">
+        <div class="fixed bottom-12 right-8 z-50 
+                    h-16 w-16 rounded-full bg-IF-panel flex-row-center-center">
+          <img src="./img/icon/sent.png" alt="聯絡我" class="h-8 w-8" />
+        </div>
+          <span class="whitespace-nowrap text-xl text-IF-text
+                      translate-x-2 transition-all duration-300
+                      group-hover:translate-x-0 
+                      ml-0 mr-12">
+            洽詢製作網頁
+          </span>
 
-    <!-- 懸浮按鈕 -->
-    <button id="contactBtn"
-            class="group fixed bottom-8 right-8 h-16 w-16 z-40 shadow-md rounded-full 
-                  bg-IF-backgroundLight flex items-center justify-center overflow-hidden 
-                  transition-all duration-300 
-                  hover:w-56">
-      <div class="fixed bottom-8 right-8 z-50 h-16 w-16 rounded-full bg-IF-backgroundLight flex items-center justify-center">
-        <img src="./img/icon/sent.png" alt="聯絡我" class="h-8 w-8" />
-      </div>
-        <span class="mr-12 whitespace-nowrap text-xl text-IF-text
-                     translate-x-2 transition-all duration-300
-                     group-hover:translate-x-0 ">
-          洽詢製作網頁
-        </span>
+      </button>
 
+      <!-- 半透明背景遮罩 -->
+      <div class="contactOverlay
+                  fixed inset-0 z-30 bg-IF-overlay
+                  transition-opacity duration-300"></div>
 
-    </button>
-
-    <!-- 半透明背景遮罩 -->
-    <div class="contactOverlay
-                fixed inset-0 z-40 bg-IF-backgroundDark/50
-                transition-opacity duration-300"></div>
-
-    <!-- 洽詢彈窗 -->
-    <div id="contactPopUp"
-         class="contactPopUp 
-                fixed inset-0 top-12 flex items-center justify-center z-50
-                transition-all duration-300 origin-bottom-right">
-      <div  id="contactPanel"
-            class="relative max-h-[80vh] w-[90vw] max-w-xl p-6 rounded-sm shadow-lg bg-white overflow-y-auto">
-        <button id="PopUpCloseBtn" 
-                class="absolute top-6 right-6 text-2xl
-                      text-gray-300 hover:text-gray-700">×</button>
-        <h2 class="text-2xl font-bold text-IF mb-2">你想做 Landing page 嗎？</h2>
-        <p class="mb-4 text-gray-300">歡迎填寫以下表單，我將會盡快與您近一步洽談！</p>
-        
-          <form id="contactForm" class="space-y-4 text-lg text-IF-text">
-            <!-- 姓名 -->
-            <div>
-              <label class="block mb-1 font-medium">姓名<span class="text-red-500">*</span></label>
-              <input type="text" name="name" required
-                    class="input-field" 
-                    placeholder="請填寫您的姓名"/>
-            </div>
-
-            <!-- 聯絡信箱 -->
-            <div>
-              <label class="block mb-1 font-medium">聯絡信箱<span class="text-red-500">*</span></label>
-              <input type="email" name="email" required
-                     class="input-field"       
-                     placeholder="請填寫您的信箱"/>
-            </div>
-
-            <!-- Line ID -->
-            <div>
-              <label class="block mb-1 font-medium">Line ID</label>
-              <input type="text" name="line"
-                     class="input-field"
-                     placeholder="若期望以 line 聯絡，歡迎填寫您的 Line ID"/>
-            </div>
-
-            <!-- 預計開結案日 -->
-            <div class="flex justify-between gap-4">
-              <div class="flex-1">
-                <label class="block mb-1 font-medium">預計開案日</label>
-                <input type="date" name="startDate"
-                      class="input-field"/>
+      <!-- 洽詢彈窗 -->
+      <div id="contactPopUp"
+          class="contactPopUp 
+                  fixed inset-0 top-12 flex items-center justify-center z-50
+                  transition-all duration-300 origin-bottom-right">
+        <div  id="contactPanel"
+              class="relative max-h-[80vh] w-[90vw] max-w-xl p-6 rounded-sm shadow-lg bg-IF-panel overflow-y-auto">
+          <button id="PopUpCloseBtn" 
+                  class="absolute top-6 right-6 text-2xl
+                        text-IF-text-subtle hover:text-IF-text-muted">×</button>
+          <h2 class="m-0 text-2xl text-left">你想做 Landing page 嗎？</h2>
+          <p class="mb-4 text-base text-IF-text-muted">歡迎填寫以下表單，我將會盡快與您近一步洽談！</p>
+          
+            <form id="contactForm" class="space-y-4 text-base text-IF-text">
+              <!-- 姓名 -->
+              <div>
+                <label for="input-name" class="block mb-1 font-medium">姓名<span class="text-red-500">*</span></label>
+                <input type="text" id="input-name" name="name" required
+                      class="input-field" 
+                      placeholder="請填寫您的姓名"/>
               </div>
 
-              <!-- 預期結案日 -->
-              <div class="flex-1">
-                <label class="block mb-1 font-medium">預期結案日</label>
-                <input type="date" name="endDate"
-                      class="input-field" />
+              <!-- 聯絡信箱 -->
+              <div>
+                <label for="input-email" class="block mb-1 font-medium">聯絡信箱<span class="text-red-500">*</span></label>
+                <input type="email" id="input-email" name="email" required
+                      class="input-field"       
+                      placeholder="請填寫您的信箱"/>
               </div>
+
+              <!-- Line ID -->
+              <div>
+                <label for="input-line" class="block mb-1 font-medium">Line ID<span class="text-sm text-IF-text-muted"> (選填)</span></label>
+                <input type="text" id="input-line" name="line"
+                      class="input-field"
+                      placeholder="請填寫您的 Line ID"/>
+              </div>
+
+              <!-- 預計開結案日 -->
+              <div class="flex justify-between gap-4">
+                <div class="flex-1">
+                  <label for="input-startDate" class="block mb-1 font-medium">預計開案日<span class="text-sm text-IF-text-muted"> (選填)</span></label>
+                  <input type="date" id="input-startDate" name="startDate"
+                        class="input-field date-input"/>
+                </div>
+
+                <!-- 預期結案日 -->
+                <div class="flex-1">
+                  <label for="input-endDate" class="block mb-1 font-medium">預期結案日<span class="text-sm text-IF-text-muted"> (選填)</span></label>
+                  <input type="date" id="input-endDate" name="endDate"
+                        class="input-field date-input" />
+                </div>
+              </div>
+
+              <!-- 需求說明 -->
+              <div>
+                <label for="input-description" class="block mb-1 font-medium">需求說明</label>
+                <textarea id="input-description" name="description" rows="4"
+                          class="input-field"    
+                          placeholder="請問您想做怎樣的 Landing page 呢？"></textarea>
+              </div>
+
+              <label class="text-base">
+                <input type="checkbox" required>
+                我已閱讀並同意
+                <button type="button" class="hover:text-IF-text-hover" id="privacyBtn">隱私權政策</button> 。
+              </label>
+
+              <!-- 送出按鈕 -->
+              <div class="pt-4 text-right">
+                <button type="submit"
+                        class="bg-IF-text text-white px-4 py-2 rounded hover:bg-IF-text-hover transition">
+                  送出
+                </button>
+              </div>
+            </form>
+
+            <div id="privacy-content" class="hidden flex flex-col items-center">
+              <div class="my-8 w-full h-px bg-IF"></div>
+              <div id="privacy-container" class="mb-4"></div>
             </div>
-
-            <!-- 需求說明 -->
-            <div>
-              <label class="block mb-1 font-medium">需求說明</label>
-              <textarea name="description" rows="6"
-                        class="input-field"    
-                        placeholder="請問您想做怎樣的 Landing page 呢？"></textarea>
-            </div>
-
-            <label class="text-base">
-              <input type="checkbox" required>
-              我已閱讀並同意
-              <button type="button" class="hover:text-IF-textHover" id="privacyBtn">隱私權政策</button> 。
-            </label>
-
-            <!-- 送出按鈕 -->
-            <div class="pt-4 text-right">
-              <button type="submit"
-                      class="bg-IF text-white px-4 py-2 rounded hover:bg-IF-dark transition">
-                送出
-              </button>
-            </div>
-          </form>
-
-          <div id="privacy-content" class="hidden flex flex-col items-center">
-            <div class="my-8 w-full h-px bg-IF"></div>
-            <div id="privacy-container" class="mb-4"></div>
-          </div>
+        </div>
       </div>
-    </div>
 
 
-    <!-- 送出成功彈窗 -->
-    <div class="successPopUp
-                fixed z-50 top-1/2 left-1/2 -translate-y-1/2  -translate-x-1/2 z-50
-                w-80 h-40 bg-white rounded-sm shadow-lg p-6 flex flex-col justify-center items-center
-                transition-all duration-300">
-      <button id="successCloseBtn" 
-              class="absolute top-4 right-4 text-2xl
-                     text-gray-300 hover:text-gray-700">×</button>
-      <p class="text-xl text-IF font-bold">洽詢訊息成功送出</p>
-    </div>
+      <!-- 送出成功彈窗 -->
+      <div class="successPopUp
+                  fixed top-1/2 left-1/2 -translate-y-1/2  -translate-x-1/2 z-40
+                  w-80 h-40 bg-IF-panel rounded-sm shadow-lg p-6 flex flex-col justify-center items-center
+                  transition-all duration-300">
+        <button id="successCloseBtn" 
+                class="absolute top-4 right-4 text-2xl
+                      text-IF-text-subtle hover:text-IF-text-muted">×</button>
+        <p class="text-xl text-IF font-bold">洽詢訊息成功送出</p>
+      </div>
 
-    <script>
+      <script>
 
-    const contactBtn = document.getElementById('contactBtn');
+      const contactBtn = document.getElementById('contactBtn');
 
-    const overlay = document.querySelector('.contactOverlay');
+      const overlay = document.querySelector('.contactOverlay');
 
-    const contactPopup = document.querySelector('.contactPopUp');
-    const closeBtn = document.getElementById('PopUpCloseBtn');
-    const contactForm = document.getElementById('contactForm');
+      const contactPopup = document.querySelector('.contactPopUp');
+      const closeBtn = document.getElementById('PopUpCloseBtn');
+      const contactForm = document.getElementById('contactForm');
 
-    const successPopup = document.querySelector('.successPopUp');
-    const successCloseBtn = document.getElementById('successCloseBtn');
-
-
-    function openPopup() {
-      contactPopup.classList.add('active');
-
-      overlay.classList.add('active');
-      contactBtn.classList.add('hidden');
-
-      document.body.classList.add('modal-open');
-    }
-
-    function closePopup() {
-      contactPopup.classList.remove('active');
-      successPopup.classList.remove('active');
-
-      overlay.classList.remove('active');
-      contactBtn.classList.remove('hidden');
-
-      document.body.classList.remove('modal-open');
-    }
+      const successPopup = document.querySelector('.successPopUp');
+      const successCloseBtn = document.getElementById('successCloseBtn');
 
 
-    contactForm.addEventListener('submit', function (e) {
-      e.preventDefault();
+      function openPopup() {
+        contactPopup.classList.add('active');
 
-      // 這裡可以加上寄信 API 或驗證
+        overlay.classList.add('active');
+        contactBtn.classList.add('hidden');
 
-      // 收起原本洽詢表單（但不關遮罩）
-      contactPopup.classList.remove('active');
+        document.body.classList.add('modal-open');
+      }
 
-      // 顯示成功彈窗
-      successPopup.classList.add('active');
+      function closePopup() {
+        contactPopup.classList.remove('active');
+        successPopup.classList.remove('active');
 
-      // 清空表單（可選）
-      contactForm.reset();
-    });
+        overlay.classList.remove('active');
+        contactBtn.classList.remove('hidden');
 
-    // 關閉成功提示並移除遮罩
+        document.body.classList.remove('modal-open');
+      }
 
-    contactBtn.addEventListener('click', openPopup);
-    closeBtn.addEventListener('click', closePopup);
-    successCloseBtn.addEventListener('click', closePopup);
-    overlay.addEventListener('click', closePopup);
-    contactPopup.addEventListener('click', function(e) {
-      if (e.target === contactPopup) {closePopup();}
-    });
+      contactForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
 
-    function renderPrivacy(privacyArray) {
-      const container = document.getElementById('privacy-container');
-      container.innerHTML = ''; // 清空原有內容
+        // 寄信 API 或驗證
+        const form = document.getElementById("contactForm");
+        const data = Object.fromEntries(new FormData(form));
 
-      privacyArray.forEach((item) => {
-        
-        const contents = document.createElement('div');
-        contents.className = "leading-relaxed text-xl";
+        // 自動判斷 API 端點（支援 Vercel 和 GitHub Pages）
+        const isGitHubPages = window.location.hostname.includes('github.io');
+        const apiUrl = isGitHubPages 
+          ? 'https://idea-flask.vercel.app/api/sendEmail'  // GitHub Pages 使用 Vercel API
+          : '/api/sendEmail';  // Vercel 使用相對路徑
 
-        contents.innerHTML = `
-            <h3 class="mb-2  text-base font-bold text-IF"> ${item.title}</h3>
-            <p class="mb-4 px-4 text-base leading-relaxed whitespace-pre-line ">${item.content}</p>
-        `;
+        try {
+          const res = await fetch(apiUrl, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(data),
+          });
 
-        container.appendChild(contents);
+          const result = await res.json();
+          
+          if (res.ok) {
+            // 收起原本洽詢表單（但不關遮罩）
+            contactPopup.classList.remove('active');
+
+            // 顯示成功彈窗
+            successPopup.classList.add('active');
+
+            // 清空表單（可選）
+            contactForm.reset();
+          } else {
+            alert(result.message || "寄信失敗，請稍後再試");
+          }
+        } catch (error) {
+          console.error("寄信錯誤:", error);
+          alert("寄信失敗，請稍後再試");
+        }
       });
-    }
 
-    const toggleBtn = document.querySelector("#privacyBtn");
-    const privacyContent = document.querySelector("#privacy-content");
-    const modal = document.querySelector("#contactPanel");
+      // 關閉成功提示並移除遮罩
 
-    toggleBtn.addEventListener("click", () => {
-    privacyContent.classList.toggle("hidden");
-    if (!privacyContent.classList.contains("hidden")) {
-      // 等 DOM 更新完成再滾動
-      setTimeout(() => {
-        modal.scrollTo({
-          top: modal.scrollHeight,
-          behavior: "smooth"
+      contactBtn.addEventListener('click', openPopup);
+      closeBtn.addEventListener('click', closePopup);
+      successCloseBtn.addEventListener('click', closePopup);
+      overlay.addEventListener('click', closePopup);
+      contactPopup.addEventListener('click', function(e) {
+        if (e.target === contactPopup) {closePopup();}
+      });
+
+      function renderPrivacy(privacyArray) {
+        const container = document.getElementById('privacy-container');
+        container.innerHTML = ''; // 清空原有內容
+
+        privacyArray.forEach((item) => {
+          
+          const contents = document.createElement('div');
+          contents.className = "";
+
+          contents.innerHTML = `
+              <h3 class="mb-2  text-base font-bold text-IF-subtitle"> ${item.title}</h3>
+              <p class="mb-4 px-4 text-base leading-relaxed whitespace-pre-line ">${item.content}</p>
+          `;
+
+          container.appendChild(contents);
         });
-      }, 50);
-    }
-    });
+      }
 
-    </script>
+      const toggleBtn = document.querySelector("#privacyBtn");
+      const privacyContent = document.querySelector("#privacy-content");
+      const modal = document.querySelector("#contactPanel");
+
+      toggleBtn.addEventListener("click", () => {
+      privacyContent.classList.toggle("hidden");
+      if (!privacyContent.classList.contains("hidden")) {
+        // 等 DOM 更新完成再滾動
+        setTimeout(() => {
+          modal.scrollTo({
+            top: modal.scrollHeight,
+            behavior: "smooth"
+          });
+        }, 50);
+      }
+      });
+
+      </script>
 
     </section>
 
-
-
-        <!-- ======================== DEVend ======================= -->
-      
     <div id="scroll-container" 
          class="h-screen snap-y snap-proximity overflow-y-scroll scroll-smooth hide-scrollbar" >
 
       <section id="hero"
-                class="relative h-screen">
+                class=" relative w-full h-screen flex-col-center-center snap-start-12 overflow-hidden ">
+
+        <div class="absolute inset-0 w-full h-full bg-IF-panel opacity-30"></div><!-- 背景 -->
         <!-- 背景圖 -->
-        <div class="hero-bg w-full h-full bg-cover bg-center">
-          <div class="w-full h-12 snap-start scroll-mt-12"></div>
-          <div class="w-full h-screen-header"></div>
+        <div class="relative w-full max-w-screen-xl min-w-[500px] h-full  max-h-[880px]  opacity-70">
+          
+
+          <div> <!-- 影子 -->
+          
+          <img src="./img/hero/item-A_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/3 translate-y-[600px]               left-1/2 -translate-x-1/2 
+                                                               md:left-1/3  ">
+
+          <img src="./img/hero/item-B_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                         bottom-1/4     translate-y-[610px]      right-0       translate-x-[400px]
+                                     md:translate-y-[510px]   md:right-1/3  md:translate-x-[670px]
+                                     lg:translate-y-[470px]                 lg:translate-x-[720px]"> 
+                                     
+          <img src="./img/hero/item-C_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50 hidden
+                      bottom-1/4      translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                   md:translate-y-[200px]                  md:-translate-x-[170px]   
+                                   lg:translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+          <img src="./img/hero/item-D_.png" alt="" 
+               class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4     translate-y-[440px]        left-1/4     -translate-x-[420px] 
+                                  md:translate-y-[380px]                  md:-translate-x-[500px]    
+                                  lg:translate-y-[340px]                  lg:-translate-x-[600px] "> 
+
+          <img src="./img/hero/item-E_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4      translate-y-[520px]        left-1/4      translate-x-[150px] 
+                                   md:translate-y-[460px]                   md:translate-x-[180px]    
+                                   lg:translate-y-[400px]                   lg:translate-x-[250px] ">
+                                  
+          <img src="./img/hero/item-G_.png" alt="" 
+               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
+                      bottom-1/4      translate-y-[240px]        left-1/3     -translate-x-[000px]  
+                                  md:translate-y-[240px]                   md:translate-x-[200px]      
+                                  lg:translate-y-[200px]                   lg:translate-x-[600px] ">                           
+
+            
+          </div>
+          <div> <!-- 物件 -->
+
+            <img src="./img/hero/item-A.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 
+                          top-1/2 -translate-y-1/2                left-1/2 -translate-x-1/2 
+                                                                md:left-1/3  ">
+
+            <img src="./img/hero/item-B.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-1/4     translate-y-[360px]      right-0       translate-x-[400px]
+                                      md:translate-y-[260px]   md:right-1/3  md:translate-x-[670px]
+                                      lg:translate-y-[220px]                 lg:translate-x-[720px]">     
+            <img src="./img/hero/item-C.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[260px]        left-3/4     -translate-x-[200px] 
+                                    md:-translate-y-[200px]                  md:-translate-x-[170px]   
+                                    lg:-translate-y-[140px]                  lg:-translate-x-[120px] ">
+
+            <img src="./img/hero/item-D.png" alt="" 
+                class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100
+                          top-1/4     -translate-y-[340px]        left-1/4     -translate-x-[420px] 
+                                    md:-translate-y-[280px]                  md:-translate-x-[500px]    
+                                    lg:-translate-y-[240px]                  lg:-translate-x-[600px] "> 
+
+            <img src="./img/hero/item-E.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          bottom-0     translate-y-[120px]        left-1/4      translate-x-[150px] 
+                                    md:translate-y-[060px]                   md:translate-x-[180px]    
+                                    lg:translate-y-[000px]                   lg:translate-x-[250px] ">
+                                    
+            <img src="./img/hero/item-G.png" alt="" 
+                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
+                          top-0        translate-y-[040px]        left-1/3     -translate-x-[000px]  
+                                    md:translate-y-[040px]                   md:translate-x-[200px]      
+                                    lg:translate-y-[000px]                   lg:translate-x-[600px] ">
+          </div> 
 
         </div>
 
+
         <!-- 壓在上面的文字 -->
-        <div class="absolute inset-0  z-10 flex items-center justify-center"> <!-- 這層是壓圖＆定位置中 -->
-          <div class="text-center px-12 w-full
-                      md:text-left md:px-32 
-                      max-w-screen-xl "> <!-- 這層是留間距＆對齊 -->
+        <div id="hero-text" class="absolute inset-0 z-20 flex items-center justify-center animate-blurred-fade-in"> <!-- 這層是壓圖＆定位置中 -->
+          <div class="w-full max-w-screen-xl
+                         text-center   px-4
+                                    xs:px-12
+                      md:text-left  mdx:px-32 "> <!-- 這層是留間距＆對齊 -->
             <div class="md:flex ">
-              <h1 class="text-white font-bold text-center tracking-widest
-                       text-4xl leading-relaxed 
-                       md:text-left ">
+              <h1 class="text-IF-text font-bold 
+                          leading-relaxed 
+                             text-3xl      text-center    tracking-normal
+                          xs:text-4xl
+                                        md:text-left   md:tracking-widest">
                 <span class="block md:text-4xl md:leading-relaxed">為你的需求</span>
-                <span class="block md:text-5xl md:leading-relaxed">打造剛剛好的入口網站</span>
+                <span class="block md:text-5xl md:leading-relaxed">打造剛剛好的<br class="block 2xs:hidden">入口網站</span>
               </h1>
-              <h2 class="-ml-[195px] mt-[30px] text-[21pt] text-white tracking-wider hidden md:block">Langing Page</h2>
+              <h2 class="-ml-[195px] mt-[28px] text-[21pt] text-IF-text-muted tracking-wider hidden md:block">Langing Page</h2>
             </div>
 
             <br>
-            <p class="text-white text-xl leading-relaxed">
-              資訊規劃、視覺設計、網站開發一氣呵成 <br>
+            <p class="text-IF-text-muted text-lg xs:text-xl leading-relaxed">
+              資訊規劃、視覺設計、網站開發<br class="block 2xs:hidden">一氣呵成<br>
               做出適合你現在需要的入口網站
             </p>
           </div>
@@ -717,28 +1154,30 @@
            class="max-w-screen-xl mx-auto 
                   md:px-12">
 
+        <div class="h-12 "></div>
+
         <section id="advantages" 
-                 class="pt-24 pb-12 flex flex-col snap-start scroll-mt-12 min-h-screen-min
-                        min-h-screen
-                        md:h-screen-header">
+                 class="flex-col-between-center snap-start-12
+                        min-h-screen 
+                        md:h-screen-header md:min-h-[600px]">
 
-          <h2 class="mb-12 font-bold text-3xl text-IF text-center ">
-            你是否也有這些困擾？
-          </h2>
-
-          <div class="flex-1 flex flex-col justify-center">
-
-            <div id="advantages-container" data-seo-rendered="true" 
-                 class="mx-auto grid     
-                           grid-cols-1    gap-12
-                        md:grid-cols-3 md:gap-6
-                                       lg:gap-12 ">
+          <div class="h-0 hidden md:block">  </div>   
+          
+          <div class="">
+            <h2 class="scroll-reveal" data-animation="animate-blurred-fade-in-slide-in-bottom">你是否也有這些困擾？</h2>
+            <div id="advantages-container" data-seo-rendered="true" data-seo-rendered="true" 
+                class="mx-auto grid     
+                           grid-cols-1     gap-12
+                        md:grid-cols-3  md:gap-4
+                                        lg:gap-12 ">
             
+
+    
 
     <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-md h-[360px] cursor-pointer md:h-[420px] md:cursor-default">
       <div class="cardCanUp w-full h p-6 flex flex-col justify-center overflow-hidden object-cover transition-transform duration-500 md:group-hover:-translate-y-[280px]">
         <div class="UpDisappear w-full overflow-hidden flex items-center justify-center h-[240px] md:group-hover:opacity-0 duration-500 md:h-[240px] md:mt-6 lg:h-[280px]">
-          <img src="./img/image_material/image_1-1_material.jpg" alt="想說的資訊太多了..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+          <img src="./img./img/advantages/advantage-A.png" alt="想說的資訊太多了..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
         </div>
         <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
         <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
@@ -760,7 +1199,7 @@
     <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-md h-[360px] cursor-pointer md:h-[420px] md:cursor-default">
       <div class="cardCanUp w-full h p-6 flex flex-col justify-center overflow-hidden object-cover transition-transform duration-500 md:group-hover:-translate-y-[280px]">
         <div class="UpDisappear w-full overflow-hidden flex items-center justify-center h-[240px] md:group-hover:opacity-0 duration-500 md:h-[240px] md:mt-6 lg:h-[280px]">
-          <img src="./img/image_material/image_1-1_material.jpg" alt="好怕重點講不清楚..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+          <img src="./img./img/advantages/advantage-B.png" alt="好怕重點講不清楚..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
         </div>
         <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
         <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
@@ -782,7 +1221,69 @@
     <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-md h-[360px] cursor-pointer md:h-[420px] md:cursor-default">
       <div class="cardCanUp w-full h p-6 flex flex-col justify-center overflow-hidden object-cover transition-transform duration-500 md:group-hover:-translate-y-[280px]">
         <div class="UpDisappear w-full overflow-hidden flex items-center justify-center h-[240px] md:group-hover:opacity-0 duration-500 md:h-[240px] md:mt-6 lg:h-[280px]">
-          <img src="./img/image_material/image_1-1_material.jpg" alt="擔心特色很不明顯..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+          <img src="./img./img/advantages/advantage-C.png" alt="擔心特色很不明顯..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+        </div>
+        <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
+        <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
+          擔心<br class='hidden md:block lg:hidden'>特色很不明顯...
+        </h3>
+        <p class="UpDisappear text-gray-300 text-right md:hidden">▼</p>
+        <br class="hidden md:block">
+        <br>
+        <p class="UpAppear leading-relaxed opacity-0 md:group-hover:opacity-100 duration-500 text-xl md:text-lg md:opacity-0 lg:text-xl">
+          <span>我擅長從你說出口的細節裡，找到可以放大的優勢。善用視覺引導、操作體驗，不用無中生有硬套銷售話術。</span>
+          <br class="md-narrow:hidden">
+          <br>
+          <span class="font-bold text-IF">我會陪你找到亮點，並選擇最適合的呈現方式。</span>
+        </p>
+      </div>
+    </div>
+  
+
+        </div>
+        <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
+        <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
+          想說的<br class='hidden md:block lg:hidden'>資訊太多了...
+        </h3>
+        <p class="UpDisappear text-gray-300 text-right md:hidden">▼</p>
+        <br class="hidden md:block">
+        <br>
+        <p class="UpAppear leading-relaxed opacity-0 md:group-hover:opacity-100 duration-500 text-xl md:text-lg md:opacity-0 lg:text-xl">
+          <span>我會先陪你釐清受眾在意什麼，幫你抓出主軸內容，建立架構與層級。這樣就算內容再多也不用害怕。</span>
+          <br class="md-narrow:hidden">
+          <br>
+          <span class="font-bold text-IF">我們可以用資訊架構確保受眾不會迷失方向。</span>
+        </p>
+      </div>
+    </div>
+  
+
+    <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-md h-[360px] cursor-pointer md:h-[420px] md:cursor-default">
+      <div class="cardCanUp w-full h p-6 flex flex-col justify-center overflow-hidden object-cover transition-transform duration-500 md:group-hover:-translate-y-[280px]">
+        <div class="UpDisappear w-full overflow-hidden flex items-center justify-center h-[240px] md:group-hover:opacity-0 duration-500 md:h-[240px] md:mt-6 lg:h-[280px]">
+          <img src="./img./img/advantages/advantage-B.png" alt="好怕重點講不清楚..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
+        </div>
+        <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
+        <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
+          好怕<br class='hidden md:block lg:hidden'>重點講不清楚...
+        </h3>
+        <p class="UpDisappear text-gray-300 text-right md:hidden">▼</p>
+        <br class="hidden md:block">
+        <br>
+        <p class="UpAppear leading-relaxed opacity-0 md:group-hover:opacity-100 duration-500 text-xl md:text-lg md:opacity-0 lg:text-xl">
+          <span>我們會先共同設定頁面目標，確認要解決的問題，然後再往下展開成執行策略，把要受眾理解的重點具體化。</span>
+          <br class="md-narrow:hidden">
+          <br>
+          <span class="font-bold text-IF">透過系統性的方法，確保受眾掌握關鍵資訊。</span>
+        </p>
+      </div>
+    </div>
+  
+
+    <div class="max-w-[480px] group transition-all bg-white rounded-sm overflow-hidden shadow-md h-[360px] cursor-pointer md:h-[420px] md:cursor-default">
+      <div class="cardCanUp w-full h p-6 flex flex-col justify-center overflow-hidden object-cover transition-transform duration-500 md:group-hover:-translate-y-[280px]">
+        <div class="UpDisappear w-full overflow-hidden flex items-center justify-center h-[240px] md:group-hover:opacity-0 duration-500 md:h-[240px] md:mt-6 lg:h-[280px]">
+          <img src="./img./img/advantages/advantage-C.png" alt="擔心特色很不明顯..." class="max-w-[280px] min-h-[240px] max-h-[280px] object-cover">
         </div>
         <p class="UpAppear text-gray-300 text-right md:opacity-0 md-narrow:text-md">▲</p>
         <h3 class="font-bold text-2xl text-IF text-center md-narrow:text-xl">
@@ -801,10 +1302,11 @@
     </div>
   
 </div>
+
           </div>
           
-          <div>
-            <p class="text-center text-xl leading-relaxed my-12">
+          <div class="py-8">
+            <p class="text-center text-lg text-IF-text-muted leading-relaxed">
               完成的作品可以像這樣<br>
               ↓
             </p>
@@ -816,12 +1318,59 @@
               container.innerHTML = ''; // 清空先前內容（避免重複）
 
               advantagesArray.forEach(item => {
-                // ✨ 使用共用模板（自動同步！）
-                const tempDiv = document.createElement('div');
-                tempDiv.innerHTML = advantageCardTemplate(item);
-                const card = tempDiv.firstElementChild;
+                const card = document.createElement('div');
+                card.className = `
+                    group transition-all bg-IF-panel rounded-sm overflow-hidden shadow-lg
+                       h-[360px]    max-w-[460px]    cursor-pointer  
+                    md:h-[480px] md:max-w-[320px] md:cursor-default
+                `;
+                card.innerHTML = `
+                    <!-- 可以滑動的圖層 -->
+                    <div class="cardCanUp
+                                w-full h p-6 flex flex-col justify-center overflow-hidden object-cover 
+                                transition-transform duration-500
+                                md:group-hover:-translate-y-[260px]
+                                lg:group-hover:-translate-y-[315px]">
 
-                // ✅ 這裡綁定點擊事件
+                        <div class="UpDisappear
+                                    w-full overflow-hidden flex-col-center-center
+                                    h-[240px] 
+                                    md:group-hover:opacity-0 duration-500   
+                                    md:h-[240px] md:mt-6  
+                                    lg:h-[280px] ">
+                          <img src="${item.image}" alt="" 
+                               class="max-w-full object-contain 
+                                         h-[240px]
+                                      md:h-auto">
+                          
+                        </div>
+
+                        <p class="UpAppear 
+                                  text-IF-text-subtle text-right 
+                                  md:opacity-0 ">▲</p>
+                        <h3 class="font-bold text-2xl text-IF text-center 
+                                   near-md:text-xl">
+                            ${item.title}
+                        </h3>
+                        <p class="UpDisappear text-IF-text-subtle text-right md:hidden ">▼</p>
+                        <br class="hidden md:block ">
+                        <br>
+                        <p class="UpAppear leading-relaxed opacity-0
+                                  md:group-hover:opacity-100 duration-500
+                                     text-xl
+                                  md:text-lg md:opacity-0 
+                                  lg:text-xl">
+                          <span>${item.content}</span>
+                          <br>
+                          <br>
+                          <span class="font-bold text-IF-text-emphasis">${item.emphasis}</span>
+                        </p>
+                  </div>
+                    
+
+                `;
+
+                 // ✅ 這裡綁定點擊事件
                 const content = card.querySelector('.cardCanUp');
                 content.addEventListener('click', () => {
                   // 只在小螢幕啟用
@@ -845,26 +1394,32 @@
         
         </section>
 
-        <section id="portfolio"
-                 class="snap-start scroll-mt-12 felx flex-col 
-                        md:h-screen-header md:py-12">
+        <div class="h-12 "></div>
 
-            <div class="relative
-                        md:h-full" > <!-- 定位用 -->
-              
-              <div id="portfolio-container" data-seo-rendered="true" 
-                  class="relative bg-IF-backgroundLight
-                          h-screen-header
-                          md:h-full">
-              
+        <section id="portfolio"
+                 class="w-full
+                        flex-col-center snap-start-12 snap-end
+                        min-h-screen-header
+                        md:h-screen-header">
+          
+          <div class="relative
+                      h-full bg-IF-panel  
+                      md:py-12 md:bg-transparent" > <!-- 定位用 -->
+            
+            <div id="portfolio-container" data-seo-rendered="true" data-seo-rendered="true" 
+                 class="relative bg-IF-panel       shadow-none
+                        md:h-full md:min-h-full md:shadow-lg">
+            
+
+    
 
     <div class="portfolio-item absolute inset-0 h-full transition-all duration-500 ease-in-out opacity-100 pointer-events-auto">
       <div class="portfolio-inner flex flex-col md:flex-row md:w-full md:h-full">
-        <img src="./img/image_material/image_16-9_material.jpg" alt="WUWU 小世界" class="object-cover block h-[300px] min-h-[300px] md:hidden">
-        <img src="./img/image_material/image_3-4_material.jpg" alt="WUWU 小世界" class="object-cover hidden md:block md:w-1/2 md:h-full">
+        <img src="./img/image_material/image_16-9_material.jpg" alt="WUWU 小世界(開發中)" class="object-cover block h-[300px] min-h-[300px] md:hidden">
+        <img src="./img/image_material/image_3-4_material.jpg" alt="WUWU 小世界(開發中)" class="object-cover hidden md:block md:w-1/2 md:h-full">
         <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto text-xl md:text-lg lg:text-xl">
           <p class="mb-2 font-bold text-IF">作品名稱</p>
-          <h3 class="font-bold text-3xl">WUWU 小世界</h3>
+          <h3 class="font-bold text-3xl">WUWU 小世界(開發中)</h3>
           <br>
           <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
           <p>讓粉絲可以覺得這個網站足夠吸睛，並願意透過這個網站認識 WUWU 插畫的世界觀，感受品牌的可愛與趣味性。</p>
@@ -880,18 +1435,18 @@
 
     <div class="portfolio-item absolute inset-0 h-full transition-all duration-500 ease-in-out opacity-0 pointer-events-none">
       <div class="portfolio-inner flex flex-col md:flex-row md:w-full md:h-full">
-        <img src="./img/image_material/image_16-9_material.jpg" alt="嘎嘎嘎" class="object-cover block h-[300px] min-h-[300px] md:hidden">
-        <img src="./img/image_material/image_3-4_material.jpg" alt="嘎嘎嘎" class="object-cover hidden md:block md:w-1/2 md:h-full">
+        <img src="./img/image_material/image_16-9_material.jpg" alt="療癒森林(開發中)" class="object-cover block h-[300px] min-h-[300px] md:hidden">
+        <img src="./img/image_material/image_3-4_material.jpg" alt="療癒森林(開發中)" class="object-cover hidden md:block md:w-1/2 md:h-full">
         <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto text-xl md:text-lg lg:text-xl">
           <p class="mb-2 font-bold text-IF">作品名稱</p>
-          <h3 class="font-bold text-3xl">嘎嘎嘎</h3>
+          <h3 class="font-bold text-3xl">療癒森林(開發中)</h3>
           <br>
           <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
-          <p>嘎嘎嘎。</p>
+          <p>明確展現出品牌以體驗空間為主的特色，完整呈現合作的師資、課程資訊。</p>
           <br>
           <p class="mt-4 mb-2 font-bold text-IF">解決方案</p>
           <ul class="list-disc pl-6 space-y-4">
-            <li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>
+            <li> 在 banner 即使用 slider 切換不同課程資訊，呈現品牌包含多種課程的特色。</li><li> 可在網站上觀看預約狀況，並且填寫相關預約表單，提高網站的使用率。</li><li> 透過課程推薦小遊戲降低使用者閱讀負擔，並對品牌留下有趣、可愛的印象。</li><li> 針對特定版位品牌方可直接用 google sheet 管理內容，省去需透過工程師處理的手續。</li>
           </ul>
         </div>
       </div>
@@ -900,18 +1455,63 @@
 
     <div class="portfolio-item absolute inset-0 h-full transition-all duration-500 ease-in-out opacity-0 pointer-events-none">
       <div class="portfolio-inner flex flex-col md:flex-row md:w-full md:h-full">
-        <img src="./img/image_material/image_16-9_material.jpg" alt="嘎嘎嘎" class="object-cover block h-[300px] min-h-[300px] md:hidden">
-        <img src="./img/image_material/image_3-4_material.jpg" alt="嘎嘎嘎" class="object-cover hidden md:block md:w-1/2 md:h-full">
+        <img src="./img/image_material/image_16-9_material.jpg" alt="等你來發案" class="object-cover block h-[300px] min-h-[300px] md:hidden">
+        <img src="./img/image_material/image_3-4_material.jpg" alt="等你來發案" class="object-cover hidden md:block md:w-1/2 md:h-full">
         <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto text-xl md:text-lg lg:text-xl">
           <p class="mb-2 font-bold text-IF">作品名稱</p>
-          <h3 class="font-bold text-3xl">嘎嘎嘎</h3>
+          <h3 class="font-bold text-3xl">等你來發案</h3>
           <br>
           <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
-          <p>嘎嘎嘎。</p>
+          <p>把為客戶做的美美網站呈現出來。</p>
           <br>
           <p class="mt-4 mb-2 font-bold text-IF">解決方案</p>
           <ul class="list-disc pl-6 space-y-4">
-            <li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li><li> 嘎嘎嘎。</li>
+            <li> 目前案例還不夠，未來會持續更新！</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="portfolio-item absolute inset-0 h-full transition-all duration-500 ease-in-out opacity-0 pointer-events-none">
+      <div class="portfolio-inner flex flex-col md:flex-row md:w-full md:h-full">
+        <img src="./img/image_material/image_16-9_material.jpg" alt="療癒森林(開發中)" class="object-cover block h-[300px] min-h-[300px] md:hidden">
+        <img src="./img/image_material/image_3-4_material.jpg" alt="療癒森林(開發中)" class="object-cover hidden md:block md:w-1/2 md:h-full">
+        <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto text-xl md:text-lg lg:text-xl">
+          <p class="mb-2 font-bold text-IF">作品名稱</p>
+          <h3 class="font-bold text-3xl">療癒森林(開發中)</h3>
+          <br>
+          <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
+          <p>明確展現出品牌以體驗空間為主的特色，完整呈現合作的師資、課程資訊。</p>
+          <br>
+          <p class="mt-4 mb-2 font-bold text-IF">解決方案</p>
+          <ul class="list-disc pl-6 space-y-4">
+            <li> 在 banner 即使用 slider 切換不同課程資訊，呈現品牌包含多種課程的特色。</li><li> 可在網站上觀看預約狀況，並且填寫相關預約表單，提高網站的使用率。</li><li> 透過課程推薦小遊戲降低使用者閱讀負擔，並對品牌留下有趣、可愛的印象。</li><li> 針對特定版位品牌方可直接用 google sheet 管理內容，省去需透過工程師處理的手續。</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="portfolio-item absolute inset-0 h-full transition-all duration-500 ease-in-out opacity-0 pointer-events-none">
+      <div class="portfolio-inner flex flex-col md:flex-row md:w-full md:h-full">
+        <img src="./img/image_material/image_16-9_material.jpg" alt="等你來發案" class="object-cover block h-[300px] min-h-[300px] md:hidden">
+        <img src="./img/image_material/image_3-4_material.jpg" alt="等你來發案" class="object-cover hidden md:block md:w-1/2 md:h-full">
+        <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto text-xl md:text-lg lg:text-xl">
+          <p class="mb-2 font-bold text-IF">作品名稱</p>
+          <h3 class="font-bold text-3xl">等你來發案</h3>
+          <br>
+          <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
+          <p>把為客戶做的美美網站呈現出來。</p>
+          <br>
+          <p class="mt-4 mb-2 font-bold text-IF">解決方案</p>
+          <ul class="list-disc pl-6 space-y-4">
+            <li> 目前案例還不夠，未來會持續更新！</li>
           </ul>
         </div>
       </div>
@@ -919,41 +1519,44 @@
   
 </div>    
 
-              <div id="data-controls">
-                <div id="dot-container" 
-                    class="absolute h-12 flex justify-center items-center gap-4
-                              top-[300px]                 w-full   bg-gray-500
-                            md:top-auto md:bottom-[0px] md:w-1/2 md:bg-transparent">
-                          
-                
+            <div id="data-controls">
+              <div id="dot-container" 
+                   class="absolute h-12 gap-4 flex-row-center-center 
+                             top-[240px]                 w-full
+                          md:top-auto md:bottom-12 md:w-1/2">
+              
+
 <button class="dot w-3 h-3 rounded-full bg-IF" data-index="0"></button>
 <button class="dot w-3 h-3 rounded-full bg-gray-300" data-index="1"></button>
 <button class="dot w-3 h-3 rounded-full bg-gray-300" data-index="2"></button>
-</div>
-                
-                <div class="hover:opacity-100 duration-100
-                            opacity-100
-                            md:opacity-0 ">
-                  <button id="prev-btn" 
-                          class="absolute left-0   z-10 text-white
-                                    top-[300px]                    h-12       w-36 
-                                md:top-1/2 md:-translate-y-1/2 md:h-full  md:w-36
-                                md:bg-gradient-to-r md:from-gray-600/70 md:to-transparent ">◀</button>
-                </div>
 
-                <div class="hover:opacity-100 duration-100
-                            opacity-100
-                            md:opacity-0 ">
-                  <button id="next-btn" 
-                          class="absolute right-0   z-10 text-white
-                                    top-[300px]                    h-12       w-36
-                                md:top-1/2 md:-translate-y-1/2 md:h-full  md:w-36
-                                md:bg-gradient-to-l md:from-gray-600/70 md:to-transparent">▶</button>
-                </div>
+</div>
+              
+              <div class="hover:opacity-100 duration-100
+                          opacity-100
+                          md:opacity-0 ">
+                <button id="prev-btn" 
+                        class="absolute left-0 z-10 
+                               w-36 text-IF-panel
+                                  top-[240px]                    h-12        text-IF-text-subtle  
+                               md:top-1/2 md:-translate-y-1/2 md:h-full   md:text-IF-panel
+                               bg-gradient-to-r from-IF-background-gradient-left to-transparent ">◀</button>
               </div>
 
+              <div class="hover:opacity-100 duration-100
+                          opacity-100
+                          md:opacity-0 ">
+                <button id="next-btn" 
+                        class="absolute right-0   z-10 
+                               w-48 
+                                  top-[240px]                    h-12        text-IF-text-subtle
+                               md:top-1/2 md:-translate-y-1/2 md:h-full   md:text-IF-panel
+                               bg-gradient-to-l from-IF-background-gradient-right to-transparent">▶</button>
+              </div>
+            </div>
 
           </div>
+
           <script>
             function renderPortfolio(portfolioArray) {
               const container = document.getElementById('portfolio-container');
@@ -962,59 +1565,65 @@
               portfolioArray.forEach((item, index) => {
                 const block = document.createElement('div');
                 block.className = `
-                    portfolio-item 
+                    portfolio-item
                     absolute inset-0 h-full
                     transition-all duration-500 ease-in-out
                     ${index === 0 ? 'opacity-100 pointer-events-auto' : 'opacity-0  pointer-events-none'}
                 `;
                 block.innerHTML = `
-                
                     <div class="portfolio-inner flex 
                                    flex-col
-                                md:flex-row md:w-full md:h-full ">
+                                md:flex-row md:w-full md:h-full">
                       
                       <img src="./img/${item.image16_9}" alt="${item.title}"
-                           class="object-cover
-                                  block h-[300px] min-h-[300px]
+                           class="mb-12 object-cover
+                                  block h-[240px] min-h-[240px] flex-shrink-0
                                   md:hidden">
+
                       <img src="./img/${item.image3_4}" alt="${item.title}"
                            class="object-cover 
                                   hidden 
-                                  md:block md:w-1/2 md:h-full ">
-                      
+                                  md:block md:w-1/2 md:mh-full ">
 
-                      <div class="w-full px-8 py-24 leading-relaxed overflow-y-auto
-                                     text-xl 
-                                  md:text-lg
-                                  lg:text-xl">
-                        <p class="mb-2 font-bold text-IF">作品名稱</p>
-                        <h3 class="font-bold text-3xl">${item.title}</h3>
-                        <br>
-                        <p class="mt-4 mb-2 font-bold text-IF">頁面目標</p>
+                      <div class="w-full bg-IF-panel px-8 pb-8
+                                  flex-col-start
+                                  md:w-1/2 md:h-full md:overflow-y-auto">
+                        <p class="mt-6 mb-2 font-bold text-IF hidden md:block">作品名稱</p>
+                        <h3 class="font-bold text-3xl mt-6 md:mt-0">${item.title}</h3>
+                        <p class="mt-6 mb-2 font-bold text-IF">頁面目標</p>
                         <p>${item.objectives}</p>
-                        <br>
-                        <p class="mt-4 mb-2 font-bold text-IF">解決方案</p>
-                        <ul class="list-disc pl-6 space-y-4">
+                        <p class="mt-6 mb-2 font-bold text-IF">解決方案</p>
+                        <ul class="mb-6 list-disc pl-6 space-y-4">
                         ${item.solution}
-                        </ul>
+                        </ul> 
                       </div>
                     </div>
 
                 `;
                 container.appendChild(block);
 
+                // 圖片加載完成後更新高度
+                const images = block.querySelectorAll('img');
+                images.forEach(img => {
+                  img.addEventListener('load', () => {
+                    if (index === 0) { // 只在第一張圖片時更新
+                      updateContainerHeight();
+                    }
+                  });
+                });
+
                 // 產生 dot
                 const dot = document.createElement('button');
-                dot.className = `dot w-3 h-3 rounded-full ${index === 0 ? 'bg-IF' : 'bg-gray-300'} `;
+                dot.className = `dot w-3 h-3 rounded-full ${index === 0 ? 'bg-IF' : 'bg-IF-text-subtle'} `;
                 dot.setAttribute('data-index', index);
                 dotContainer.appendChild(dot);
               });
 
               setupPortfolioControls(portfolioArray.length);
-              setTimeout(() => {updateContainerHeight();}, 5); // 300ms 視你圖片載入速度調整
+              setTimeout(() => {updateContainerHeight();}, 100); // 圖片載入後再更新
             }
-            
-
+            </script>
+            <script>/* 切換控制*/
 
             function setupPortfolioControls(totalItems) {
               let currentIndex = 0;
@@ -1052,7 +1661,7 @@
                 });
 
                 dots.forEach((dot, i) => {
-                  dot.className = `dot w-3 h-3 rounded-full ${i === newIndex ? 'bg-IF' : 'bg-gray-300'}`;
+                  dot.className = `dot w-3 h-3 rounded-full ${i === newIndex ? 'bg-IF' : 'bg-IF-text-subtle'}`;
                 });
 
                 currentIndex = newIndex;
@@ -1079,54 +1688,105 @@
               });
             }
 
+            // 緩存最大高度，避免重複計算
+            let cachedMaxHeight = null;
+            let lastScreenWidth = window.innerWidth;
+
             function updateContainerHeight() {
               const container = document.getElementById('portfolio-container');
+              
               if (window.innerWidth >= 768) {
+                // 桌面端：清除動態設定的高度，讓 CSS 來控制
                 container.style.minHeight = '';
+                cachedMaxHeight = null; // 切換到桌面端時清除緩存
               } else {
-                const current = container.querySelector('.portfolio-item.opacity-100');
-                if (!current) return;
-                const inner = current.querySelector('.portfolio-inner');
-                if (!inner) return;
-
-                const height = inner.offsetHeight;
-                container.style.minHeight = height -48 + 'px';
+                // 移動端：使用所有 portfolio-item 中最高的高度
+                
+                // 如果螢幕寬度改變，重新計算最大高度
+                if (cachedMaxHeight === null || lastScreenWidth !== window.innerWidth) {
+                  const items = container.querySelectorAll('.portfolio-item');
+                  let maxHeight = 0;
+                  
+                  items.forEach(item => {
+                    const inner = item.querySelector('.portfolio-inner');
+                    if (inner) {
+                      // 暫時顯示該項目以測量高度
+                      const wasVisible = item.classList.contains('opacity-100');
+                      if (!wasVisible) {
+                        item.style.visibility = 'hidden';
+                        item.classList.add('opacity-100');
+                      }
+                      
+                      const height = inner.offsetHeight;
+                      maxHeight = Math.max(maxHeight, height);
+                      
+                      // 恢復原狀
+                      if (!wasVisible) {
+                        item.classList.remove('opacity-100');
+                        item.style.visibility = '';
+                      }
+                    }
+                  });
+                  
+                  // dot-container 在 top-[300px] (即 300px 位置)，高度 48px
+                  const dotEndPosition = 300 + 48;
+                  cachedMaxHeight = Math.max(maxHeight, dotEndPosition) + 24; // 額外 24px 底部空間
+                  lastScreenWidth = window.innerWidth;
+                }
+                
+                container.style.minHeight = cachedMaxHeight + 'px';
               }
             }
             
             window.addEventListener('resize', updateContainerHeight);
           </script>
         </section>
+
         <div class="h-12 "></div>
         
         <section id="about"
-                 class="h-screen-header min-h-screen-minPlus min-h-screen-min py-12 flex flex-col snap-start scroll-mt-12 ">
+                 class="w-full min-h-screen-header flex-col-center snap-start-12 snap-end">
 
-          <h2 class="mb-12 font-bold text-3xl text-IF text-center">
-            為何我能幫你做好<br class="block sm:hidden"> Landing page？
-          </h2>
+          <h2 class="my-4 sm:my-8 scroll-reveal" data-animation="animate-blurred-fade-in-slide-in-bottom">是誰來幫你製作<br class="block sm:hidden"> Landing page 呢？</h2>
 
           <!-- 文案呈現全範圍 -->
           <div id="about-container" 
-               class="flex-1 flex flex-col items-center"> 
-            <!-- 基礎文案全範圍 -->
-            <div class="relative overflow-hidden flex justify-center
-                        w-full 
-                        md:max-w-screen-md" > 
-              <img src="./img/image_material/image_9-16_material.png" alt=""
-                   class="absolute top-0 right-0 w-1/3   object-cover
-                          min-xsPlus:hidden
-                          min-h-full"><!-- 照片要手動改 -->
+               class="flex-col-center-center mt-0 md:mt-8"> 
+            <!-- 自介文案+照片全範圍 -->
+            <div class="relative w-full max-w-screen-md overflow-hidden flex justify-center" ><!-- 用 overflow-hidden 避免照片跑出去 -->
+              
+              <div>
+                <img src="./img/hero/item-F.png" alt="" 
+                class="absolute hero-item  scale-[0.60] hidden
+                       top-0 -translate-y-[020px]  left-2/3 -translate-x-[120px]   ">
 
-              <div class="p-6 rounded-md bg-IF-backgroundLight flex
-                          mt-16 
-                          md:mt-24 "> <!-- 留空＆白底 -->
-                <div id="about-content" data-seo-rendered="true" 
-                     class="w-2/3  rounded-sm md:max-w-screen-lg min-xsPlus:w-full "  >   
+                <img src="./img/about/Glen.png" alt=""
+                class="absolute object-cover z-20
+                      hidden  2xs:block
+                      w-1/3 min-h-full    top-0 left-2/3 min-w-[180px]
+                                        sm:right-0"><!-- 照片要手動改 -->
+    
+
+              </div>
+
+
+              <div class="px-8  bg-IF-panel flex
+                              mt-0     py-4    rounded-none
+                           2xs:mt-16  
+                          mdx:mt-24  md:py-8 md:rounded-md  "> <!-- 白底＆留空 -->
+                <div id="about-content" data-seo-rendered="true" data-seo-rendered="true" 
+                     class="    w-full
+                            2xs:w-2/3
+                             md:max-w-screen-lg ">   
+
+    
 
     <div class="leading-relaxed text-xl">
       <h3 class="mb-4 text-2xl">Hi！我是 Glen！</h3>
-      <p>我喜歡親手實作每個環節，雖然獨立設計並開發整個網站的經驗不多，但我從內容企劃、視覺設計到工程開發都很熟悉，我擅長根據專案需求，找出最適合的做法。</p>
+      <p>我從內容企劃、視覺設計到工程開發都很熟悉，我擅長根據專案需求，找出最適合的做法。我喜歡親手實作每個環節，把抽象的概念，轉化成實際可操作的網站。</p>
+    </div>
+  
+
     </div>
   
 
@@ -1134,25 +1794,29 @@
               </div>
 
             </div>
-            <p class="mt-8 mb-4 text-base text-gray-300">我執行過的專案跟任務角色：</p> 
 
-            <div class="relative mx-2 w-full overflow-hidden"> <!-- Ach全範圍 -->
-              
-                <div id="about-AchSlider" 
-                     class=" gap-4 px-36 flex overflow-x-auto scroll-smooth
-                            snap-x snap-mandatory overflow-hidden hide-scrollbar">
-                </div>
+            <p class="mt-8 mb-4 text-base text-IF-text-muted">
+              我執行過的專案跟任務角色：
+            </p> 
+
+             <div id="ach-slider-container" class="relative mb-12 w-full overflow-hidden"> <!-- Ach全範圍 -->
+               
+                 <div id="about-AchSlider" 
+                      class="gap-4 px-[calc((100vw-280px)/2)] flex
+                             snap-x snap-mandatory 
+                             overflow-x-auto overflow-hidden hide-scrollbar scroll-smooth">
+                 </div>
 
                 <div id="ach-controls">
                   <button id="front-btn" 
-                          class="absolute left-0 z-10 text-gray-500/20
-                                 top-1/2 -translate-y-1/2 h-full  w-16
-                                 bg-gradient-to-r from-IF-background to-transparent ">◀</button>
+                          class="absolute left-0 top-1/2 -translate-y-1/2 z-10 
+                                 w-12 h-full text-gray-500/20
+                                 bg-gradient-to-r from-IF-background-gradient-left to-transparent ">◀</button>
 
                   <button id="back-btn" 
-                          class="absolute right-0 z-10 text-gray-500/20
-                                 top-1/2 -translate-y-1/2 h-full  w-16
-                                 bg-gradient-to-l from-IF-background to-transparent">▶</button>
+                          class="absolute right-0 top-1/2 -translate-y-1/2 z-10 
+                                 w-12 h-full text-gray-500/20
+                                 bg-gradient-to-l from-IF-background-gradient-right to-transparent">▶</button>
                 </div>
             </div>
 
@@ -1166,10 +1830,10 @@
               AboutMeArray.forEach((item) => {
                 
                 const contents = document.createElement('div');
-                contents.className = "leading-relaxed text-xl ";
+                contents.className = "leading-relaxed ";
 
                 contents.innerHTML = `
-                    <h3 class="mb-4  text-2xl"> ${item.title}</h3>
+                    <h3 class="mb-4 text-xl md:text-2xl"> ${item.title}</h3>
                     <p>${item.content}</p>
                 `;
 
@@ -1184,15 +1848,15 @@
               AboutAchArray.forEach((item) => {
                 
                 const card = document.createElement('div');
-                card.className = "w-72 shrink-0 rounded-md shadow-md p-4 snap-center bg-IF-backgroundLight";
+                card.className = "w-[300px] shrink-0 rounded-md shadow-lg p-4 snap-center bg-IF-panel";
 
                 card.innerHTML = `
                     <a href="${item.url}" target="_blank" class="group">
-                        <h3 class="mb-4 text-center text-xl font-bold ">${item.ability}</h3>
+                        <h3 class="mb-4 text-center text-xl font-bold text-IF-text-emphasis">${item.ability}</h3>
                         <img src="${item.image}" alt="${item.title}" 
                             class="w-full h-32 object-cover rounded-sm mb-2">
                         <h3 class="text-lg font-bold">${item.title} </h3>
-                        <p class="mb-2 text-base text-gray-500 group-hover:text-IF-textHover">${item.role}</p>
+                        <p class="mb-2 text-base text-IF-text-muted group-hover:text-IF-text-hover">${item.role}</p>
                         <p class="text-base ">${item.introduce}</p>
                     </a>
                 `;
@@ -1221,33 +1885,60 @@
               });
             });
 
+            // 鼠標滾輪橫向滾動功能
+            const sliderContainer = document.getElementById('ach-slider-container');
+            let scrollTimeout;
+            
+            sliderContainer.addEventListener('wheel', (e) => {
+              // 檢查是否為主要垂直滾動（鼠標滾輪）還是橫向滑動（觸控板手勢）
+              const isVerticalScroll = Math.abs(e.deltaY) > Math.abs(e.deltaX);
+              
+              // 只有在主要是垂直滾動時，才轉換為橫向滾動
+              if (isVerticalScroll) {
+                e.preventDefault(); // 阻止默認的垂直滾動
+                
+                // 滾動時暫時禁用 snap
+                slider.style.scrollSnapType = 'none';
+                
+                // 將垂直滾動轉為水平滾動
+                slider.scrollLeft += e.deltaY;
+              }
+              
+              // 清除之前的 timeout
+              clearTimeout(scrollTimeout);
+              
+              // 滾動停止後 150ms 恢復 snap
+              scrollTimeout = setTimeout(() => {
+                slider.style.scrollSnapType = 'x mandatory';
+              }, 150);
+            }, { passive: false }); // passive: false 才能使用 preventDefault
+
           </script>
 
 
         </section>
-        <div class="h-12 sm:hidden"></div>
+
+        <div class="h-12 "></div> <!-- 留出 section 間距 -->
 
         <section id="steps"
-                 class="h-screen-header min-h-screen-minPlus flex flex-col snap-start scroll-mt-12
-                        pt-12
-                        md:py-24">
+                 class="h-screen-header min-h-min w-full flex-col-center-center snap-start-12">
 
-          <h2 class="mb-6 font-bold text-3xl text-IF text-center ">
-            製作 Landing Page <br class="block sm:hidden">有哪些步驟呢？
-          </h2>
-          <div class="flex-1 flex justify-center items-center">
+          
+            <h2 class="scroll-reveal" data-animation="animate-blurred-fade-in-slide-in-bottom">製作 Landing Page <br class="block sm:hidden">有哪些步驟呢？</h2>
+            <div class="pb-12 flex justify-center items-center">
 
-            <div id="steps-container" 
-                class="w-full flex items-center justify-center
-                          h-[800px]          
-                       md:h-[640px] md:gap-8
-                                              lg:px-12">
-              <!-- 左側步驟列表 -->
-              <div id="steps-list" data-seo-rendered="true" 
-                  class="sticky top-0 h-full text-IF-backgroundLight font-bold flex flex-col 
-                             w-[140px]                      pl-6    py-0     text-2xl    gap-1    justify-between
-                          md:w-1/4     md:min-w-[200px]  md:pl-0 md:py-12 md:text-3xl md:gap-8 md:justify-center">
-                
+              <div id="steps-container" 
+                  class="w-full h-[560px] flex-row-center-center
+                         md:gap-8
+                                  lg:px-12">
+                <!-- 左側步驟列表 -->
+                <div id="steps-list" data-seo-rendered="true" data-seo-rendered="true" 
+                    class="sticky top-0 h-full text-IF-panel font-bold flex flex-col justify-between 
+                               w-[100px]                      pl-6    py-0     text-xl     leading-normal      gap-1    
+                            md:w-1/4     md:min-w-[180px]  md:pl-0 md:py-12 md:text-2xl md:leading-relaxed  md:gap-4">
+                  
+
+    
 
     <button class="step-name bg-gray-300 rounded-sm p-4 flex-1 md:h-auto" data-step="1">
       1. <br class="block md:hidden">需求整理
@@ -1274,20 +1965,25 @@
     </button>
   
 
-              </div>
+  
 
-              <!-- 右側說明內容 -->
-              <div id="steps-content" data-seo-rendered="true" 
-                  class="flex-1 h-full rounded-sm bg-IF-backgroundLight text-xl leading-relaxed overflow-y-scroll scroll-smooth hide-scrollbar snap-y snap-mandatory">
-                
+                </div>
+
+                <!-- 右側說明內容 -->
+                <div id="steps-content" data-seo-rendered="true" data-seo-rendered="true" 
+                    class="flex-1 h-full rounded-sm bg-IF-panel shadow-lg 
+                           overflow-y-scroll snap-y snap-mandatory scroll-smooth hide-scrollbar ">
+                  
+
+    
 
     <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="1">
       <div class="my-auto">
         <p class="mb-2 font-bold text-IF">階段目標：</p>
-        <p>把你想做怎樣的網站、有哪些重點先確認清楚。</p>
+        <p>釐清你想製作怎樣的網站、有哪些重點跟內容。</p>
         <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
         <ul class="list-disc pl-6 space-y-4">
-          <li>確認建置目的、預期成果、設計參考與功能需求等資訊，並整理成具體文件。</li><li>確認預算範圍與時程安排，擬定初步製作計畫。</li>
+          <li>確認建置目的、預期成果、視覺參考與功能需求等資訊，並整理成具體文件。</li><li>溝通專案進行流程與協作方式。</li><li>確認預算範圍與時程安排，擬定初步製作計畫。</li>
         </ul>
         <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
         <p>約 5~10 個工作天<br>（含客戶回覆時間；如遇延遲回覆，時程將順延）</p>
@@ -1298,10 +1994,10 @@
     <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="2">
       <div class="my-auto">
         <p class="mb-2 font-bold text-IF">階段目標：</p>
-        <p>確認整體方向與製作框架，確保後續製作符合預期。</p>
+        <p>確認整體方向與段落規劃，確保後續製作符合預期。</p>
         <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
         <ul class="list-disc pl-6 space-y-4">
-          <li>根據釐清整體需求，規劃區塊的分配與順序，設定設計風格的方向。</li><li>確認需要由客戶補充的資料與素材。</li>
+          <li>根據需求規劃閱讀體驗，初步安排區塊的順序與大致內容，設定設計風格的方向。</li><li>確認需要由客戶方補充的資料與素材。</li>
         </ul>
         <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
         <p>約 5～10 個工作天<br>（依頁面數與回饋速度彈性調整）</p>
@@ -1312,10 +2008,10 @@
     <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="3">
       <div class="my-auto">
         <p class="mb-2 font-bold text-IF">階段目標：</p>
-        <p>把模糊的規劃內容轉化為具體好理解的頁面草稿，幫助建構成品想像。</p>
+        <p>把相對抽象的規劃內容繪製成視覺化的頁面草稿，幫助建構成品想像。</p>
         <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
         <ul class="list-disc pl-6 space-y-4">
-          <li>擬定初步文案內容。（由客戶後續審閱修改）</li><li>使用 Figma 繪製 Wireframe 線框稿，針對版型、功能進行確認。</li><li>選擇 1～2 區塊進行預先設計，測試視覺風格符合期望。</li>
+          <li>繪製 Wireframe 線框稿，針對版型、功能進行確認。</li><li>擬定初步文案內容。（由客戶後續審閱修改）</li><li>選擇 1～2 區塊進行預先設計，測試視覺風格符合期望。</li>
         </ul>
         <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
         <p>約 10～20 個工作天<br>（依區塊數與功能複雜度調整）</p>
@@ -1326,10 +2022,10 @@
     <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="4">
       <div class="my-auto">
         <p class="mb-2 font-bold text-IF">階段目標：</p>
-        <p>決定配色、字體、元件樣式，把線框稿轉換成最終完成畫面。</p>
+        <p>決定配色、字體、元件樣式等細節，把線框稿轉換成最終完成畫面。</p>
         <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
         <ul class="list-disc pl-6 space-y-4">
-          <li>依 Wireframe 製作全畫面 UI Mockup。</li><li>繪製 RWD 響應式版本 Mockup。</li>
+          <li>依 Wireframe 製作整個網站的 UI 完整模擬圖。</li><li>繪製 RWD 響應式版本的模擬圖，確保手機裝置也能使用。</li>
         </ul>
         <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
         <p>約 10～20 個工作天<br>（依視覺複雜度與頁面數量彈性調整）</p>
@@ -1340,7 +2036,7 @@
     <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="5">
       <div class="my-auto">
         <p class="mb-2 font-bold text-IF">階段目標：</p>
-        <p>將設計稿實作成真正可操作的網站，並進行 debug 測試調整。</p>
+        <p>實作出真正可操作的網站，並進行 debug 測試調整。</p>
         <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
         <ul class="list-disc pl-6 space-y-4">
           <li>製作支援桌面與手機版瀏覽（RWD 響應式設計）的靜態頁面。</li><li>設定基礎互動效果與表單串接（此部分具體功能建議實際討論釐清可行性）</li>
@@ -1351,10 +2047,71 @@
     </div>
   
 
-              </div>
-            </div>
+      </div>
+    </div>
+  
 
-          </div>
+    <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="2">
+      <div class="my-auto">
+        <p class="mb-2 font-bold text-IF">階段目標：</p>
+        <p>確認整體方向與段落規劃，確保後續製作符合預期。</p>
+        <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li>根據需求規劃閱讀體驗，初步安排區塊的順序與大致內容，設定設計風格的方向。</li><li>確認需要由客戶方補充的資料與素材。</li>
+        </ul>
+        <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
+        <p>約 5～10 個工作天<br>（依頁面數與回饋速度彈性調整）</p>
+      </div>
+    </div>
+  
+
+    <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="3">
+      <div class="my-auto">
+        <p class="mb-2 font-bold text-IF">階段目標：</p>
+        <p>把相對抽象的規劃內容繪製成視覺化的頁面草稿，幫助建構成品想像。</p>
+        <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li>繪製 Wireframe 線框稿，針對版型、功能進行確認。</li><li>擬定初步文案內容。（由客戶後續審閱修改）</li><li>選擇 1～2 區塊進行預先設計，測試視覺風格符合期望。</li>
+        </ul>
+        <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
+        <p>約 10～20 個工作天<br>（依區塊數與功能複雜度調整）</p>
+      </div>
+    </div>
+  
+
+    <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="4">
+      <div class="my-auto">
+        <p class="mb-2 font-bold text-IF">階段目標：</p>
+        <p>決定配色、字體、元件樣式等細節，把線框稿轉換成最終完成畫面。</p>
+        <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li>依 Wireframe 製作整個網站的 UI 完整模擬圖。</li><li>繪製 RWD 響應式版本的模擬圖，確保手機裝置也能使用。</li>
+        </ul>
+        <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
+        <p>約 10～20 個工作天<br>（依視覺複雜度與頁面數量彈性調整）</p>
+      </div>
+    </div>
+  
+
+    <div class="step-content flex snap-start h-[800px] px-6 md:h-[640px] md:px-12" data-step="5">
+      <div class="my-auto">
+        <p class="mb-2 font-bold text-IF">階段目標：</p>
+        <p>實作出真正可操作的網站，並進行 debug 測試調整。</p>
+        <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
+        <ul class="list-disc pl-6 space-y-4">
+          <li>製作支援桌面與手機版瀏覽（RWD 響應式設計）的靜態頁面。</li><li>設定基礎互動效果與表單串接（此部分具體功能建議實際討論釐清可行性）</li>
+        </ul>
+        <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
+        <p>約 20～50 個工作天<br>（依內容與功能複雜度調整；若客戶方測試時間延遲，交付時程將順延）</p>
+      </div>
+    </div>
+  
+
+                </div>
+              </div>
+
+            </div>
+          
           
           <script>
             function renderSteps(stepsArray) {
@@ -1367,9 +2124,9 @@
                 stepName.dataset.step = `${item.step}`;
                 stepName.className = `
                     step-name
-                    bg-gray-300 rounded-sm p-4
-                       flex-1
-                    md:h-auto
+                    bg-gray-300 p-2 
+                       flex-1 rounded-tl-md rounded-bl-md
+                    md:h-auto md:rounded-sm
                 `;
                 stepName.innerHTML = `
                   ${item.step}. <br class="block md:hidden">${item.title}
@@ -1386,19 +2143,19 @@
                 stepContent.dataset.step = `${item.step}`;
                 stepContent.className = `
                     step-content
-                    flex snap-start
-                    h-[800px]      px-6
-                    md:h-[640px] md:px-12
+                    flex snap-start h-[560px]
+                       px-6
+                    md:px-12
                 `;
                 stepContent.innerHTML = `
                     <div class="my-auto">
-                      <p class="mb-2 font-bold text-IF">階段目標：</p>
-                      <p>${item.objectives}</p>
-                      <p class="mt-6 mb-2 font-bold text-IF">執行項目：</p>
+                      <p class="mb-2 font-bold text-IF-subtitle">階段目標：</p>
+                      <p class="font-bold text-IF-text-emphasis">${item.objectives}</p>
+                      <p class="mt-6 mb-2 font-bold text-IF-subtitle">執行項目：</p>
                       <ul class="list-disc pl-6 space-y-4">
                         ${item.details}
                       </ul>
-                      <p class="mt-6 mb-2 font-bold text-IF">預估工期：</p>
+                      <p class="mt-6 mb-2 font-bold text-IF-subtitle">預估工期：</p>
                       <p>${item.estimated}</p>
                     </div>
                 `;
@@ -1438,21 +2195,26 @@
 
               step_Content.forEach(div => observer.observe(div));
 
-
             }
           
           </script>
 
         </section>
 
-        <section id="faq"
-                 class="min-h-screen-header-footer px-6 py-20 snap-start scroll-mt-12">
+        <div class="h-12 "></div> <!-- 留出 section 間距 -->
 
-          <h2 class="my-12 font-bold text-3xl text-IF text-center ">
+        <section id="faq"
+                 class="w-full min-h-min px-6 flex-col-start-center snap-start-12
+                          min-h-screen-header-footer
+                       md:min-h-screen-header-footer-md">
+
+          <h2 class="">
             你可能會擔心這些問題？
           </h2>
-          <div id="faq-container" data-seo-rendered="true" 
-               class="mt-12 max-w-screen-md mx-auto">
+          <div id="faq-container" data-seo-rendered="true" data-seo-rendered="true" 
+               class="mb-12 w-full max-w-screen-md ">
+
+    
 
     <div class="faq-item mb-6 border-b border-IF-border pb-6">
       <button class="faq-question w-full flex text-left justify-between font-black text-xl">
@@ -1567,7 +2329,7 @@
     <div class="faq-item mb-6 border-b border-IF-border pb-6">
       <button class="faq-question w-full flex text-left justify-between font-black text-xl">
         <div class="flex mr-2">
-          <span class="q-number text-IF mr-2">Q6.</span> 網站做好之後，我要怎麼自己維護或修改？
+          <span class="q-number text-IF mr-2">Q6.</span> 網站做好之後，我要怎麼維護或更新？
         </div>
         <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
           <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
@@ -1577,9 +2339,137 @@
         <div class="flex">
           <span class="text-IF mr-2">A:</span>
           <div>
-            <span>如果有自行維護的需求，我會幫你選擇適合的架設方式，並提供操作簡單的後續維護建議。</span>
+            <span>我這邊會協助進行維護與跟更新，只要提供我想替換的內容，我就能幫你更新網站。<br>如果有高頻率更新的需求，我會另外建置可放置資料的表單，讓你可以自行更新網站內容。</span>
             <br>
-            <span class="text-IF"></span>
+            <span class="text-IF">我會根據你的狀況，規劃合適的維護或更新方式，不用擔心這方面的問題喔！</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+ 
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>沒問題，這種狀況其實很常見。<br>我會先帶你釐清要溝通的對象、希望達成什麼目的，再一步步幫你整理出內容架構與呈現方式。</span>
+            <br>
+            <span class="text-IF">你只需要把你知道的部分說出來，我來幫你轉譯成「網站的語言」。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="faq-item mb-6 border-b border-IF-border pb-6">
+      <button class="faq-question w-full flex text-left justify-between font-black text-xl">
+        <div class="flex mr-2">
+          <span class="q-number text-IF mr-2">Q2.</span> 我現在手上什麼素材都沒有，可以先做嗎？
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>可以的！<br>我會依照你目前的狀況，給你一份「素材補充清單」，一步步協助你準備文案、圖片或參考資料。</span>
+            <br>
+            <span class="text-IF">就算你現在只有粗略想法或幾張產品照，也能先啟動製作流程。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="faq-item mb-6 border-b border-IF-border pb-6">
+      <button class="faq-question w-full flex text-left justify-between font-black text-xl">
+        <div class="flex mr-2">
+          <span class="q-number text-IF mr-2">Q3.</span> 如果我還不確定預算，可以先聊聊嗎？
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>當然可以，讓我們把經費花在刀口上。<br>我提供的服務可以彈性拆分，你可以選擇只做企劃、只做設計，或是整包一起合作。</span>
+            <br>
+            <span class="text-IF">我會主動了解你目前的目標與內容量，並提供初步建議與報價範圍。</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="faq-item mb-6 border-b border-IF-border pb-6">
+      <button class="faq-question w-full flex text-left justify-between font-black text-xl">
+        <div class="flex mr-2">
+          <span class="q-number text-IF mr-2">Q4.</span> 你可以只做網站開發，或只做介面設計嗎？
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>可以喔!<br>我有視覺設計+網站開發的能力，但每一段都可以獨立合作。<br>如果你已經有設計稿，我可以單純只做頁面的開發與上線；如果你開發團隊，只想要架構與畫面設計，也可以只做到 wireframe 或 mockup 階段。</span>
+            <br>
+            <span class="text-IF">我非常樂意跟其他的設計師或工程師合作喔！</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="faq-item mb-6 border-b border-IF-border pb-6">
+      <button class="faq-question w-full flex text-left justify-between font-black text-xl">
+        <div class="flex mr-2">
+          <span class="q-number text-IF mr-2">Q5.</span> 製作過程如何協作呢？要常常開會嗎？
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>我會根據專案以及參與者的需求，調整開會跟確認的頻率跟方式！<br>通常一般的交付跟確認工作，我們可以在透過線上文件完成；如果碰到不確定性高、較難文字描述的部分，則會安排線上會議進行溝通。</span>
+            <br>
+            <span class="text-IF">每個人、每個專案的狀況都不太一樣，我們可以協調出適合彼此的協作方式！</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+
+    <div class="faq-item mb-6 border-b border-IF-border pb-6">
+      <button class="faq-question w-full flex text-left justify-between font-black text-xl">
+        <div class="flex mr-2">
+          <span class="q-number text-IF mr-2">Q6.</span> 網站做好之後，我要怎麼維護或更新？
+        </div>
+        <svg viewBox="0 0 20 20" fill="currentColor" class="w-7 h-7 transform transition-transform duration-300">
+          <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 10.939l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.25a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
+        </svg>
+      </button>
+      <div class="faq-answer hidden mt-4 mb-0 mx-6 text-xl leading-loose">
+        <div class="flex">
+          <span class="text-IF mr-2">A:</span>
+          <div>
+            <span>我這邊會協助進行維護與跟更新，只要提供我想替換的內容，我就能幫你更新網站。<br>如果有高頻率更新的需求，我會另外建置可放置資料的表單，讓你可以自行更新網站內容。</span>
+            <br>
+            <span class="text-IF">我會根據你的狀況，規劃合適的維護或更新方式，不用擔心這方面的問題喔！</span>
           </div>
         </div>
       </div>
@@ -1596,19 +2486,19 @@
                 const wrapper = document.createElement('div');
                 wrapper.className = `
                     faq-item 
-                    mb-6 border-b border-IF-border pb-6
+                    my-2 border-b border-IF-border py-2
                 `;
 
                 // 問題區塊
                 const questionBtn = document.createElement('button');
                 questionBtn.className = `
                     faq-question 
-                    w-full flex text-left justify-between font-black text-xl
+                    w-full flex text-left justify-between font-black
                 `;
                 const questionText = document.createElement('div');
                 questionText.className = `flex mr-2`;
                 questionText.innerHTML = `
-                    <span class="q-number text-IF mr-2">Q${index + 1}.</span> ${item.question}
+                    <span class="q-number text-IF-subtitle mr-2">Q${index + 1}.</span> ${item.question}
                 `;
 
                 //可展開的圖示
@@ -1625,7 +2515,7 @@
                 const answer = document.createElement('div');
                 answer.className = `
                     faq-answer 
-                    hidden mt-4 mb-0 mx-6 text-xl leading-loose 
+                    hidden mt-2 mb-0 mx-6 leading-loose 
                 `;
                 answer.innerHTML = `
                     <div class="flex">
@@ -1633,7 +2523,7 @@
                       <div>
                         <span>${item.answer}</span>
                         <br>
-                        <span class="text-IF">${item.emphasis}</span>
+                        <span class="text-IF-text-emphasis">${item.emphasis}</span>
                       </div>
                     </div>
                 `;
@@ -1654,18 +2544,18 @@
 
         </section>
 
-      </div> <!-- wrap -->
+      </div> <!-- wrap end -->
 
     <footer id="footer"
-            class="w-full bg-IF-backgroundLight snap-end">
+            class="w-full bg-IF-panel snap-end">
       <div class="max-w-screen-xl mx-auto py-2 flex items-center justify-between text-sm
                      flex-col    py-4    px-6  gap-2
                   md:flex-row md:py-2 md:px-12 md:gap-0">
 
-        <div class="flex gap-4 items-center">
+        <div class="flex gap-4 items-center text-IF-text-muted">
           <div class="flex gap-1 items-center">
             <img src="./img/icon/mail.png" alt="電子信箱" class="h-6 opacity-70">
-            <a href="GlenWen@gmail.com">glenwen.studio@gmail.com</a>
+            <a href="glenwen.studio@gmail.com">glenwen.studio@gmail.com</a>
           </div>
           <div class="flex gap-1 items-center">
             <img src="./img/icon/line.png" alt="line" class="h-6 opacity-70">
@@ -1673,32 +2563,48 @@
           </div>  
         </div>
 
-        <div class="flex mx-4 gap-4 items-center text-gray-300">
-          <p class="">© Copyright All Rights Reserved.</p>
-        </div>
-
-        <div class="flex-1 max-w-72 flex items-center
-                    hidden
-                    md:block">
-         <img src="./img/IdeaFlask_mark.png" alt="數位燒瓶" class="object-cover max-w-12 ml-auto">
+        <div class="flex-row-center-center gap-2">
+         <p class="text-IF-text-subtle">© Copyright All Rights Reserved.</p>
+         <img src="./img/IdeaFlask_mark.png" alt="概念燒瓶" class="object-cover h-8 ml-auto hidden md:block">
         </div>
 
       </div>
     </footer>
 
+    </div> <!-- scroll-container end-->
 
-
-    </div> <!-- scroll-container -->
-
-
-
-
-   
-    <!-- ✨ 載入共用模板（自動同步！） -->
-    <script src="js/templates.js"></script>
     <script type="module" src="js/main.js"></script>
     <script type="module" src="js/load.js"></script>
+    
+    <script> /* 防止 FOUC：所有內容載入完成後才顯示 body */
+      setTimeout(() => {
+        document.body.style.visibility = 'visible';
+      }, 50);
+    </script>
+    <script> /* 滾動觸發動畫 */
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(entry.target.dataset.animation);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+      });
+    </script>
 
   </body>
 
 </html>
+
+
+<script>/* 完成修改後，建置 SEO 版本 */
+  /*
+  cd /Users/simpleinfo/Documents/Project/Github/LandingPage/IdeaFlask
+  npm run build:seo
+  cp index-seo.html index.html
+  */
+</script>
