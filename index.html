@@ -172,6 +172,19 @@
         --color-accent: #ffdeaa;
         --color-warm: #bf8e68;
 
+        /*glass*/
+        --glass-thickness-md: 24px;
+        --glass-cyan: hsl(180, 50%, 60%);
+        --glass-cyan-strong: hsl(180, 80%, 25%);
+        --glass-blue: hsl(200 60% 60%);
+        --glass-blue-strong: hsl(200 100% 30%);
+        --glass-thickness-sm: 16px;
+        --glass-yellow: hsl(45, 50%, 60%);
+        --glass-yellow-strong: hsl(45, 70%, 40%);
+        --glass-orange: hsl(35, 50%, 70%);
+        --glass-orange-strong: hsl(35, 80%, 40%);
+        --glass-thickness-xs: 8px;
+
       }   
     </style>
     <style> /* flex跟scroll-snap設定 */
@@ -411,6 +424,351 @@
             border-radius: 12px;
       }
 
+    </style>
+    <style>/* FloatGlass  */
+      .FloatGlass {
+        position: relative;
+        overflow: visible; 
+        transform: rotate(-30deg) skew(22.5deg);
+      }
+
+      .FloatGlass-blur-sm {
+        -webkit-backdrop-filter: blur(8px);
+        backdrop-filter: blur(8px);
+      }
+      .FloatGlass-blur-md {
+        -webkit-backdrop-filter: blur(16px);
+        backdrop-filter: blur(16px);
+      }
+      
+      .FloatGlass-cyan-center {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: left;
+        z-index: 2;
+        
+        background-color: color-mix(in srgb, var(--glass-cyan) 25%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset calc((-1)* var(--glass-thickness-md)) var(--glass-thickness-md) calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-cyan-strong) 40%, transparent);
+      } 
+      .FloatGlass-cyan-left {
+        position: absolute;
+        bottom: calc( (-1/2)* var(--glass-thickness-md));
+        left: calc( (-1)* var(--glass-thickness-md));
+        width: var(--glass-thickness-md);
+        height: 100%;
+        transform:skewY(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-cyan-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset -1px 1px 4px white,
+          inset -2px 0 8px var(--glass-cyan-strong),
+          inset 0 calc( (1/2)* var(--glass-thickness-md)) calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent),
+          inset 0 calc( (-1/4)* var(--glass-thickness-md)) calc( (1/2)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent);
+      }
+      .FloatGlass-cyan-right {
+        position: absolute;
+        bottom: calc( (-1)* var(--glass-thickness-md));
+        right: calc( (1/2)* var(--glass-thickness-md));
+        width: 100%;
+        height: var(--glass-thickness-md);
+        transform:skewX(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-cyan-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset 1px 1px 4px rgba(255,255,255,0.8),
+          inset 0 4px 8px var(--glass-cyan-strong),
+          inset calc( (1/2)* var(--glass-thickness-md)) 0 calc( (1/2)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent),
+          inset calc( (-1/2)* var(--glass-thickness-md)) 0 calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent);
+      }
+      .FloatGlass-cyan-shadow {
+        position: absolute;
+        top: 50%;
+        left: -60%;
+        z-index: 0;
+        
+        background-color: color-mix(in srgb, var(--glass-cyan) 5%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset 0 calc((-2)* var(--glass-thickness-md)) var(--glass-thickness-md) color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent),
+          inset calc((1/2)* var(--glass-thickness-md)) calc((1/4)* var(--glass-thickness-md)) var(--glass-thickness-md) color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent);
+        filter: blur(calc((1/3)* var(--glass-thickness-md)));
+      }
+
+      .FloatGlass-blue-center {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: left;
+        z-index: 2;
+        
+        background-color: color-mix(in srgb, var(--glass-blue) 25%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset calc((-1)* var(--glass-thickness-md)) var(--glass-thickness-md) calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-blue-strong) 40%, transparent);
+      }
+      .FloatGlass-blue-left {
+        position: absolute;
+        bottom: calc( (-1/2)* var(--glass-thickness-md));
+        left: calc( (-1)* var(--glass-thickness-md));
+        width: var(--glass-thickness-md);
+        height: 100%;
+        transform:skewY(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-blue-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-blue-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset -1px 1px 4px white,
+          inset -2px 0 8px var(--glass-blue-strong),
+          inset 0 calc( (1/2)* var(--glass-thickness-md)) calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-blue-strong) 50%, transparent),
+          inset 0 calc( (-1/4)* var(--glass-thickness-md)) calc( (1/2)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-blue-strong) 50%, transparent);
+      }
+      .FloatGlass-blue-right {
+        position: absolute;
+        bottom: calc( (-1)* var(--glass-thickness-md));
+        right: calc( (1/2)* var(--glass-thickness-md));
+        width: 100%;
+        height: var(--glass-thickness-md);
+        transform:skewX(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-blue-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-blue-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset 1px 1px 4px rgba(255,255,255,0.8),
+          inset 0 4px 8px var(--glass-blue-strong),
+          inset calc( (1/2)* var(--glass-thickness-md)) 0 calc( (1/2)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-blue-strong) 50%, transparent),
+          inset calc( (-1/2)* var(--glass-thickness-md)) 0 calc( (1/4)* var(--glass-thickness-md)) color-mix(in srgb, var(--glass-blue-strong) 50%, transparent);
+      }
+      .FloatGlass-blue-shadow {
+        position: absolute;
+        top: 50%;
+        left: -60%;
+        z-index: 0;
+        
+        background-color: color-mix(in srgb, var(--glass-blue) 5%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset 0 calc((-2)* var(--glass-thickness-md)) var(--glass-thickness-md) color-mix(in srgb, var(--glass-blue-strong) 20%, transparent),
+          inset calc((1/2)* var(--glass-thickness-md)) calc((1/4)* var(--glass-thickness-md)) var(--glass-thickness-md) color-mix(in srgb, var(--glass-blue-strong) 20%, transparent);
+        filter: blur(calc((1/3)* var(--glass-thickness-md)));
+      }
+
+      .FloatGlass-yellow-center { 
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: left;
+        z-index: 2;
+
+        background-color: color-mix(in srgb, var(--glass-yellow) 25%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset calc((-1)* var(--glass-thickness-sm)) var(--glass-thickness-sm) calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-yellow-strong) 40%, transparent);
+      } 
+      .FloatGlass-yellow-left {
+        position: absolute;
+        bottom: calc( (-1/2)* var(--glass-thickness-sm));
+        left: calc( (-1)* var(--glass-thickness-sm));
+        width: var(--glass-thickness-sm);
+        height: 100%;
+        transform:skewY(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-yellow-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-yellow-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset -1px 1px 4px white,
+          inset -2px 0 8px var(--glass-yellow-strong),
+          inset 0 calc( (1/2)* var(--glass-thickness-sm)) calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-yellow-strong) 50%, transparent),
+          inset 0 calc( (-1/4)* var(--glass-thickness-sm)) calc( (1/2)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-yellow-strong) 50%, transparent);
+      }
+      .FloatGlass-yellow-right {
+        position: absolute;
+        bottom: calc( (-1)* var(--glass-thickness-sm));
+        right: calc( (1/2)* var(--glass-thickness-sm));
+        width: 100%;
+        height: var(--glass-thickness-sm);
+        transform:skewX(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-yellow-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-yellow-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset 1px 1px 4px rgba(255,255,255,0.8),
+          inset 0 4px 8px var(--glass-yellow-strong),
+          inset calc( (1/2)* var(--glass-thickness-sm)) 0 calc( (1/2)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-yellow-strong) 50%, transparent),
+          inset calc( (-1/2)* var(--glass-thickness-sm)) 0 calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-yellow-strong) 50%, transparent);
+      }
+      .FloatGlass-yellow-shadow {
+        position: absolute;
+        top: 200%;
+        left: -200%;
+        z-index: 0;
+        
+        background-color: color-mix(in srgb, var(--glass-yellow) 5%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset 0 calc((-2)* var(--glass-thickness-sm)) var(--glass-thickness-sm) color-mix(in srgb, var(--glass-yellow-strong) 20%, transparent),
+          inset calc((1/2)* var(--glass-thickness-sm)) calc((1/4)* var(--glass-thickness-sm)) var(--glass-thickness-sm) color-mix(in srgb, var(--glass-yellow-strong) 20%, transparent);
+        filter: blur(calc((1/3)* var(--glass-thickness-sm)));
+      }
+
+      .FloatGlass-orange-center {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: left;
+        z-index: 2;
+        
+        background-color: color-mix(in srgb, var(--glass-orange) 25%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset calc((-1)* var(--glass-thickness-sm)) var(--glass-thickness-sm) calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-orange-strong) 40%, transparent);
+      } 
+      .FloatGlass-orange-left {
+        position: absolute;
+        bottom: calc( (-1/2)* var(--glass-thickness-sm));
+        left: calc( (-1)* var(--glass-thickness-sm));
+        width: var(--glass-thickness-sm);
+        height: 100%;
+        transform:skewY(-45deg);
+        z-index: 1;
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-orange-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-orange-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset -1px 1px 4px white,
+          inset -2px 0 8px var(--glass-orange-strong),
+          inset 0 calc( (1/2)* var(--glass-thickness-sm)) calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-orange-strong) 50%, transparent),
+          inset 0 calc( (-1/4)* var(--glass-thickness-sm)) calc( (1/2)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-orange-strong) 50%, transparent);
+      } 
+      .FloatGlass-orange-right {
+        position: absolute;
+        bottom: calc( (-1)* var(--glass-thickness-sm));
+        right: calc( (1/2)* var(--glass-thickness-sm));
+        width: 100%;
+        height: var(--glass-thickness-sm);
+        transform:skewX(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-orange-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-orange-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset 1px 1px 4px rgba(255,255,255,0.8),
+          inset 0 4px 8px var(--glass-orange-strong),
+          inset calc( (1/2)* var(--glass-thickness-sm)) 0 calc( (1/2)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-orange-strong) 50%, transparent),
+          inset calc( (-1/2)* var(--glass-thickness-sm)) 0 calc( (1/4)* var(--glass-thickness-sm)) color-mix(in srgb, var(--glass-orange-strong) 50%, transparent);
+      } 
+      .FloatGlass-orange-shadow {
+        position: absolute;
+        top: 200%;
+        left: -240%;
+        z-index: 0;
+        
+        background-color: color-mix(in srgb, var(--glass-orange) 5%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset 0 calc((-2)* var(--glass-thickness-sm)) var(--glass-thickness-sm) color-mix(in srgb, var(--glass-orange-strong) 20%, transparent),
+          inset calc((1/2)* var(--glass-thickness-sm)) calc((1/4)* var(--glass-thickness-sm)) var(--glass-thickness-sm) color-mix(in srgb, var(--glass-orange-strong) 20%, transparent);
+        filter: blur(calc((1/3)* var(--glass-thickness-sm)));
+      }
+
+      .FloatGlass-step {
+        position: relative;
+        overflow: visible; 
+        transform: rotate(-22.5deg) skew(45deg);
+      }
+      .FloatGlass-step-center {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        text-align: left;
+        z-index: 2;
+        
+        background-color: color-mix(in srgb, var(--glass-cyan) 25%, transparent);
+        box-shadow: 
+          inset 0 0 16px white,
+          inset calc((-1)* var(--glass-thickness-xs)) var(--glass-thickness-xs) calc( (1/4)* var(--glass-thickness-xs)) color-mix(in srgb, var(--glass-cyan-strong) 40%, transparent);
+      } 
+      .FloatGlass-step-left {
+        position: absolute;
+        bottom: calc( (-1/2)* var(--glass-thickness-xs));
+        left: calc( (-1)* var(--glass-thickness-xs));
+        width: var(--glass-thickness-xs);
+        height: 100%;
+        transform:skewY(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-cyan-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset -1px 1px 4px white,
+          inset -2px 0 8px var(--glass-cyan-strong),
+          inset 0 calc( (1/2)* var(--glass-thickness-xs)) calc( (1/4)* var(--glass-thickness-xs)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent),
+          inset 0 calc( (-1/4)* var(--glass-thickness-xs)) calc( (1/2)* var(--glass-thickness-xs)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent);
+      }
+      .FloatGlass-step-right {
+        position: absolute;
+        bottom: calc( (-1)* var(--glass-thickness-xs));
+        right: calc( (1/2)* var(--glass-thickness-xs));
+        width: 100%;
+        height: var(--glass-thickness-xs);
+        transform:skewX(-45deg);
+        z-index: 1;
+
+        background: linear-gradient(
+          to bottom,
+          color-mix(in srgb, var(--glass-cyan-strong) 60%, transparent),
+          color-mix(in srgb, var(--glass-cyan-strong) 20%, transparent)
+        );
+        box-shadow:
+          inset 1px 1px 4px rgba(255,255,255,0.8),
+          inset 0 4px 8px var(--glass-cyan-strong),
+          inset calc( (1/2)* var(--glass-thickness-xs)) 0 calc( (1/2)* var(--glass-thickness-xs)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent),
+          inset calc( (-1/2)* var(--glass-thickness-xs)) 0 calc( (1/4)* var(--glass-thickness-xs)) color-mix(in srgb, var(--glass-cyan-strong) 50%, transparent);
+      }
+
+
+      
     </style>
     <style>/* 開發用框線 */
       /*  
@@ -806,81 +1164,139 @@
         <!-- 背景圖 -->
         <div class="relative w-full max-w-screen-xl min-w-[500px] h-full  max-h-[880px]  opacity-70">
 
+          <div> <!-- 玻璃 -->
+            <div id="HeroGlass-A" 
+                 class="absolute z-10 
+                        top-1/2 -translate-x-1/2     left-1/2  -translate-y-1/2
+                                                  md:left-1/3"> 
+              <div class="FloatGlass  w-[520px] h-[580px]  md:w-[600px] md:h-[660px] lg:w-[660px] lg:h-[740px]">
+                <div class="FloatGlass-cyan-left FloatGlass-blur-md"></div>
+                <div class="FloatGlass-cyan-right FloatGlass-blur-md"></div>
+                <div class="FloatGlass-cyan-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <div> <!-- 影子 -->
+            <div id="HeroGlass-B" 
+                 class="absolute z-10                
+                        bottom-1/4     translate-y-[220px]      right-0       translate-x-[60px]
+                                    md:translate-y-[120px]   md:right-1/3  md:translate-x-[430px]
+                                    lg:translate-y-[100px]                 lg:translate-x-[520px]"> 
+              <div class="FloatGlass  w-[420px] h-[320px]  md:w-[480px] md:h-[360px] lg:w-[540px] lg:h-[400px]">
+                <div class="FloatGlass-blue-left FloatGlass-blur-md"></div>
+                <div class="FloatGlass-blue-right FloatGlass-blur-md"></div>
+                <div class="FloatGlass-blue-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <img src="./img/hero/item-A_.png" alt="" 
-               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
-                      bottom-1/3 translate-y-[600px]               left-1/2 -translate-x-1/2 
-                                                               md:left-1/3  ">
+            <div id="HeroGlass-C" 
+                 class="absolute z-10                 
+                        top-1/4      -translate-y-[170px]      left-3/4     -translate-x-[40px] 
+                                  md:-translate-y-[130px]                md:-translate-x-[50px]   
+                                  lg:-translate-y-[080px]                 lg:translate-x-[10px] "> 
+              <div class="FloatGlass  w-[180px] h-[160px]  md:w-[220px] md:h-[200px] lg:w-[240px] lg:h-[210px]">
+              <div class="FloatGlass-cyan-left FloatGlass-blur-md"></div>
+              <div class="FloatGlass-cyan-right FloatGlass-blur-md"></div>
+              <div class="FloatGlass-cyan-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <img src="./img/hero/item-B_.png" alt="" 
-               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
-                         bottom-1/4     translate-y-[610px]      right-0       translate-x-[400px]
-                                     md:translate-y-[510px]   md:right-1/3  md:translate-x-[670px]
-                                     lg:translate-y-[470px]                 lg:translate-x-[720px]"> 
+            <div id="HeroGlass-D" 
+                 class="absolute z-10                 
+                        top-1/4      -translate-y-[220px]      left-1/4     -translate-x-[240px] 
+                                  md:-translate-y-[180px]                md:-translate-x-[340px]    
+                                  lg:-translate-y-[160px]                lg:-translate-x-[460px] "> 
+              <div class="FloatGlass  w-[240px] h-[200px]  md:w-[260px] md:h-[220px] lg:w-[300px] lg:h-[260px]">
+                <div class="FloatGlass-orange-left FloatGlass-blur-md"></div>
+                <div class="FloatGlass-orange-right FloatGlass-blur-md"></div>
+                <div class="FloatGlass-orange-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <img src="./img/hero/item-C_.png" alt="" 
-               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50 hidden
-                      bottom-1/4      translate-y-[260px]        left-3/4     -translate-x-[200px] 
-                                   md:translate-y-[200px]                  md:-translate-x-[170px]   
-                                   lg:translate-y-[140px]                  lg:-translate-x-[120px] ">
+            <div id="HeroGlass-E" 
+                 class="absolute z-10                 
+                        bottom-0      translate-y-[030px]        left-1/4      translate-x-[300px] 
+                                  md:-translate-y-[030px]                   md:translate-x-[330px]    
+                                  lg:-translate-y-[080px]                   lg:translate-x-[380px] "> 
+              <div class="FloatGlass  w-[160px] h-[170px]  md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px]">
+                <div class="FloatGlass-yellow-left FloatGlass-blur-md"></div>
+                <div class="FloatGlass-yellow-right FloatGlass-blur-md"></div>
+                <div class="FloatGlass-yellow-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <img src="./img/hero/item-D_.png" alt="" 
-               class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100 opacity-50
-                      bottom-1/4     translate-y-[440px]        left-1/4     -translate-x-[420px] 
-                                  md:translate-y-[380px]                  md:-translate-x-[500px]    
-                                  lg:translate-y-[340px]                  lg:-translate-x-[600px] "> 
+            <div id="HeroGlass-G" 
+                 class="absolute z-10               
+                        top-0        translate-y-[140px]        left-1/3      translate-x-[160px]  
+                                  md:translate-y-[100px]                   md:translate-x-[400px]      
+                                  lg:translate-y-[080px]                   lg:translate-x-[740px] "> 
+              <div class="FloatGlass  w-[240px] h-[140px]  md:w-[280px] md:h-[160px] lg:w-[320px] lg:h-[180px]">
+                <div class="FloatGlass-yellow-left FloatGlass-blur-md"></div>
+                <div class="FloatGlass-yellow-right FloatGlass-blur-md"></div>
+                <div class="FloatGlass-yellow-center w-full h-full FloatGlass-blur-sm"></div>
+              </div>
+            </div>
 
-          <img src="./img/hero/item-E_.png" alt="" 
-               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
-                      bottom-1/4      translate-y-[520px]        left-1/4      translate-x-[150px] 
-                                   md:translate-y-[460px]                   md:translate-x-[180px]    
-                                   lg:translate-y-[400px]                   lg:translate-x-[250px] ">
+          </div> 
 
-          <img src="./img/hero/item-G_.png" alt="" 
-               class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 opacity-50
-                      bottom-1/4      translate-y-[240px]        left-1/3     -translate-x-[000px]  
-                                  md:translate-y-[240px]                   md:translate-x-[200px]      
-                                  lg:translate-y-[200px]                   lg:translate-x-[600px] ">                           
+          <div><!-- 影子 -->
+            <div id="HeroShadow-A" 
+                  class="absolute z-[5]
+                        top-1/2 -translate-x-1/2     left-1/2  -translate-y-1/2
+                                                  md:left-1/3"> 
+              <div class="FloatGlass  w-[520px] h-[580px]  md:w-[600px] md:h-[660px] lg:w-[660px] lg:h-[740px]">
+                <div class="FloatGlass-cyan-shadow w-full h-full"></div>
+              </div>
+            </div>
 
+            <div id="HeroShadow-B" 
+                  class="absolute z-[5]                
+                        bottom-1/4     translate-y-[200px]      right-0       translate-x-[130px]
+                                    md:translate-y-[120px]   md:right-1/3  md:translate-x-[430px]
+                                    lg:translate-y-[100px]                 lg:translate-x-[520px]"> 
+              <div class="FloatGlass  w-[420px] h-[320px]  md:w-[480px] md:h-[360px] lg:w-[540px] lg:h-[400px]">
+                <div class="FloatGlass-blue-shadow w-full h-full"></div>
+              </div>
+            </div>
 
-          </div>
-          <div> <!-- 物件 -->
+            <div id="HeroShadow-C" 
+                  class="absolute z-[5]                 
+                        top-1/4      -translate-y-[170px]      left-3/4     -translate-x-[40px] 
+                                  md:-translate-y-[130px]                md:-translate-x-[50px]   
+                                  lg:-translate-y-[080px]                 lg:translate-x-[10px] "> 
+              <div class="FloatGlass  w-[180px] h-[160px]  md:w-[220px] md:h-[200px] lg:w-[240px] lg:h-[210px]">
+                <div class="FloatGlass-cyan-shadow w-full h-full"></div>
+              </div>
+            </div>
 
-            <img src="./img/hero/item-A.png" alt="" 
-                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100 
-                          top-1/2 -translate-y-1/2                left-1/2 -translate-x-1/2 
-                                                                md:left-1/3  ">
+            <div id="HeroShadow-D" 
+                  class="absolute z-[5]                 
+                        top-1/4      -translate-y-[220px]      left-1/4     -translate-x-[240px] 
+                                  md:-translate-y-[180px]                md:-translate-x-[340px]    
+                                  lg:-translate-y-[160px]                lg:-translate-x-[460px] "> 
+              <div class="FloatGlass  w-[240px] h-[200px]  md:w-[260px] md:h-[220px] lg:w-[300px] lg:h-[260px]">
+                <div class="FloatGlass-orange-shadow w-full h-full"></div>
+              </div>
+            </div>
 
-            <img src="./img/hero/item-B.png" alt="" 
-                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
-                          bottom-1/4     translate-y-[360px]      right-0       translate-x-[400px]
-                                      md:translate-y-[260px]   md:right-1/3  md:translate-x-[670px]
-                                      lg:translate-y-[220px]                 lg:translate-x-[720px]">     
-            <img src="./img/hero/item-C.png" alt="" 
-                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
-                          top-1/4     -translate-y-[260px]        left-3/4     -translate-x-[200px] 
-                                    md:-translate-y-[200px]                  md:-translate-x-[170px]   
-                                    lg:-translate-y-[140px]                  lg:-translate-x-[120px] ">
+            <div id="HeroShadow-E" 
+                  class="absolute z-[5]                 
+                        bottom-0      translate-y-[030px]        left-1/4      translate-x-[280px] 
+                                  md:-translate-y-[030px]                   md:translate-x-[330px]    
+                                  lg:-translate-y-[080px]                   lg:translate-x-[380px] "> 
+              <div class="FloatGlass  w-[160px] h-[170px]  md:w-[180px] md:h-[180px] lg:w-[200px] lg:h-[200px]">
+                <div class="FloatGlass-yellow-shadow w-full h-full"></div>
+              </div>
+            </div>
 
-            <img src="./img/hero/item-D.png" alt="" 
-                class="absolute hero-item  scale-[0.85] md:scale-90 lg:scale-100
-                          top-1/4     -translate-y-[340px]        left-1/4     -translate-x-[420px] 
-                                    md:-translate-y-[280px]                  md:-translate-x-[500px]    
-                                    lg:-translate-y-[240px]                  lg:-translate-x-[600px] "> 
-
-            <img src="./img/hero/item-E.png" alt="" 
-                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
-                          bottom-0     translate-y-[120px]        left-1/4      translate-x-[150px] 
-                                    md:translate-y-[060px]                   md:translate-x-[180px]    
-                                    lg:translate-y-[000px]                   lg:translate-x-[250px] ">
-
-            <img src="./img/hero/item-G.png" alt="" 
-                class="absolute hero-item  scale-[0.80] md:scale-90 lg:scale-100
-                          top-0        translate-y-[040px]        left-1/3     -translate-x-[000px]  
-                                    md:translate-y-[040px]                   md:translate-x-[200px]      
-                                    lg:translate-y-[000px]                   lg:translate-x-[600px] ">
+            <div id="HeroShadow-G" 
+                  class="absolute z-[5]               
+                        top-0        translate-y-[140px]        left-1/3      translate-x-[160px]  
+                                  md:translate-y-[100px]                   md:translate-x-[400px]      
+                                  lg:translate-y-[080px]                   lg:translate-x-[740px] "> 
+              <div class="FloatGlass  w-[240px] h-[140px]  md:w-[280px] md:h-[160px] lg:w-[320px] lg:h-[180px]">
+                <div class="FloatGlass-yellow-shadow w-full h-full z-[0]"></div>
+              </div>
+            </div>
           </div> 
 
         </div>
@@ -1441,12 +1857,13 @@
                                   lg:px-12">
                 <!-- 左側步驟列表 -->
                 <div class="relative ml-6 md:ml-0">
+                  <div class="">
                   <img id="stepBg-1" src="./img/steps/step-1.png" alt="" class="steps-item">
                   <img id="stepBg-2" src="./img/steps/step-2.png" alt="" class="steps-item">
                   <img id="stepBg-3" src="./img/steps/step-3.png" alt="" class="steps-item">
                   <img id="stepBg-4" src="./img/steps/step-4.png" alt="" class="steps-item">
                   <img id="stepBg-5" src="./img/steps/step-5.png" alt="" class="steps-item">
-                
+                  </div>
                   <div id="steps-list" 
                       class="sticky top-0 h-[560px] text-IF-text-muted font-bold flex flex-col justify-evenly 
                                 w-[100px]                        py-4    text-xl     leading-normal   
@@ -1469,6 +1886,7 @@
 
           <script>
             function renderSteps(stepsArray) {
+              let i=0;
 
               const list  = document.getElementById('steps-list');
               list.innerHTML = ''; // 清空先前內容（避免重複）
@@ -1477,13 +1895,14 @@
                 const stepName = document.createElement('button');
                 stepName.dataset.step = `${item.step}`;
                 stepName.className = `
-                    step-name               
+                    step-name relative          
                 `;
                 stepName.innerHTML = `
                   ${item.step}. <br class="block md:hidden">${item.title}
                 `;
                 list.appendChild(stepName);
               });
+
 
 
               const content = document.getElementById('steps-content');
