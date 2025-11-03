@@ -7,6 +7,37 @@
   border: 0;
 }
 
+/* 響應式基礎字體大小設定 */
+html {
+  /* 使用 clamp() 實現流體字體：最小值、理想值、最大值 */
+  font-size: clamp(0.875rem, 0.75rem + 0.5vw, 1.125rem);
+  /* 防止瀏覽器自動調整字體大小 */
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/* 針對不同螢幕尺寸的明確斷點設定（備用方案） */
+@media screen and (max-width: 640px) {
+  html {
+    font-size: 14px;
+  }
+}
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+  html {
+    font-size: 15px;
+  }
+}
+@media screen and (min-width: 1025px) and (max-width: 1440px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media screen and (min-width: 1441px) {
+  html {
+    font-size: 17px;
+  }
+}
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -21,8 +52,11 @@ time, mark, audio, video {
   padding: 0;
   border: 0;
   font: inherit;
-  font-size: 100%;
   vertical-align: baseline;
+}
+
+body {
+  line-height: 1.6;
 }
 
 article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
